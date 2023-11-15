@@ -25,14 +25,16 @@ box-sizing: border-box;
 direction: rtl;
 }
 .menu-logo{
-width: 96px;
+width: 205px;
 height: 23px;
 flex-shrink: 0;
 color:black;
 border-bottom: 1px solid #F1F5F9;
 padding-bottom: 55px;
 font-family: MadaniArabic-SemiBold;
-
+}
+.list-group{
+margin-right: -45px;
 }
 .menu-title{
 color: var(--greyscale-400, #94A3B8);
@@ -63,8 +65,19 @@ justify-content: flex-start;
 align-items: center;
 gap: 16px;
 border-radius: 12px;
-border-bottom: 1px solid #F1F5F9;
 padding-bottom: 20px;
+}
+.menuLastItemActive{
+display: flex;
+width: 218px;
+height: 48px;
+padding: 0px 16px;
+justify-content: flex-start;
+align-items: center;
+gap: 16px;
+border-radius: 12px;
+background: rgba(112, 212, 75, 0.09);
+
 }
 .menuSettingsItem{
 display: flex;
@@ -104,6 +117,7 @@ font-style: normal;
 font-weight: 400;
 line-height: 160%; 
 }
+ 
 .ulElement{
 color: var(--greyscale-500, #64748B);
 text-align: right; 
@@ -113,6 +127,12 @@ font-style: normal;
 font-weight: 200;
 line-height: 160%;  
 letter-spacing: 0.2px;
+}
+.lastItemBorder{
+  border-top: 1px solid #F1F5F9;
+  width:218px;
+  margin-top: 18px;
+  margin-bottom: 18px;
 }
   /* $$$$ Right Menu $$$*/
   

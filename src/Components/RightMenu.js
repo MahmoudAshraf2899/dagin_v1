@@ -4,72 +4,150 @@ class RightMenu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isActive: true,
-      currentActiveElement: "",
+      elementId: 0,
     };
   }
-  componentDidMount() {
-    console.log(this.state.isActive);
-  }
-  handleOnClick(e) {
-    console.log(
-      "🚀 ~ file: RightMenu.js:14 ~ RightMenu ~ handleOnClick ~ e:",
-      e.target
-    );
-    console.log("Clicked");
-  }
+  componentDidMount() {}
+  handleOnClick = (e) => {
+    this.setState({ elementId: e });
+  };
   render() {
     return (
-      <div class="right-menu">
+      <div className="right-menu">
         <div class="menu-logo">منصة داچن</div> {/* Put Dajin Logo Here */}
-        <div className="ulItems">
-          <div class="menu-title">القائمة</div>
+        <div className="menu-title">القائمة</div>
+        <ul className="list-group">
+          <li onClick={() => this.handleOnClick(0)}>
+            <div
+              className={
+                this.state.elementId === 0 ? "menuItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 0 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                الرئيسية
+              </span>
+            </div>
+          </li>
+          <li onClick={() => this.handleOnClick(1)}>
+            <div
+              className={
+                this.state.elementId === 1 ? "menuItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 1 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                {" "}
+                المهام
+              </span>
+            </div>
+          </li>
 
-          <div
-            className={this.state.isActive ? "menuItemActive" : "menu-item"}
-            onClick={(e) => this.handleOnClick(e)}
-          >
+          <li onClick={() => this.handleOnClick(2)}>
+            <div
+              className={
+                this.state.elementId === 2 ? "menuItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 2 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                الأختبارات
+              </span>
+            </div>
+          </li>
+          <li onClick={() => this.handleOnClick(3)}>
+            <div
+              className={
+                this.state.elementId === 3 ? "menuItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 3 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                المسابقات
+              </span>
+            </div>
+          </li>
+          <li onClick={() => this.handleOnClick(4)}>
+            <div
+              className={
+                this.state.elementId === 4 ? "menuItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 4 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                ادارة المستخدمين
+              </span>
+            </div>
+          </li>
+          <li onClick={() => this.handleOnClick(5)}>
+            <div
+              className={
+                this.state.elementId === 5 ? "menuItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 5 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                ادارة المحافظ
+              </span>
+            </div>
+          </li>
+          <li onClick={() => this.handleOnClick(6)}>
+            <div
+              className={
+                this.state.elementId === 6 ? "menuLastItemActive" : "menu-item"
+              }
+            >
+              <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
+              <span
+                className={
+                  this.state.elementId === 6 ? "ulActiveElement" : "ulElement"
+                }
+              >
+                التقارير
+              </span>
+            </div>
+            {/* {this.state.elementId === 6 ? (
+              <>
+                <div className="lastItemBorder"></div>
+              </>
+            ) : null} */}
+          </li>
+        </ul>
+        <div className="lastItemBorder"></div>
+        <div onClick={() => this.handleOnClick(7)}>
+          <div className="menuSettingsItem">
             <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
             <span
-              className={this.state.isActive ? "ulActiveElement" : "ulElement"}
+              className={
+                this.state.elementId === 7 ? "ulActiveElement" : "ulElement"
+              }
             >
-              الرئيسية
+              الأعدادات
             </span>
-          </div>
-
-          <div class="menu-item" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement"> المهام</span>
-          </div>
-
-          <div class="menu-item" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement">الأختبارات</span>
-          </div>
-
-          <div class="menu-item" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement">المسابقات</span>
-          </div>
-
-          <div class="menu-item" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement">ادارة المستخدمين</span>
-          </div>
-
-          <div class="menu-item" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement">ادارة المحافظ</span>
-          </div>
-
-          <div class="menuLastItem" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement">التقارير</span>
-          </div>
-
-          <div class="menuSettingsItem" onClick={(e) => this.handleOnClick(e)}>
-            <img className="ulElementLogo" src={mainPhoto} alt="Logo" />
-            <span className="ulElement">الأعدادات</span>
           </div>
         </div>
       </div>
