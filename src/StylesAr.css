@@ -4,6 +4,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'MadaniArabic-Regular';
+  src: url('./Assets/fonts/alfont_com_Madani-Arabic-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: 'Amiri', sans-serif;
   margin: 0;
@@ -14,6 +20,26 @@ body {
 }
 
 /* $$$$ Right Menu $$$*/
+.app-wrapper {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  padding: 20px;
+}
+
+.content-wrapper {
+  flex: 1;
+  padding: 20px;
+}
+.navMenu{
+background: var(--additional-white, #FFF);
+box-shadow: 10px 10px 50px 0px rgba(100, 116, 139, 0.04);
+margin-right: -65px;
+
+}
+
 .right-menu {
 background: var(--additional-white, #FFF);
 box-shadow: 10px 10px 50px 0px rgba(100, 116, 139, 0.04);
@@ -88,6 +114,8 @@ justify-content: flex-start;
 align-items: center;
 gap: 16px;
 border-radius: 12px;
+margin-right: 39px;
+
 }
 .menuItemActive{
 display: flex;
@@ -134,5 +162,74 @@ letter-spacing: 0.2px;
   margin-top: 18px;
   margin-bottom: 18px;
 }
-  /* $$$$ Right Menu $$$*/
+  /* $$$$ Right Menu $$$$*/
+
+  /* $$$$ Main Page (الرئيسية)  $$$$ */
+.mainPage{
+  flex: 1;
+  padding: 20px;
+} 
+.mainPageTitle{
+color: var(--greyscale-900, #0F172A);
+text-align: right; 
+font-family: MadaniArabic-SemiBold;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 125%; /* 30px */
+letter-spacing: 0.2px;
+}
+.searchInput{
+border-radius: 12px;
+border: 1px solid var(--greyscale-200, #E2E8F0);
+display: flex;
+width: 263px;
+height: 48px;
+padding: 0px 16px;
+justify-content: flex-end;
+align-items: center;
+gap: 12px;
+flex-shrink: 0;
+}
+.input-box{
+position: relative; 
+color: var(--greyscale-500, #64748B);
+text-align: right;
+ 
+font-family: MadaniArabic-Regular;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
+
+.input-box i {
+position: absolute;
+right: 13px;
+top:12px;
+color:#ced4da;
+width: 20px;
+height: 20px;
+flex-shrink: 0;
+
+}
+.inputSearch{
+padding-right: "40px";
+display: flex;
+width: 263px;
+height: 48px;
+padding: 0px 16px;
+justify-content: flex-end;
+align-items: center;
+gap: 12px;
+flex-shrink: 0;
+padding-right: 40px;
+border-radius: 12px;
+border: 1px solid var(--greyscale-200, #E2E8F0);
+}
+ 
+  
+  /* $$$$ Main Page (الرئيسية) $$$$ */
+
+
   
