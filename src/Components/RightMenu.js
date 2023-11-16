@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import mainPhoto from "../Assets/images/pexels-petr-ganaj-18346899.jpg";
+import notificationIcon from "../Assets/icons/Group.svg";
+import { BiBell } from "react-bootstrap-icons";
 class RightMenu extends Component {
   constructor(props) {
     super(props);
@@ -493,7 +494,39 @@ class RightMenu extends Component {
               </div>
             </div>
             <div class="col col-lg-2">
-              <div>Profile Section</div>
+              <div className="notificationIcon">
+                <img src={notificationIcon} alt="notification icon" />
+                <div className="notificationDot">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="8"
+                    height="8"
+                    viewBox="0 0 8 8"
+                    fill="none"
+                  >
+                    <circle
+                      cx="4"
+                      cy="4"
+                      r="3.5"
+                      fill="url(#paint0_linear_1692_2585)"
+                      stroke="white"
+                    />
+                    <defs>
+                      <linearGradient
+                        id="paint0_linear_1692_2585"
+                        x1="4"
+                        y1="0"
+                        x2="4"
+                        y2="8"
+                        gradientUnits="userSpaceOnUse"
+                      >
+                        <stop stop-color="#257659" />
+                        <stop offset="1" stop-color="#124734" />
+                      </linearGradient>
+                    </defs>
+                  </svg>
+                </div>
+              </div>
             </div>
           </div>
         </div>

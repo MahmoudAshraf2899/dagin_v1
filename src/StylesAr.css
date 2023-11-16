@@ -164,7 +164,7 @@ letter-spacing: 0.2px;
 }
   /* $$$$ Right Menu $$$$*/
 
-  /* $$$$ Main Page (الرئيسية)  $$$$ */
+  /* $$$$ Header Component  $$$$ */
 .mainPage{
   flex: 1;
   padding: 20px;
@@ -227,9 +227,28 @@ padding-right: 40px;
 border-radius: 12px;
 border: 1px solid var(--greyscale-200, #E2E8F0);
 }
- 
+.notificationIcon{
+display: flex;
+width: 24px;
+height: 45px;
+padding: 3px 4px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+}
+.notificationDot{
+width: 8px;
+flex-shrink: 0;
+fill: var(--, linear-gradient(180deg, #257659 0%, #124734 100%));
+stroke-width: 1px;
+stroke: var(--additional-white, #FFF);
+z-index: 99999;
+margin-left: -12px;
+height: 36px;
+position: absolute;
+} 
   
-  /* $$$$ Main Page (الرئيسية) $$$$ */
+  /* $$$$ Header Component $$$$ */
 
 
   
