@@ -4,21 +4,22 @@ class NotificationsPopUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      showNotificationPopUp: false,
+      showNotificationPopUp: this.props.ShowPopUp,
     };
   }
   componentDidMount() {}
+
   render() {
     return (
       <div
-        className="modal-body"
+        className="modal-body "
         style={{
           position: "fixed",
           top: "0px",
           left: "125px",
           marginTop: "111px",
           width: "382px",
-          height: "301px",
+          height: "327px",
           flexShrink: 0,
           borderRadius: "26px",
           background: "var(--white-general, #FFF)",
@@ -58,7 +59,7 @@ class NotificationsPopUp extends Component {
           </div>
         </div>
 
-        <div class="container mt-5">
+        <div class="container mt-3">
           <div class="row">
             <div class="col-md-12 offset-md-3">
               <div class="center-content text-center margin-bottom">
