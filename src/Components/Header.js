@@ -1,18 +1,26 @@
 import React, { Component } from "react";
 import notificationIcon from "../Assets/icons/Group.svg";
 import profileImg from "../Assets/images/profileimg.svg";
+import NotificationsPopUp from "./NotificationsPopUp";
 class Header extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showNotificationPopUp: false,
+    };
   }
   componentDidMount() {}
+  handleNotificationClick = () => {
+    let openOrClose = this.state.showNotificationPopUp;
+    this.setState({ showNotificationPopUp: !openOrClose });
+    console.log("Start Shown Notification Pop Up");
+  };
   render() {
     return (
       <div class="container mainPage">
         <div class="row">
           <div class="col">
-            <h1 className="mainPageTitle">الداش بورد</h1>
+            <h1 className="mainPageTitle">{this.props.title}</h1>
           </div>
           <div class="col-md-auto">
             <div class="input-box">
@@ -48,7 +56,10 @@ class Header extends Component {
             style={{ display: "flex", marginLeft: "-14px" }}
           >
             {/* Notification Icon */}
-            <div className="notificationIcon">
+            <div
+              className="notificationIcon"
+              onClick={(e) => this.handleNotificationClick(e)}
+            >
               <img src={notificationIcon} alt="notification icon" />
               <div className="notificationDot">
                 <svg
@@ -119,6 +130,12 @@ class Header extends Component {
           </div>
           {/* Profile Section */}
         </div>
+        {/* Notification Pop Up */}
+        {this.state.showNotificationPopUp === true ? (
+          <>
+            <NotificationsPopUp />
+          </>
+        ) : null}
       </div>
     );
   }

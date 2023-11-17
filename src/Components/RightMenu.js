@@ -7,10 +7,45 @@ class RightMenu extends Component {
     super(props);
     this.state = {
       elementId: 0,
+      currentElementTitle: "الداش بورد",
     };
   }
   componentDidMount() {}
   handleOnClick = (e) => {
+    switch (e) {
+      case 0:
+        this.setState({ currentElementTitle: "الداش بورد" });
+        break;
+      case 1:
+        this.setState({ currentElementTitle: "المهام" });
+
+        break;
+      case 2:
+        this.setState({ currentElementTitle: "الأختبارات" });
+
+        break;
+      case 3:
+        this.setState({ currentElementTitle: "المسابقات" });
+
+        break;
+      case 4:
+        this.setState({ currentElementTitle: "ادارة المستخدمين" });
+
+        break;
+      case 5:
+        this.setState({ currentElementTitle: "ادارة المحافظ" });
+
+        break;
+      case 6:
+        this.setState({ currentElementTitle: "التقارير" });
+
+        break;
+      case 7:
+        this.setState({ currentElementTitle: "الاعدادات" });
+        break;
+      default:
+        this.setState({ currentElementTitle: "الداش بورد" });
+    }
     this.setState({ elementId: e });
   };
   render() {
@@ -80,7 +115,6 @@ class RightMenu extends Component {
                     this.state.elementId === 0 ? "menuItemActive" : "menu-item"
                   }
                 >
-                  {/* <img className="ulElementLogo" src={mainPhoto} alt="Logo" /> */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="22"
@@ -142,7 +176,6 @@ class RightMenu extends Component {
                     this.state.elementId === 1 ? "menuItemActive" : "menu-item"
                   }
                 >
-                  {/* <img className="ulElementLogo" src={mainPhoto} alt="Logo" /> */}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="22"
@@ -456,11 +489,11 @@ class RightMenu extends Component {
             </div>
           </nav>
         </div>
-
         {/* Sidebar */}
-        {/* Dashboard Content */}
-        <Header />
-        {/* Dashboard Content */}
+
+        {/* Header Component */}
+        <Header title={this.state.currentElementTitle} />
+        {/* Header Component */}
       </div>
     );
   }

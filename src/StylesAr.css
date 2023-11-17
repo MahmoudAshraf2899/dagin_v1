@@ -10,6 +10,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'MadaniArabic-Medium';
+  src: url('./Assets/fonts/alfont_com_Madani-Arabic-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: 'Amiri', sans-serif;
   margin: 0;
@@ -302,5 +308,105 @@ position: unset;
 }
   /* $$$$ Header Component $$$$ */
 
+  /* $$$$ Notification Component $$$$ */ 
+  /* $$$$ Notification Component $$$$ */ 
+
+.notification-popUp{
+  position: fixed;
+  flex: 1 1 auto;
+  padding: var(--bs-modal-padding);
+  top: 0px;
+  left: 5px;  
+  margin-top: 111px;
+}
+.notification-header{
+  display: flex;
+}
+.notification-title{
+color: var(--black-01, #2C3659);
+text-align: right; 
+font-family: MadaniArabic-SemiBold;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-top: 15px;
+padding-right: 15px;
+}
+.notification-counter{
+color: var(--grey-01, #A7AEC1);
+text-align: right; 
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+padding-right: 15px;
+
+}
+.notification-settings{
+width: 20px;
+height: 20px;
+flex-shrink: 0;
+position: absolute;
+left: 5px;
+margin-top: 15px;
+margin-left: 15px;
+}
+ 
+
+.center-content {
+  display: flex;
+  align-items: center;
+}
+
+/* Add margin to separate elements */
+.margin-bottom {
+  margin-bottom: 20px;
+}
+.new-notification-icon{
+display: flex;
+width: 38px;
+height: 38px;
+padding: 8.5px 8px 7.5px 8px;
+justify-content: center;
+align-items: center;
+border-radius: 50px;
+background: #EAFFE3;
+margin-top: -26px;
+
+}
+.new-notification{
+width: 252px;
+color: var(--black-01, #2C3659);
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 179%;
+padding-right: 10px;
+padding-bottom: 0px;
+}
+.mission-title{
+width: 252px;
+color: var(--grey-01, #A7AEC1);
+text-align: right; 
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+}
+.mission-date{
+width: 252px;
+color: var(--grey-01, #A7AEC1);
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 19.2px */
+}
 
   
