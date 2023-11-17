@@ -2,36 +2,111 @@ import React, { Component } from "react";
 class Mission extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      selectedMission: 0,
+    };
   }
   componentDidMount() {}
+  handleOnClick = (e) => {
+    this.setState({ selectedMission: e });
+  };
   render() {
     return (
       <div class="container missionPage">
         <div class="row ">
           <div class="col">
-            <div className="mission-active">
-              <span class="d-inline" id="mission1-span">
+            <div
+              onClick={() => this.handleOnClick(0)}
+              className={
+                this.state.selectedMission === 0
+                  ? "mission-active"
+                  : "mission-type"
+              }
+            >
+              <span
+                class="d-inline"
+                id={
+                  this.state.selectedMission === 0
+                    ? "mission-span-active"
+                    : "mission-type-span"
+                }
+              >
                 مهمة قيد الإنتظار
               </span>
             </div>
-            <div className="mission-type">
-              <span class="d-inline" id="mission-type-span">
+            <div
+              onClick={() => this.handleOnClick(1)}
+              className={
+                this.state.selectedMission === 1
+                  ? "mission-active"
+                  : "mission-type"
+              }
+            >
+              <span
+                class="d-inline"
+                id={
+                  this.state.selectedMission === 1
+                    ? "mission-span-active"
+                    : "mission-type-span"
+                }
+              >
                 مهمة تحت التنفيذ
               </span>
             </div>
-            <div className="mission-type">
-              <span class="d-inline" id="mission-type-span">
+            <div
+              onClick={() => this.handleOnClick(2)}
+              className={
+                this.state.selectedMission === 2
+                  ? "mission-active"
+                  : "mission-type"
+              }
+            >
+              <span
+                class="d-inline"
+                id={
+                  this.state.selectedMission === 2
+                    ? "mission-span-active"
+                    : "mission-type-span"
+                }
+              >
                 مهمة متأخرة
               </span>
             </div>
-            <div className="mission-type">
-              <span class="d-inline" id="mission-type-span">
+            <div
+              onClick={() => this.handleOnClick(3)}
+              className={
+                this.state.selectedMission === 3
+                  ? "mission-active"
+                  : "mission-type"
+              }
+            >
+              <span
+                class="d-inline"
+                id={
+                  this.state.selectedMission === 3
+                    ? "mission-span-active"
+                    : "mission-type-span"
+                }
+              >
                 مهمة تامة تنتظر التقييم
               </span>
             </div>
-            <div className="mission-type">
-              <span class="d-inline" id="mission-type-span">
+            <div
+              onClick={() => this.handleOnClick(4)}
+              className={
+                this.state.selectedMission === 4
+                  ? "mission-active"
+                  : "mission-type"
+              }
+            >
+              <span
+                class="d-inline"
+                id={
+                  this.state.selectedMission === 4
+                    ? "mission-span-active"
+                    : "mission-type-span"
+                }
+              >
                 مهمة تامة
               </span>
             </div>
@@ -71,6 +146,44 @@ class Mission extends Component {
                 />
               </svg>
               <span className="Add-New-Mission-btn">اضافة مهمة</span>
+            </div>
+          </div>
+        </div>
+        <div
+          className="container"
+          style={{
+            backgroundColor: "#F1F5F9",
+            height: "100vh",
+            width: "100vw",
+            marginTop: "15px",
+          }}
+        >
+          <div class="row">
+            <div className="missions-section">
+              <div className="mission-container">
+                <div className="mission-child">
+                  <span class="ml-2 mission-span-1">
+                    مهمة تسكين مزرعة
+                    <br />
+                    <span className="mission-span-2">
+                      مهمة اضافة مزرعة في الجيزة
+                    </span>
+                    <br />
+                  </span>
+                  <div class="container">
+                    <div class="row">
+                      <div class="col">
+                        <div>
+                          <span>السعر ١٠٠ جنيه</span>
+                        </div>
+                        <div>
+                          <span>الجيزة</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
