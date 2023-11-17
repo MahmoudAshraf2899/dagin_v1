@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import notificationIcon from "../Assets/icons/Group.svg";
 import profileImg from "../Assets/images/profileimg.svg";
 import Header from "./Header";
+import Mission from "./Mission";
 class RightMenu extends Component {
   constructor(props) {
     super(props);
@@ -494,6 +495,12 @@ class RightMenu extends Component {
         {/* Header Component */}
         <Header title={this.state.currentElementTitle} />
         {/* Header Component */}
+        {/* Todo Build Components Here : Mission Component Is Example */}
+        {this.state.elementId === 1 ? (
+          <>
+            <Mission />
+          </>
+        ) : null}
       </div>
     );
   }
