@@ -407,7 +407,95 @@ font-family: MadaniArabic-Regular;
 font-size: 12px;
 font-style: normal;
 font-weight: 400;
-line-height: 160%; /* 19.2px */
+line-height: 160%; 
+}
+/* $$$$ Mission Component $$$$$ */
+.missionPage{
+  margin-top:20px;
+}
+.mission-active{
+display: inline-flex;
+height: 40px;
+padding: 8px 20px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F1FAEE;
+}
+#mission1-span{
+color: #70D44B;
+text-align: right; 
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 22.4px */
+}
+.mission-type{
+display: inline-flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+}
+#mission-type-span{
+color: var(--greyscale-500, #64748B);
+text-align: right;  
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+letter-spacing: 0.2px;
+}
+.filter-container{
+display: flex;
+width: 99px;
+height: 40px;
+padding: 8px 12px 8px 17px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F8FAFC;
+}
+.filter-container-span{
+color: var(--greyscale-500, #64748B);
+text-align: right; 
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 22.4px */
+letter-spacing: 0.2px;
+}
+.Add-New-Mission{
+  display: flex;
+width: 134px;
+height: 40px;
+padding: 8px 12px 8px 17px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #124734;
+}
+.Add-New-Mission-btn{
+color: #FFF;
+text-align: right; 
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;
+letter-spacing: 0.2px;
 }
 
   

@@ -11,41 +11,49 @@ class RightMenu extends Component {
       currentElementTitle: "الداش بورد",
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    localStorage.setItem("selected-element", "0");
+  }
   handleOnClick = (e) => {
     switch (e) {
       case 0:
         this.setState({ currentElementTitle: "الداش بورد" });
+        localStorage.setItem("selected-element", "0");
         break;
       case 1:
         this.setState({ currentElementTitle: "المهام" });
-
+        localStorage.setItem("selected-element", 1);
         break;
       case 2:
         this.setState({ currentElementTitle: "الأختبارات" });
-
+        localStorage.setItem("selected-element", 2);
         break;
+
       case 3:
         this.setState({ currentElementTitle: "المسابقات" });
-
+        localStorage.setItem("selected-element", 3);
         break;
+
       case 4:
         this.setState({ currentElementTitle: "ادارة المستخدمين" });
-
+        localStorage.setItem("selected-element", 4);
         break;
       case 5:
         this.setState({ currentElementTitle: "ادارة المحافظ" });
-
+        localStorage.setItem("selected-element", 5);
         break;
       case 6:
         this.setState({ currentElementTitle: "التقارير" });
+        localStorage.setItem("selected-element", 6);
 
         break;
       case 7:
         this.setState({ currentElementTitle: "الاعدادات" });
+        localStorage.setItem("selected-element", 7);
         break;
       default:
         this.setState({ currentElementTitle: "الداش بورد" });
+        localStorage.setItem("selected-element", 0);
     }
     this.setState({ elementId: e });
   };
@@ -493,14 +501,10 @@ class RightMenu extends Component {
         {/* Sidebar */}
 
         {/* Header Component */}
-        <Header title={this.state.currentElementTitle} />
-        {/* Header Component */}
-        {/* Todo Build Components Here : Mission Component Is Example */}
-        {this.state.elementId === 1 ? (
-          <>
-            <Mission />
-          </>
-        ) : null}
+        <Header
+          title={this.state.currentElementTitle}
+          selectedItem={this.state.elementId}
+        />
       </div>
     );
   }

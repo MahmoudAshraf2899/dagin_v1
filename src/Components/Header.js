@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import notificationIcon from "../Assets/icons/Group.svg";
 import profileImg from "../Assets/images/profileimg.svg";
 import NotificationsPopUp from "./NotificationsPopUp";
+import Mission from "./Mission";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -130,6 +131,12 @@ class Header extends Component {
           </div>
           {/* Profile Section */}
         </div>
+        {this.props.selectedItem === 1 ? (
+          <>
+            <Mission />
+          </>
+        ) : null}
+
         {/* Notification Pop Up */}
         {this.state.showNotificationPopUp === true ? (
           <>
