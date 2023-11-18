@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import closeIcon from "../../Assets/images/Close Icon.svg";
+import Ellipse from "../../Assets/images/Ellipse 3.svg";
+
 class MissionDetailsPopUp extends Component {
   constructor(props) {
     super(props);
@@ -9,26 +11,23 @@ class MissionDetailsPopUp extends Component {
   }
   componentDidMount() {}
   closePopUp = () => this.setState({ closePopUp: true });
-
-  render() {
+  returnPendingMissionType = () => {
     return (
-      <div
-        style={{ display: this.state.closePopUp === true ? "none" : "unset" }}
-      >
+      <div>
         <div class="Details-PopUp-Container">
           <div class="container">
             <div class="row">
               <div
                 class="col"
-                style={{ marginTop: "15px", marginBottom: "8px" }}
+                style={{ marginTop: "25px", marginBottom: "8px" }}
               >
                 <div className="mission-details">
                   <span className="mission-details-span">تفاصيل المهمة</span>
                 </div>
               </div>
-              <div class="col-md-auto">
+              <div class="col-md-auto" style={{ marginTop: "25px" }}>
                 <svg
-                  style={{ marginLeft: "15px" }}
+                  style={{ marginLeft: "48px" }}
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -43,7 +42,7 @@ class MissionDetailsPopUp extends Component {
                   />
                 </svg>
                 <svg
-                  style={{ marginLeft: "15px" }}
+                  style={{ marginLeft: "48px" }}
                   xmlns="http://www.w3.org/2000/svg"
                   width="24"
                   height="24"
@@ -62,12 +61,249 @@ class MissionDetailsPopUp extends Component {
                   onClick={() => this.closePopUp()}
                   src={closeIcon}
                   alt="close-icon"
+                  style={{ marginLeft: "27.5px" }}
                 />
               </div>
             </div>
             <div className="details-popup-border"></div>
+            <div class="row">
+              <div>
+                <div>
+                  <div>
+                    <div className="container">
+                      <div className="row">
+                        <div class="col-sm-10">
+                          <span class="ml-2 mission-span-1">
+                            مهمة تسكين مزرعة
+                            <br />
+                            <span className="mission-span-2">
+                              مهمة اضافة مزرعة في الجيزة
+                            </span>
+                            <br />
+                          </span>
+                        </div>
+                        <div
+                          class="col-sm-2"
+                          style={{ position: "absolute", left: "22px" }}
+                        >
+                          <div
+                            class="col-md-auto mission-status"
+                            style={{ marginTop: "10px" }}
+                          >
+                            <span className="mission-status-span">
+                              قيد الانتظار
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="container">
+                      <div class="row">
+                        <div class="col">
+                          <div className="mission-info">
+                            <div class="d-inline mission-price">
+                              <span className="mission-price-span">
+                                السعر ١٠٠ جنيه
+                              </span>
+                            </div>
+                            <div class="d-inline mission-info-child">
+                              <svg
+                                className="location-icon"
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="11"
+                                height="14"
+                                viewBox="0 0 11 14"
+                                fill="none"
+                              >
+                                <path
+                                  d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                />
+                              </svg>
+                              <span className="mission-info-child-span">
+                                الجيزة
+                              </span>
+                            </div>
+                            <div class="d-inline mission-info-child">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="16"
+                                viewBox="0 0 15 16"
+                                fill="none"
+                              >
+                                <path
+                                  d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                />
+                                <path
+                                  d="M1.875 6.125H13.125"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                />
+                                <path
+                                  d="M5 1.75L5 3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M10 1.75V3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <circle
+                                  cx="7.5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="10"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                              </svg>
+                              <span className="mission-info-child-span">
+                                انشئت في : ٢٠ يوليو ٢٠٢٣
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="mission-range">
+              <div class="col-sm-10" id="mission-range-span">
+                <span>النطاق</span>
+              </div>
+            </div>
+
+            <div class="row" id="mission-details-range">
+              <div class="col-sm-10">
+                <div class="d-inline mission-info-child">
+                  <svg
+                    className="location-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="11"
+                    height="14"
+                    viewBox="0 0 11 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                  <span className="mission-info-child-span">الجيزة</span>
+                </div>
+
+                <div class="d-inline mission-info-child">
+                  <svg
+                    className="location-icon"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="11"
+                    height="14"
+                    viewBox="0 0 11 14"
+                    fill="none"
+                  >
+                    <path
+                      d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
+                      stroke="#9BA0B1"
+                      stroke-width="1.5"
+                    />
+                  </svg>
+                  <span className="mission-info-child-span">اسكندرية</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="assign-mission-to">
+              <div className="assign-mission-to">
+                <span>تعيين المهمة ل</span>
+              </div>
+            </div>
+            <div class="row" id="assign-date">
+              <div className="assign-date">
+                <span>تم الاسناد في ٢٠ يوليو ٢٠٢٣ - ١٠:٣٠ مساءً</span>
+              </div>
+            </div>
+            <div class="row" id="assign-people">
+              <div>
+                <div class="d-inline assigned-user">
+                  <img src={Ellipse} alt="user" className="assign-user-photo" />
+                  <span className="assign-user-name">احمد محسن</span>
+                </div>
+                <div class="d-inline assigned-user">
+                  <img src={Ellipse} alt="user" className="assign-user-photo" />
+                  <span className="assign-user-name">محمد حسين</span>
+                </div>
+                <div class="d-inline assigned-user">
+                  <img src={Ellipse} alt="user" className="assign-user-photo" />
+                  <span className="assign-user-name">محمد حسين</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="row" id="mission-description">
+              <div>
+                <span>الوصف</span>
+              </div>
+            </div>
+            <div class="row" id="mission-description-content">
+              <div class="col-9">
+                <span className="mission-description-content">
+                  تقدم Analytics مبادرات قابلة للتنفيذ وجاهزة للصناعة في كل مرة
+                  يكمل فيها النشاط التجاري حسابه بالكامل. ,phasellus vitae amet
+                  amet، mauris faucibus في الجلوس. ,Rhoncus Pellentesque
+                  adipiscing a enim، quis tortor، not etiam. ,احصل على faucibus
+                  mattis consequat dui impdiet scelerisque. ,Lorem placerat
+                  blandit ut lobortis volutpat convallis libero. ,Sed impdiet
+                  dignissim ipsum quam.
+                </span>
+              </div>
+            </div>
+
+            <div class="row" id="mission-button-action">
+              <div className="mission-button-action">
+                <div class="d-inline agree-btn">
+                  <span className="agree-decile-title">موافقة</span>
+                </div>
+                <div class="d-inline decline-btn">
+                  <span className="agree-decile-title">رفض</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+      </div>
+    );
+  };
+  render() {
+    return (
+      <div
+        style={{ display: this.state.closePopUp === true ? "none" : "unset" }}
+      >
+        {this.returnPendingMissionType()}
       </div>
     );
   }

@@ -736,7 +736,7 @@ z-index: 999999999999999;
 right: 30%;
 left: 50%;
 top: 40%;
-height: 505px;
+height: auto;
 }
  
 .mission-details{
@@ -765,6 +765,132 @@ border-top: 1px solid #F1F5F9;
 width:100%;
 margin-top: 18px;
 margin-bottom: 18px;
+}
+#mission-range{
+  margin-top: 25px;
+  margin-right: 1px;
+}
+#mission-range-span{
+color: var(--greyscale-900, #0F172A);
+text-align: right;
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 22.4px */
+letter-spacing: 0.2px;
+}
+#mission-details-range{
+  margin-top: 21px;
+}
+.assign-mission-to{
+color: var(--greyscale-900, #0F172A);
+text-align: right;
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;
+letter-spacing: 0.2px;
+}
+#assign-mission-to{
+margin-top:21px;
+margin-right: 1px;
+}
+.assign-date{
+color: #A7AEC1;
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; 
+}
+#assign-date{
+margin-top:21px;
+margin-right: 1px;
+}
+#assign-people{
+margin-top:21px;
+margin-right: 1px;
+}
+.assigned-user{
+color: var(--da-black-03-line, #292E32);
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; /* 18.2px */
+}
+.assign-user-photo{
+margin-left: 5px;
+width: 26px;
+height: 26px;
+flex-shrink: 0;
+border-radius: 26px;
+background:  lightgray 50% / cover no-repeat, #70D44B;
+}
+.assign-user-name{
+  margin-left:35px;
+}
+#mission-description{
+margin-top:21px;
+margin-right: 14px;
+color: var(--greyscale-900, #0F172A);
+text-align: right;
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+letter-spacing: 0.2px;
+}
+#mission-description-content{
+margin-right: 14px;
+}
+.mission-description-content{
+align-self: stretch;
+color: var(--greyscale-500, #64748B);
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
+#mission-button-action{
+margin-right: 14px;
+margin-top:21px;
+margin-bottom: 25px;
+}
+.agree-btn{
+display: inline-flex;
+padding: 8px 32px 9px 32px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+margin-left: 10px;
+}
+.decline-btn{
+display: flex;
+width: 131px;
+height: 53px;
+padding: 8px 41px 9px 41px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 15px;
+background: #C11818;
+}
+.agree-decile-title{
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px;
 }
 /* $$$$ Mission Details Component $$$$ */
   
