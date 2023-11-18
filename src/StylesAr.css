@@ -23,7 +23,6 @@ body {
   background-color: #f0f0f0;
   direction: rtl;
   overflow-x: hidden;
-   
 }
 
 /* $$$$ Right Menu $$$*/
@@ -695,10 +694,77 @@ flex-shrink: 0;
 }
 .assinged-more-three{
   margin-right: -9px;
-
+}
+.mission-status-late{
+display: flex;
+width: 104px;
+height: 28px;
+padding: 8.757px 13.135px;
+justify-content: center;
+align-items: center;
+gap: 10.946px;
+flex-shrink: 0;
+border-radius: 54.73px;
+background: rgba(230, 0, 25, 0.09);
+}
+.mission-status-span-late {
+color: var(--red-01, #E60019);
+text-align: center;
+font-family: MadaniArabic-Regular;
+font-size: 10.946px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 17.514px */
 }
 .more-icon{
   position: absolute;
   left: -20px;
 }
+/* $$$$ Mission Details Component $$$$ */
+.Details-PopUp-Container{
+width: 802px;
+flex-shrink: 0;
+margin: auto;
+width: 50%;
+padding: 10px;
+border-radius: 10px;
+background: var(--white-general, #FFF);
+box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+margin-top: -190px;
+position: absolute;
+z-index: 999999999999999;
+right: 30%;
+left: 50%;
+top: 40%;
+height: 505px;
+}
+ 
+.mission-details{
+display: flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+border-radius: 8px;
+background: #F9F9F9;
+width: 25%;
+}
+
+.mission-details-span{
+color: var(--greyscale-500, #64748B);
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+}
+.details-popup-border{
+border-top: 1px solid #F1F5F9;
+width:100%;
+margin-top: 18px;
+margin-bottom: 18px;
+}
+/* $$$$ Mission Details Component $$$$ */
   

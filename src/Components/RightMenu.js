@@ -170,6 +170,7 @@ class RightMenu extends Component {
                   </span>
                 </div>
               </li>
+
               <li onClick={() => this.handleOnClick(1)}>
                 <div
                   className={
@@ -288,6 +289,7 @@ class RightMenu extends Component {
                   </span>
                 </div>
               </li>
+
               <li onClick={() => this.handleOnClick(4)}>
                 <div
                   className={
@@ -359,6 +361,7 @@ class RightMenu extends Component {
                   </span>
                 </div>
               </li>
+
               <li onClick={() => this.handleOnClick(5)}>
                 <div
                   className={
@@ -401,6 +404,7 @@ class RightMenu extends Component {
                   </span>
                 </div>
               </li>
+
               <li onClick={() => this.handleOnClick(6)}>
                 <div
                   className={
