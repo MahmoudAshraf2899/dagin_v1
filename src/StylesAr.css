@@ -597,6 +597,8 @@ flex-shrink: 0;
 border-radius: 54.73px;
 background: var(--secondary-amber-50, #FFFBEB);
 margin-top: 10px;
+margin-left: 10px;
+
 }
 .mission-status-span{
 color: var(--secondary-amber-500-base, #F6A723);
@@ -606,6 +608,55 @@ font-size: 10.946px;
 font-style: normal;
 font-weight: 400;
 line-height: 160%; 
+}
+.mission-status-in-progress{
+display: flex;
+width: 104px;
+height: 28px;
+padding: 8.757px 13.135px;
+justify-content: center;
+align-items: center;
+gap: 10.946px;
+flex-shrink: 0;
+border-radius: 54.73px;
+background: rgba(195, 242, 203, 0.50);
+margin-left: 10px;
+}
+.mission-status-span-in-progress{
+color: var(--green-01, #4CD964);
+text-align: center;
+font-family: MadaniArabic-Regular;
+font-size: 10.946px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+}
+.assigned-to-img{
+display: flex;
+height: 19px;
+justify-content: flex-end;
+align-items: flex-end;
+gap: -4.75px;
+border-radius: 19px;
+background: lightgray 50% / cover no-repeat, #70D44B;
+}
+.mission-assigned-span-child-1{
+color: var(--grey-01, #A7AEC1);
+text-align: right; 
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+margin-left: 3.5px;
+}
+.mission-assigned-span-child-2{
+color: var(--da-black-03-line, #292E32);
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
 }
 .mission-assigned{
 display: flex;
@@ -629,6 +680,22 @@ font-size: 12px;
 font-style: normal;
 font-weight: 400;
 line-height: 130%;  
+}
+.mission-assigned-more-one{
+display: flex;
+width: 100px;
+height: 28px;
+padding: 5px 15.364px 4px 14px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+}
+.assinged-more-two{
+  margin-right: -9px;
+}
+.assinged-more-three{
+  margin-right: -9px;
+
 }
 .more-icon{
   position: absolute;
