@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import notificationIcon from "../Assets/icons/Group.svg";
 import profileImg from "../Assets/images/profileimg.svg";
 import NotificationsPopUp from "./NotificationsPopUp";
-import Mission from "./Mission";
+import Mission from "./Missions/Mission";
 class Header extends Component {
   constructor(props) {
     super(props);

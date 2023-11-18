@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import notificationIcon from "../Assets/icons/Group.svg";
-import profileImg from "../Assets/images/profileimg.svg";
+
 import Header from "./Header";
-import Mission from "./Mission";
 class RightMenu extends Component {
   constructor(props) {
     super(props);

@@ -443,6 +443,7 @@ gap: 8px;
 flex-shrink: 0;
 border-radius: 8px;
 }
+
 #mission-type-span{
 color: var(--greyscale-500, #64748B);
 text-align: right;  
@@ -503,7 +504,7 @@ height: 100%;
 }
 .mission-container{
 margin-top: 25px;
-width: 1128px;
+width: 1205px;
 height: 121px;
 flex-shrink: 0;
 border-radius: 10px;
@@ -530,5 +531,107 @@ line-height: 130%;
 }
 .mission-child{
   padding:10px 30px;
+}
+.mission-info{
+display: inline-flex;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+margin-top: 10px;
+}
+.mission-price{
+display: flex;
+padding: 6px 8px;
+justify-content: center;
+align-items: center;
+gap: 6px;
+border-radius: 8px;
+background: rgba(112, 212, 75, 0.11);
+margin-left: 10px;
+}
+.mission-price-span{
+color: #70D44B;
+text-align: right; 
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+}
+.mission-info-child{
+display: flex;
+padding: 6px 8px;
+justify-content: center;
+align-items: center;
+gap: 6px;
+border-radius: 8px;
+background: var(--lgrey-02, #F9F9F9);
+margin-left: 10px;
+
+}
+.mission-info-child-span{
+color: var(--grey-01, #A7AEC1);
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+padding-right: 5px;
+}
+.location-icon{
+width: 11px;
+height: 13.57px;
+stroke-width: 1.5px;
+stroke: #9BA0B1;
+}
+.mission-status{
+display: flex;
+width: 81px;
+height: 28.459px;
+padding: 8.757px 13.135px;
+justify-content: center;
+align-items: center;
+gap: 10.946px;
+flex-shrink: 0;
+border-radius: 54.73px;
+background: var(--secondary-amber-50, #FFFBEB);
+margin-top: 10px;
+}
+.mission-status-span{
+color: var(--secondary-amber-500-base, #F6A723);
+text-align: center;
+font-family: MadaniArabic-Regular;
+font-size: 10.946px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
+.mission-assigned{
+display: flex;
+width: 81px;
+height: 28.459px;
+padding: 6px 8px;
+justify-content: center;
+align-items: center;
+gap: 6px;
+border-radius: 8px;
+background: var(--lgrey-02, #F9F9F9);
+margin-top: 10px;
+
+}
+.mission-assigned-span{
+color: var(--grey-01, #A7AEC1);
+text-align: right;
+ 
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;  
+}
+.more-icon{
+  position: absolute;
+  left: -20px;
 }
   
