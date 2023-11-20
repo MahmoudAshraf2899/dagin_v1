@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import loginImg from "../Assets/images/farm_chicken_and_eggs copy 2 (1).png";
+import chickenImg from "../Assets/images/farm_chicken_and_eggs copy 2 (1).png";
+import rectangleSlider from "../Assets/images/Rectangle 19.png";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -10,10 +11,10 @@ class Login extends Component {
       <div>
         <div
           class="d-lg-flex-column-reverse half"
-          style={{ display: "-webkit-box" }}
+          style={{ display: "-webkit-box", height: "auto" }}
         >
           <div
-            class="bg order-1 order-md-2 "
+            class="container bg order-1 order-md-2 "
             style={{ backgroundColor: "#124734" }}
           >
             <div className="login-img">
@@ -41,8 +42,41 @@ class Login extends Component {
                 كل ما تحتاجه فى سوق الدواجن بداية من الاعلاف لدينا هنا
               </span>
             </div>
-            <div className="content-slide"></div>
+
+            <div className="content-slider">
+              <span class="d-inline" style={{ marginLeft: "4px" }}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="6"
+                  height="6"
+                  viewBox="0 0 6 6"
+                  fill="none"
+                >
+                  <circle opacity="0.5" cx="3" cy="3" r="3" fill="#F3EFA1" />
+                </svg>
+              </span>
+              <span class="d-inline" style={{ marginLeft: "4px" }}>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="6"
+                  height="6"
+                  viewBox="0 0 6 6"
+                  fill="none"
+                >
+                  <circle opacity="0.5" cx="3" cy="3" r="3" fill="#F3EFA1" />
+                </svg>
+              </span>
+              <span class="d-inline">
+                <img src={rectangleSlider} alt="rectangle-slider" />
+              </span>
+            </div>
+            <div className="chicken-section">
+              <div>
+                <img src={chickenImg} alt="chicken" />
+              </div>
+            </div>
           </div>
+
           <div class="contents order-2 order-md-1">
             <div class="container">
               <div class="row align-items-center justify-content-center">
