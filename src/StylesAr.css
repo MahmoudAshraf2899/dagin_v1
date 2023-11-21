@@ -762,7 +762,30 @@ border-radius: 8px;
 background: #F9F9F9;
 width: 25%;
 }
+.mission-finish-status-span{
+  color: var(--secondary-amber-500-base, #70D44B);
+  text-align: center;
+  font-family: MadaniArabic-Regular;
+  font-size: 10.946px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; 
+  
+}
+.mission-finish-status{
+  display: flex;
+  width: 104px;
+  height: 28px;
+  padding: 8.757px 13.135px;
+  justify-content: center;
+  align-items: center;
+  gap: 10.946px;
+  flex-shrink: 0;
+  border-radius: 54.73px;
+  background: rgba(195, 242, 203, 0.50);
+  margin-left: 10px;
 
+}
 .mission-details-span{
 color: var(--greyscale-500, #64748B);
 text-align: right;
@@ -1224,39 +1247,6 @@ font-weight: 400;
 line-height: 150%; /* 24px */
 letter-spacing: 0.3px;
 }
-.phoneNumber-section{
 
-}
-/* .phoneNumber-section i {
-width: 24px;
-height: 24px;
-flex-shrink: 0;
-} */
-.phoneNumberInput{
- display: flex;
- width: 100%;
- padding: 16px 25px 16px 300px;
- justify-content: flex-end;
- align-items: flex-start;
- gap: 9px;
- border-radius: 15px;
-border: 1px solid var(--greyscale-300, #E2E8F0);  
-}
-.input-container{
-  position: relative;
-  margin: 20px;
-}
-.input-icon {
-  position: absolute;
-  top: 50%;
-  left: 10px;
-  transform: translateY(-50%);
-  color: #888; /* Icon color */
-}
-
-.custom-input {
-  padding-left: 30px; /* Adjust based on the icon width and padding */
-  width: 250px; /* Set your desired input width */
-}
 /* $$$$ Login Component $$$$ */
   

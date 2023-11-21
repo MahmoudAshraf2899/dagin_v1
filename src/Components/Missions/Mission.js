@@ -24,7 +24,10 @@ class Mission extends Component {
       <div>
         <div class="row">
           <div className="missions-section">
-            <div className="mission-container">
+            <div
+              className="mission-container"
+              onClick={() => this.showDetailsPopUp()}
+            >
               <div className="mission-child">
                 <div className="container">
                   <div className="row">
@@ -504,7 +507,7 @@ class Mission extends Component {
           <div className="missions-section">
             <div
               className="mission-container"
-              onClick={() => this.showDetailsForLateMissions()}
+              onClick={() => this.showDetailsPopUp()}
             >
               <div className="mission-child">
                 <div className="container">
@@ -654,7 +657,7 @@ class Mission extends Component {
     );
   };
 
-  showDetailsForLateMissions = () => {
+  showDetailsPopUp = () => {
     let option = this.state.showDetailsPopUp;
     this.setState({ showDetailsPopUp: !option });
   };
@@ -1644,7 +1647,7 @@ class Mission extends Component {
           {/* Details Pop Up */}
           {this.state.showDetailsPopUp === true ? (
             <>
-              <MissionDetailsPopUp />
+              <MissionDetailsPopUp missionType={this.state.selectedMission} />
             </>
           ) : null}
         </div>
