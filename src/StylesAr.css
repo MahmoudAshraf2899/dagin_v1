@@ -22,6 +22,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'MadaniArabic-Light';
+  src: url('./Assets/fonts/alfont_com_Madani-Arabic-Light.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: 'Amiri', sans-serif;
   margin: 0;
@@ -967,8 +973,10 @@ box-shadow: none;
 }
 
 .half .bg {
-background-size: cover;
-background-position: center; 
+width: 639px;
+height: 976px;
+flex-shrink: 0;
+
 }
 
 .half a {
@@ -988,53 +996,67 @@ top: 2px;
 font-size: 14px;
 }
 .social-login a {
-  display: block;
-  text-decoration: none;
-  display: block;
-  position: relative;
-  text-align: center;
-  color: #fff;
-  margin-bottom: 10px; }
-  .social-login a:hover {
-    color: #fff; }
-  .social-login a.facebook {
-    background: #3b5998; }
-    .social-login a.facebook:hover {
-      background: #344e86; }
-  .social-login a.twitter {
-    background: #1da1f2; }
-    .social-login a.twitter:hover {
-      background: #0d95e8; }
-  .social-login a.google {
-    background: #ea4335; }
-    .social-login a.google:hover {
-      background: #e82e1e; }
+display: block;
+text-decoration: none;
+display: block;
+position: relative;
+text-align: center;
+color: #fff;
+margin-bottom: 10px;
+}
+.social-login a:hover 
+{
+color: #fff;
+}
+.social-login a.facebook {
+background: #3b5998; 
+}
+.social-login a.facebook:hover {
+background: #344e86;
+}
+.social-login a.twitter 
+{
+background: #1da1f2;
+}
+.social-login a.twitter:hover 
+{
+background: #0d95e8;
+}
+.social-login a.google {
+background: #ea4335; 
+}
+.social-login a.google:hover {
+background: #e82e1e;
+}
 
 .control {
-  display: block;
-  position: relative;
-  padding-left: 30px;
-  margin-bottom: 15px;
-  cursor: pointer;
-  font-size: 14px; }
-  .control .caption {
-    position: relative;
-    top: .2rem;
-    color: #888; }
+ display: block;
+ position: relative;
+ padding-left: 30px;
+ margin-bottom: 15px;
+ cursor: pointer;
+ font-size: 14px; 
+}
+.control .caption {
+ position: relative;
+ top: .2rem;
+ color: #888;
+ }
 
 .control input {
-  position: absolute;
-  z-index: -1;
-  opacity: 0; }
+ position: absolute;
+ z-index: -1;
+ opacity: 0;
+ }
 
 .control__indicator {
-  position: absolute;
-  top: 2px;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  background: #e6e6e6;
-  border-radius: 4px; }
+ position: absolute;
+ top: 2px;
+ left: 0;
+ height: 20px;
+ width: 20px;
+ background: #e6e6e6;
+ border-radius: 4px; }
 
 .control--radio .control__indicator {
   border-radius: 50%; }
@@ -1131,6 +1153,110 @@ line-height: 39.257px;
 .content-slider{
 margin-top: 150px;
  margin-right: 350px;
+}
+.big-section{
+width: 100%;
+height: 40px;
+flex-shrink: 0;
+margin : 45px 45px 45px 45px
+
+}
+
+
+/* New Version For Login Component  */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin:45px 45px 45px 45px;
+}
+
+.login-form {
+ max-width: 400px;
+ padding: 20px;
+ background-color: #ffffff;
+ border-radius: 8px;
+ box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-info {
+padding: 20px;
+text-align: center;
+background-color: #124734;
+}
+.img-1 {
+max-width: 100%;
+height: auto;
+}
+.dagin-platform-icon{
+width: 118px;
+height: 28px;
+flex-shrink: 0;
+background: url('Assets/images/WhatsApp\ Image\ 2023-05-20\ at\ 12.57\ 1.png'), lightgray 50% / cover no-repeat;
+}
+.dagin-word{
+color: #05A357;
+font-family: MadaniArabic-SemiBold;
+font-size: 32px;
+font-style: normal;
+font-weight: 400;
+line-height: 125%;
+letter-spacing: 0.2px;
+}
+.welcome-to{
+color: var(--greyscale-900, #1A202C);
+text-align: center;
+font-family: MadaniArabic-SemiBold;
+font-size: 32px;
+font-style: normal;
+font-weight: 400;
+line-height: 125%; /* 40px */
+letter-spacing: 0.2px;
+}
+.register-hightlight{
+color: var(--greyscale-600, #718096);
+text-align: center;
+font-family: MadaniArabic-Light;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 24px */
+letter-spacing: 0.3px;
+}
+.phoneNumber-section{
+
+}
+/* .phoneNumber-section i {
+width: 24px;
+height: 24px;
+flex-shrink: 0;
+} */
+.phoneNumberInput{
+ display: flex;
+ width: 100%;
+ padding: 16px 25px 16px 300px;
+ justify-content: flex-end;
+ align-items: flex-start;
+ gap: 9px;
+ border-radius: 15px;
+border: 1px solid var(--greyscale-300, #E2E8F0);  
+}
+.input-container{
+  position: relative;
+  margin: 20px;
+}
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 10px;
+  transform: translateY(-50%);
+  color: #888; /* Icon color */
+}
+
+.custom-input {
+  padding-left: 30px; /* Adjust based on the icon width and padding */
+  width: 250px; /* Set your desired input width */
 }
 /* $$$$ Login Component $$$$ */
   
