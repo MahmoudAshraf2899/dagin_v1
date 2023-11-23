@@ -421,6 +421,39 @@ font-weight: 400;
 line-height: 160%; 
 }
 /* $$$$ Mission Component $$$$$ */
+#mission-attachment{
+margin-top:21px;
+margin-right: 14px;
+color: var(--greyscale-900, #0F172A);
+text-align: right;
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+letter-spacing: 0.2px;
+}
+.attach-profile{
+width: 38px;
+height: 38px;
+flex-shrink: 0;
+border-radius: 38px;
+background: url('Assets/images/Ellipse\ 3.svg'), lightgray 50% / cover no-repeat, #70D44B;
+}
+#mission-attch-container{
+margin-top:21px;
+margin-right: 1px;
+width: 50%;
+}
+#mission-attch-section{
+display: flex;
+width: 340px;
+height: 100px;
+flex-shrink: 0;
+border-radius: 10px;
+border: 1px solid #F1F5F9;
+background: var(--white-general, #FFF);
+}
 .missionPage{
   margin-top:20px;
 }
@@ -596,6 +629,7 @@ height: 13.57px;
 stroke-width: 1.5px;
 stroke: #9BA0B1;
 }
+
 .mission-status{
 display: flex;
 width: 81px;
@@ -619,6 +653,29 @@ font-size: 10.946px;
 font-style: normal;
 font-weight: 400;
 line-height: 160%; 
+}
+.mission-status-Evaluation-span{
+color: var(--secondary-amber-500-base, #F6A723);
+text-align: center;
+font-family: MadaniArabic-Regular;
+font-size: 10.946px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
+.mission-status-Evaluation{
+display: flex;
+width: 81px;
+height: 28.459px;
+padding: 8.757px 13.135px;
+justify-content: center;
+align-items: center;
+gap: 10.946px;
+flex-shrink: 0;
+border-radius: 54.73px;
+background: var(--secondary-amber-50, #FFFBEB);
+margin-top: 10px;
+margin-left: 10px;
 }
 .mission-status-in-progress{
 display: flex;
@@ -868,6 +925,110 @@ background:  lightgray 50% / cover no-repeat, #70D44B;
 }
 .assign-user-name{
   margin-left:35px;
+}
+.attach-user{
+color: var(--da-black-03-line, #292E32);
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;  
+margin-top: 20px;
+margin-right: 20px;
+}
+.attach-userName{
+  margin-left:35px;
+}
+.attach-userPhoto{
+margin-left: 5px;
+margin-top: 15px;
+width: 26px;
+height: 26px;
+flex-shrink: 0;
+border-radius: 26px;
+background:  lightgray 50% / cover no-repeat, #70D44B;
+}
+.attach-farmPhoto{
+  margin-left: 5px;
+  margin-top: 15px;
+  width: 26px;
+  height: 26px;
+  flex-shrink: 0;
+  border-radius: 26px;
+  background:  lightgray 50% / cover no-repeat, #70D44B; 
+}
+attach-farm{
+  margin-left:35px;
+  
+}
+.attach-status{
+color: #C11818;
+text-align: right; 
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+margin-right: 32px;
+}
+.farm-owner{
+color: var(--grey-01, #A7AEC1);
+text-align: right; 
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+margin-right: 32px; 
+}
+.farm-owner-date{
+color: var(--grey-01, #A7AEC1);
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 19.2px */
+}
+.send-alert{
+width: 90px;
+height: 45px;
+display: inline-flex;
+padding: 6.769px 14.038px 7.154px 14.038px;
+justify-content: center;
+align-items: center; 
+border-radius: 12.692px;
+background: #70D44B; 
+margin-top: 30px;
+margin-right: 75px;
+}
+.send-alert span{
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 11.846px;
+font-style: normal;
+font-weight: 400;
+line-height: 13.538px;  
+}
+.mark-completed{
+display: flex;
+padding: 8px 27.5px 9px 26.5px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #9BA0B1;
+margin-left: 10px;
+margin-top: 10px;
+width: 25%;
+}
+.mark-completed span{
+ color: #FFF;
+ font-family: MadaniArabic-Medium;
+ font-size: 14px;
+ font-style: normal;
+ font-weight: 400;
+ line-height: 16px;
 }
 #mission-description{
 margin-top:21px;

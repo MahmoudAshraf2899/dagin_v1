@@ -667,7 +667,10 @@ class Mission extends Component {
       <div>
         <div class="row">
           <div className="missions-section">
-            <div className="mission-container">
+            <div
+              className="mission-container"
+              onClick={() => this.showDetailsPopUp()}
+            >
               <div className="mission-child">
                 <div className="container">
                   <div className="row">
@@ -832,7 +835,10 @@ class Mission extends Component {
       <div>
         <div class="row">
           <div className="missions-section">
-            <div className="mission-container">
+            <div
+              className="mission-container"
+              onClick={() => this.showDetailsPopUp()}
+            >
               <div className="mission-child">
                 <div className="container">
                   <div className="row">
