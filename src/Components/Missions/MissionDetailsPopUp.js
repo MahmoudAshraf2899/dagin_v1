@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import closeIcon from "../../Assets/images/Close Icon.svg";
 import Ellipse from "../../Assets/images/Ellipse 3.svg";
-import { Alert } from "bootstrap";
+import downloadImg from "../../Assets/images/Download.svg";
 
 class MissionDetailsPopUp extends Component {
   constructor(props) {
@@ -1171,7 +1171,7 @@ class MissionDetailsPopUp extends Component {
                 </span>
               </div>
             </div>
-
+            {/* المرفقات والتسليمات */}
             <div class="row" id="mission-attachment">
               <div>
                 <span>المرفقات والتسليمات</span>
@@ -1184,20 +1184,25 @@ class MissionDetailsPopUp extends Component {
                   <img src={Ellipse} alt="user" className="attach-userPhoto" />
                   <span className="attach-farm">بيانات المزرعة </span>
                   <br />
-                  <span class="d-inline farm-owner">احمد محسن</span>
-                  <span class="d-inline farm-owner-date">12 يوليو 2022</span>
+                  <p className="farm-owner">
+                    احمد محسن
+                    <span className="farm-owner-date">12 يوليو 2022</span>
+                  </p>
                 </div>
-                <div className="send-alert" onClick={() => this.sendAlert()}>
-                  <span>ارسال تنبيه</span>
+                <div
+                  className="download-section"
+                  onClick={() => this.sendAlert()}
+                >
+                  <img src={downloadImg} alt="download-icon" />
                 </div>
               </div>
             </div>
-
+            {/* المرفقات والتسليمات */}
             <div class="row" id="mission-button-action">
               <div class="col" onClick={() => this.showAlertPopUp()}>
                 {/* //Todo : We Will Make Click Function Here ^_^ */}
                 <div className="mission-button-action">
-                  <div className="mark-completed">
+                  <div className="mark-completed-evaluation">
                     <span>تعيين كمهمة تامة</span>
                   </div>
                 </div>
