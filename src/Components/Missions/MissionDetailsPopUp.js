@@ -8,6 +8,7 @@ class MissionDetailsPopUp extends Component {
     super(props);
     this.state = {
       closePopUp: false,
+      showEvaluationModal: false,
     };
   }
   componentDidMount() {
@@ -18,7 +19,88 @@ class MissionDetailsPopUp extends Component {
   sendAlert = () => {
     console.log("Alert Has Been Sent");
   };
-  showEvaluationPopUp = () => {};
+  showEvaluationPopUp = () => this.setState({ showEvaluationModal: true });
+
+  closeEvaluationPopUp = () => this.setState({ showEvaluationModal: false });
+
+  renderEvaluationPopUp = () => {
+    return (
+      <div>
+        <div class="Evaluation-PopUp-Container">
+          <div class="container">
+            {/* تفاصيل المهمة */}
+            <div class="row">
+              <div
+                class="col"
+                style={{ marginTop: "25px", marginBottom: "8px" }}
+              >
+                <div className="mission-details">
+                  <span className="mission-details-span">تفاصيل المهمة</span>
+                </div>
+              </div>
+              <div class="col-md-auto" style={{ marginTop: "25px" }}>
+                <img
+                  onClick={() => this.closePopUp()}
+                  src={closeIcon}
+                  alt="close-icon"
+                  style={{ marginLeft: "27.5px" }}
+                />
+              </div>
+            </div>
+
+            <div className="details-popup-border"></div>
+            <div class="row">
+              <div>
+                <div>
+                  <div>
+                    <div className="container">
+                      <div className="row">
+                        <div class="col-sm-10">
+                          <span className="mission-span-2">
+                            ما هو تقييمك لهذه المهمة
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="container">
+                      <div class="row">
+                        <div class="col">
+                          <div className="mission-info">
+                            <div class="d-inline satisfied">
+                              <span>غير مرضي</span>
+                            </div>
+                            <div class="d-inline normal-eval">
+                              <span>جيد</span>
+                            </div>
+                            <div class="d-inline normal-eval">
+                              <span>جيد جداً</span>
+                            </div>
+                            <div class="d-inline normal-eval">
+                              <span>استثنائي</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="details-popup-border"></div>
+                    <div class="row">
+                      <div class="col">
+                        <button className="send-Evaluation">
+                          ارسال التقييم
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   renderPendingMissionType = () => {
     return (
       <div>
@@ -1567,6 +1649,9 @@ class MissionDetailsPopUp extends Component {
           ? this.renderCompletedMissionIsAwaitingEvaluation()
           : this.props.missionType === 4
           ? this.renderFinishedMissionsType()
+          : null}
+        {this.state.showEvaluationModal === true
+          ? this.renderEvaluationPopUp()
           : null}
       </div>
     );
