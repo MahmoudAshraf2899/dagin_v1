@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import MissionDetailsPopUp from "./MissionDetailsPopUp";
+import AddNewMission from "./AddNewMission";
 import Ellipse from "../../Assets/images/Ellipse 3.svg";
 import Ellipse2 from "../../Assets/images/Ellipse 4.svg";
 class Mission extends Component {
@@ -830,6 +831,7 @@ class Mission extends Component {
       </div>
     );
   };
+
   showCompletedMissionIsAwaitingEvaluation = () => {
     return (
       <div>
@@ -1487,12 +1489,18 @@ class Mission extends Component {
       </div>
     );
   };
+
   render() {
     return (
       <div class="container missionPage">
-        <div class="row ">
+        <div class="row">
           {/* Mission Type : مهمة قيد الأنتظار */}
-          <div class="col">
+          <div
+            class="col"
+            style={{
+              display: this.state.showAddComponent === true ? "none" : "unset",
+            }}
+          >
             <div
               onClick={() => this.handleOnClick(0)}
               className={
@@ -1590,7 +1598,12 @@ class Mission extends Component {
             </div>
           </div>
           {/* Mission Filter */}
-          <div class="col-md-auto">
+          <div
+            class="col-md-auto"
+            style={{
+              display: this.state.showAddComponent === true ? "none" : "unset",
+            }}
+          >
             <div className="filter-container">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -1610,10 +1623,13 @@ class Mission extends Component {
               <span className="filter-container-span">الفلتر </span>
             </div>
           </div>
-          {/* Add New Mission */}
+          {/* Add New Mission Button */}
           <div
             class="col col-lg-2"
             onClick={() => this.showAddNewMissionComponent()}
+            style={{
+              display: this.state.showAddComponent === true ? "none" : "unset",
+            }}
           >
             <div className="Add-New-Mission">
               <svg
@@ -1642,13 +1658,21 @@ class Mission extends Component {
             marginTop: "15px",
           }}
         >
-          {this.state.selectedMission === 1
-            ? this.showInProgressMissions()
-            : this.state.selectedMission === 2
-            ? this.showLateMissions()
-            : this.state.selectedMission === 3
-            ? this.showCompletedMissionIsAwaitingEvaluation()
-            : this.showPendingMissions()}
+          <div
+            style={{
+              display: this.state.showAddComponent === true ? "none" : "unset",
+            }}
+          >
+            {this.state.selectedMission === 1
+              ? this.showInProgressMissions()
+              : this.state.selectedMission === 2
+              ? this.showLateMissions()
+              : this.state.selectedMission === 3
+              ? this.showCompletedMissionIsAwaitingEvaluation()
+              : this.showPendingMissions()}
+          </div>
+          {/* Render Add New Mission Component */}
+          {this.state.showAddComponent === true ? <AddNewMission /> : null}
 
           {/* Details Pop Up */}
           {this.state.showDetailsPopUp === true ? (
