@@ -1653,7 +1653,7 @@ class Mission extends Component {
           className="container"
           style={{
             backgroundColor: "#F1F5F9",
-            height: "100vh",
+            height: "auto",
             width: "100vw",
             marginTop: "15px",
           }}
@@ -1672,8 +1672,9 @@ class Mission extends Component {
               : this.showPendingMissions()}
           </div>
           {/* Render Add New Mission Component */}
-          {this.state.showAddComponent === true ? <AddNewMission /> : null}
-
+          <div class="row">
+            {this.state.showAddComponent === true ? <AddNewMission /> : null}
+          </div>
           {/* Details Pop Up */}
           {this.state.showDetailsPopUp === true ? (
             <>
