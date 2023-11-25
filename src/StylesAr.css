@@ -1901,9 +1901,149 @@ border-radius: 15px;
 border: 1px solid #E2E2E2;
 width: 430%;
 }
+.exceptional-performance{
+color: #333;
+font-family: MadaniArabic-Regular;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.exceptional-input{
+  background-color: #70D44B;
+}
+/* The switch - the box around the slider */
+.switch {
+position: absolute;
+display: inline-block;
+width: 45px;
+height: 20px;
+margin-top: 5px;
+margin-right: 25px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #ccc;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 4px;
+  bottom: 3px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #70D44B;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #70D44B;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+} 
+.m-motivation{
+  font-family:MadaniArabic-Regular;
+  }
+.motivation-input{
+justify-content: center;
+background-image: url('Assets/images/جنيه.png');
+background-size: 3%;  
+background-repeat: no-repeat;
+background-position: 20px center;  
+margin-right: 18px;
+display: inline-flex;
+height: 55px;
+padding: 17px 23px 17px 22px;
+justify-content: center;
+align-items: flex-start;
+gap: 943px;
+flex-shrink: 0;
+border-radius: 15px;
+border: 1px solid #E2E2E2;
+width: 430%;
+}
+
+.m-submit{
+display: flex;
+width: 1128px;
+height: auto;
+flex-shrink: 0;
+border-radius: 10px;
+background: var(--white-general, #FFF);
+box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+margin-top: 22px;
+margin-right: 25px;
+}
+.m-submit-btn{
+display: inline-flex;
+padding: 8px 37.5px 9px 37.5px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; 
+margin-top: 18px;
+margin-right: 18px;
+}
+.m-cancel-btn{
+display: flex;
+width: 135px;
+height: 53px;
+padding: 8px 44px 9px 41px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 15px;
+border: 1px solid #EEE;
+background: #FFF;
+color: #9BA0B1;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 114.286% */
+}
  
-
-
 /* $$$$ Add New Mission Component $$$$ */
  
 

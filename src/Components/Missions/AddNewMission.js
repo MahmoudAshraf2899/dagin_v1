@@ -1,13 +1,22 @@
 import React, { Component } from "react";
 import arrow from "../../Assets/images/Vector.svg";
 import DatePicker from "react-multi-date-picker";
-import calender from "../../Assets/images/calendar-minus 1.svg";
 class AddNewMission extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      hasException: false,
+    };
   }
   componentDidMount() {}
+  handleChangeException = () => {
+    this.setState((prevState) => ({
+      hasException: !prevState.hasException,
+    }));
+  };
+  handleAddClick = () => {
+    console.log("Added Sucessfuly");
+  };
   render() {
     return (
       <div>
@@ -185,7 +194,7 @@ class AddNewMission extends Component {
 
             <div className="m-range-border"></div>
 
-            {/* نطاق المهمة */}
+            {/* المقابل المادي */}
             <div class="row mb-3">
               <div class="col-sm-10">
                 <p class=" m-0 px-3 py-2">
@@ -206,6 +215,68 @@ class AddNewMission extends Component {
                   placeholder="0.0"
                   className="d-flex justify-content-between financial-input"
                 />
+              </div>
+            </div>
+
+            {/* حافز للأداء الإستثنائي ؟ */}
+            <div class="row mb-3">
+              <div class="col-sm-10">
+                <p class=" m-0 px-3 py-2">
+                  <span class="text-dark fs-6 fw-normal exceptional-performance">
+                    حافز للأداء الإستثنائي ؟
+                  </span>
+                  <label className="switch">
+                    <input
+                      type="checkbox"
+                      checked={this.state.hasException}
+                      onChange={this.handleChangeException}
+                    />
+                    <span className="slider round"></span>
+                  </label>
+                </p>
+              </div>
+            </div>
+
+            {/* الحافز */}
+            <div class="row mb-3">
+              <div class="col-sm-10">
+                <p class=" m-0 px-3 py-2">
+                  <span class="text-dark fs-6 fw-normal m-motivation">
+                    الحافز
+                  </span>
+                  <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
+                    *
+                  </span>
+                </p>
+              </div>
+            </div>
+            {/* قيمة الحافظ */}
+            <div class="row mb-3">
+              <div class="col-lg-12">
+                <input
+                  placeholder="0.0"
+                  className="d-flex justify-content-between motivation-input"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="m-submit">
+          <div>
+            <div class="row">
+              <div class="col">
+                <button
+                  type="submit"
+                  class="d-inline m-submit-btn"
+                  onClick={this.handleAddClick}
+                >
+                  اضافة
+                </button>
+
+                <button type="submit" class="d-inline m-cancel-btn">
+                  الغاء
+                </button>
               </div>
             </div>
           </div>
