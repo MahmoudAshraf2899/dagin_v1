@@ -28,6 +28,12 @@
   font-weight: normal;
   font-style: normal;
 }
+@font-face {
+  font-family: 'DIN Next LT W23';
+  src: url('./Assets/fonts/din-next-lt-w23-regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   font-family: 'Amiri', sans-serif;
   margin: 0;
@@ -1448,15 +1454,7 @@ margin : 45px 45px 45px 45px
   height: 100vh;
   margin:45px 45px 45px 45px;
 }
-
-.login-form {
- max-width: 400px;
- padding: 20px;
- background-color: #ffffff;
- border-radius: 8px;
- box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
+ 
 .login-info {
 padding: 20px;
 text-align: center;
@@ -2047,4 +2045,179 @@ line-height: 16px; /* 114.286% */
 /* $$$$ Add New Mission Component $$$$ */
  
 
+  /* $$$$ New Login Component $$$$ */
+.right-login{
+  background-color: #124734;
+  height: 100vh;
+}
+.left-login{
+  height: 100vh;
+
+}
+.welcome-login{
+  width: 35%;
+  text-align: center;     
+  background-repeat: no-repeat;
+  background-position: 12px center;   
+  z-index: 999999999999999999;
+  margin-top: -350px;
+}
+.welcome-login h3{
+color: #FFF;
+text-align: center;
+font-family: MadaniArabic-Medium;
+font-size: 31.079px;
+font-style: normal;
+font-weight: 400;
+line-height: 39.257px; 
+margin-top: 30px;
+margin-left: -15px;
+}
+.arabic-home{
+  color: #F3EFA1;
+  font-family: MadaniArabic-Medium;
+  font-size: 31.079px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 39.257px;
+
+}
+.welcome-info{
+  color: #FFF;
+  text-align: center;
+  font-family: MadaniArabic-ExtraLight;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;  
+  position: absolute;
+  margin-left: 25px;
+  margin-top: 17px;
+  left: 60%;
+}
+.login-frame{
+  position: absolute;
+  left: 60%;
+}
+.welcome-slider{
+  margin-top: 100px;
   
+}
+.last-frame{
+  position: absolute;
+  left: 95%;
+  margin-top: 100px;
+}
+
+.gold-frame{
+    position: absolute;
+    width: 600px;
+}
+.dagin-plaform{
+width: 118px;
+height: 28px;
+flex-shrink: 0;
+background: url(Assets/images/WhatsApp\ Image\ 2023-05-20\ at\ 12.57\ 1.png), lightgray 50% / cover no-repeat;
+margin-top: 33px;
+margin-right: 50px;
+}
+.login-form{
+   margin-top: 100px;
+   justify-content: center;
+   margin-right: 300px;
+}
+.login-form h1{
+color: var(--greyscale-900, #1A202C);
+text-align: center;
+font-family: MadaniArabic-SemiBold;
+font-size: 32px;
+font-style: normal;
+font-weight: 400;
+line-height: 125%; 
+letter-spacing: 0.2px;
+}
+.login-form span{
+align-self: stretch;
+color: var(--greyscale-600, #718096);
+text-align: center;
+font-family: MadaniArabic-Light;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 24px */
+letter-spacing: 0.3px;
+margin-right: 30px;
+}
+.login-phone{
+display: flex;
+width: 427px;
+padding: 10px 35px 16px 300px;
+justify-content: flex-start;
+align-items: flex-start;
+gap: 9px;
+border-radius: 15px;
+border: 1px solid var(--greyscale-300, #E2E8F0);
+background-image: url(Assets/images/about\ phone.svg);
+background-position: 400px center;
+background-size: 4%;  
+background-repeat: no-repeat;
+margin-top: 25px;
+margin-right: -100px;
+
+}
+.login-password{
+width: 427px;
+height: 56px;
+padding: 10px 35px 16px 300px;
+flex-shrink: 0;
+border-radius: 15px;
+border: 1px solid var(--greyscale-300, #E2E8F0);
+background-image: url(Assets/images/lock\ 01.svg);
+background-position: 400px center;
+background-size: 4%;  
+background-repeat: no-repeat;
+margin-top: -10px;
+margin-right: -100px;
+}
+.forget-pw{
+position: absolute;
+color: #05A357;
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%; /* 24px */
+letter-spacing: 0.2px;
+margin-right: -95px;
+margin-top: 10px;
+text-decoration: none;
+}
+.remember-me{
+position: absolute;
+color: #1A202C;
+font-family: DIN Next LT W23;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 150%; /* 24px */
+letter-spacing: 0.2px;
+margin-top: 10px;
+margin-right: 250px;
+padding-left: 10px;
+}
+.remember-input{
+  margin-right: 5px;
+}
+.sign-in-btn{
+display: flex;
+width: 427px;
+padding: 18px 0px 14px 0px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+margin-top: 50px;
+margin-right: -95px;
+color: var(--others-white, #FFF);
+}

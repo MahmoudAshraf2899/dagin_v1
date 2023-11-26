@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import chickenImg from "../Assets/images/farm_chicken_and_eggs copy 2 (1).png";
 import rectangleSlider from "../Assets/images/Rectangle 19.png";
 import daginPlatform from "../Assets/images/WhatsApp Image 2023-05-20 at 12.57 1.png";
+import goldFrame from "../Assets/images/Vector-cropped.png";
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -10,17 +11,12 @@ class Login extends Component {
   render() {
     return (
       <div>
-        <div className="big-section">
-          <div
-            class="d-lg-flex-column-reverse half"
-            style={{ display: "-webkit-box", height: "auto" }}
-          >
-            <div
-              class="container bg order-1 order-md-2 "
-              style={{ backgroundColor: "#124734", marginRight: "-20px" }}
-            >
-              <div className="login-img">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-lg-6 right-login d-flex flex-column align-items-center justify-content-center">
+              <div className="welcome-login">
                 <svg
+                  className="login-frame"
                   xmlns="http://www.w3.org/2000/svg"
                   width="453"
                   height="181"
@@ -35,107 +31,96 @@ class Login extends Component {
                     fill-opacity="0.1"
                   />
                 </svg>
-              </div>
-              <div className="content-container">
-                <h3 className="arabic-home-h3">أول سوق دواجن فى</h3>
-                <span className="arabic-home-span">الوطن العربي</span>
+                <h3>أول سوق دواجن فى</h3>
+                <span className="arabic-home">الوطن العربي</span>
                 <br />
-                <span className="arabic-home-span-1">
+                <span className="welcome-info">
                   كل ما تحتاجه فى سوق الدواجن بداية من الاعلاف لدينا هنا
                 </span>
-              </div>
 
-              <div className="content-slider">
-                <span class="d-inline" style={{ marginLeft: "4px" }}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="6"
-                    height="6"
-                    viewBox="0 0 6 6"
-                    fill="none"
-                  >
-                    <circle opacity="0.5" cx="3" cy="3" r="3" fill="#F3EFA1" />
-                  </svg>
-                </span>
-                <span class="d-inline" style={{ marginLeft: "4px" }}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="6"
-                    height="6"
-                    viewBox="0 0 6 6"
-                    fill="none"
-                  >
-                    <circle opacity="0.5" cx="3" cy="3" r="3" fill="#F3EFA1" />
-                  </svg>
-                </span>
-                <span class="d-inline">
-                  <img src={rectangleSlider} alt="rectangle-slider" />
-                </span>
-              </div>
-              {/* <div className="chicken-section">
-                <div>
-                  <img src={chickenImg} alt="chicken" />
-                </div>
-              </div> */}
-            </div>
+                <div className="welcome-slider">
+                  <span class="d-inline" style={{ marginLeft: "4px" }}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="6"
+                      height="6"
+                      viewBox="0 0 6 6"
+                      fill="none"
+                    >
+                      <circle
+                        opacity="0.5"
+                        cx="3"
+                        cy="3"
+                        r="3"
+                        fill="#F3EFA1"
+                      />
+                    </svg>
+                  </span>
+                  <span class="d-inline" style={{ marginLeft: "4px" }}>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="6"
+                      height="6"
+                      viewBox="0 0 6 6"
+                      fill="none"
+                    >
+                      <circle
+                        opacity="0.5"
+                        cx="3"
+                        cy="3"
+                        r="3"
+                        fill="#F3EFA1"
+                      />
+                    </svg>
+                  </span>
+                  <span class="d-inline">
+                    <img src={rectangleSlider} alt="rectangle-slider" />
+                  </span>
 
-            <div class="contents order-2 order-md-1">
-              <div class="container">
-                <div class="row align-items-center justify-content-center">
-                  <div class="col-md-7">
-                    <div class="mb-4">
-                      <p class="text-center  m-0 px-3 py-2">
-                        <span className="welcome-to">مرحباً بك في</span>
-                        <span class="dagin-word">داچن</span>
-                      </p>
-                      <p className="register-hightlight">
-                        تسجيل الدخول الى حسابك
-                      </p>
-                    </div>
-                    <form action="#" method="post">
-                      <div className="form-container text-center">
-                        <div class="input-container">
-                          <i>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              width="24"
-                              height="24"
-                              viewBox="0 0 24 24"
-                              fill="none"
-                            >
-                              <rect
-                                x="5"
-                                y="2"
-                                width="14"
-                                height="20"
-                                rx="3"
-                                stroke="#28303F"
-                                stroke-width="1.5"
-                                stroke-linejoin="round"
-                              />
-                              <path
-                                d="M11 19H13"
-                                stroke="#28303F"
-                                stroke-width="1.5"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                              />
-                            </svg>
-                          </i>
-                          <input
-                            type="text"
-                            class="form-control custom-input"
-                            placeholder="رقم الهاتف"
-                          />
-                        </div>
-
-                        <div>
-                          <input type="password" required />
-                        </div>
-                      </div>
-                    </form>
+                  <div className="last-frame">
+                    <img
+                      className="gold-frame"
+                      src={goldFrame}
+                      alt="gold-frame"
+                    />
                   </div>
                 </div>
+              </div>
+            </div>
+            <div class="col-lg-6 d-flex flex-column">
+              <div className="dagin-plaform"></div>
+              <div className="login-form">
+                <h1 class="d-inline">مرحباً بك فى داچن</h1>
+                <br />
+                <span class="d-inline">تسجيل الدخول الى حسابك</span>
+                <br />
+                <form>
+                  <input
+                    type="text"
+                    placeholder="رقم الهاتف"
+                    className="login-phone"
+                  />
+                  <br />
+                  <input
+                    type="password"
+                    placeholder="كلمة المرور "
+                    className="login-password"
+                  />
+                  <div>
+                    <a href="#" className="forget-pw">
+                      نسيت كلمة المرور؟
+                    </a>
+                    <p className="remember-me">
+                      تذكرني
+                      <input type="radio" className="remember-input" />
+                    </p>
+                  </div>
+                  <div>
+                    <button type="submit" className="sign-in-btn">
+                      تسجيل الدخول
+                    </button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
