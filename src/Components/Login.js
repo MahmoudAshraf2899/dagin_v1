@@ -3,11 +3,19 @@ import chickenImg from "../Assets/images/farm_chicken_and_eggs copy 2 (1).png";
 import rectangleSlider from "../Assets/images/Rectangle 19.png";
 import daginPlatform from "../Assets/images/WhatsApp Image 2023-05-20 at 12.57 1.png";
 import goldFrame from "../Assets/images/Vector-cropped.png";
+import eye from "../Assets/images/eye.svg";
 class Login extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      passwordVisible: false,
+    };
   }
+  togglePasswordVisibility = () => {
+    this.setState((prevState) => ({
+      passwordVisible: !prevState.passwordVisible,
+    }));
+  };
   render() {
     return (
       <div>
@@ -95,30 +103,39 @@ class Login extends Component {
                 <span class="d-inline">تسجيل الدخول الى حسابك</span>
                 <br />
                 <form>
-                  <input
-                    type="text"
-                    placeholder="رقم الهاتف"
-                    className="login-phone"
-                  />
-                  <br />
-                  <input
-                    type="password"
-                    placeholder="كلمة المرور "
-                    className="login-password"
-                  />
-                  <div>
-                    <a href="#" className="forget-pw">
-                      نسيت كلمة المرور؟
-                    </a>
-                    <p className="remember-me">
-                      تذكرني
-                      <input type="radio" className="remember-input" />
-                    </p>
-                  </div>
-                  <div>
-                    <button type="submit" className="sign-in-btn">
-                      تسجيل الدخول
-                    </button>
+                  <div style={{ position: "relative" }}>
+                    <input
+                      type="text"
+                      placeholder="رقم الهاتف"
+                      className="login-phone"
+                    />
+                    <br />
+                    <input
+                      type={this.state.passwordVisible ? "text" : "password"}
+                      placeholder="كلمة المرور "
+                      className="login-password"
+                    />
+                    <span
+                      className="toggle-password"
+                      onClick={this.togglePasswordVisibility}
+                    >
+                      <img src={eye} alt="eye" className="eye-pw" />
+                    </span>
+                    <div className="login-password-append"></div>
+                    <div>
+                      <a href="#" className="forget-pw">
+                        نسيت كلمة المرور؟
+                      </a>
+                      <p className="remember-me">
+                        تذكرني
+                        <input type="radio" className="remember-input" />
+                      </p>
+                    </div>
+                    <div>
+                      <button type="submit" className="sign-in-btn">
+                        تسجيل الدخول
+                      </button>
+                    </div>
                   </div>
                 </form>
               </div>

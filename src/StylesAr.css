@@ -2221,3 +2221,8 @@ margin-top: 50px;
 margin-right: -95px;
 color: var(--others-white, #FFF);
 }
+.toggle-password{
+  position: absolute;
+  left: 125px;
+  margin-top: 5px;
+}
