@@ -1,20 +1,57 @@
 import React, { Component } from "react";
-import chickenImg from "../Assets/images/farm_chicken_and_eggs copy 2 (1).png";
 import rectangleSlider from "../Assets/images/Rectangle 19.png";
-import daginPlatform from "../Assets/images/WhatsApp Image 2023-05-20 at 12.57 1.png";
 import goldFrame from "../Assets/images/Vector-cropped.png";
 import eye from "../Assets/images/eye.svg";
+import * as Yup from "yup";
+import { Formik } from "formik";
+import API from "./Api";
+const LoginSchema = Yup.object().shape({
+  // phone: Yup.number.required("required"),
+  // password: Yup.string().required("required"),
+});
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
       passwordVisible: false,
+      loginObject: {
+        phone: "",
+        password: "",
+      },
     };
   }
   togglePasswordVisibility = () => {
     this.setState((prevState) => ({
       passwordVisible: !prevState.passwordVisible,
     }));
+  };
+
+  handleChangeInput = (e, field) => {
+    if (field === "phone") {
+      let copy = { ...this.state.loginObject };
+      copy.phone = e.target.value;
+      this.setState({ loginObject: copy });
+    } else {
+      let copy = { ...this.state.loginObject };
+      copy.password = e.target.value;
+      this.setState({ loginObject: copy });
+    }
+  };
+
+  handleLoginSubmit = () => {
+    let values = {};
+    values.phone = this.state.loginObject.phone;
+    values.password = this.state.loginObject.password;
+    API.post("auth/login", values)
+      .then((response) => {
+        if (response) {
+          localStorage.setItem("token", response.data.access_token);
+          console.log(response.data.access_token);
+        }
+      })
+      .catch((error) => {
+        // toast.error(error.message);
+      });
   };
   render() {
     return (
@@ -102,42 +139,73 @@ class Login extends Component {
                 <br />
                 <span class="d-inline">تسجيل الدخول الى حسابك</span>
                 <br />
-                <form>
-                  <div style={{ position: "relative" }}>
-                    <input
-                      type="text"
-                      placeholder="رقم الهاتف"
-                      className="login-phone"
-                    />
-                    <br />
-                    <input
-                      type={this.state.passwordVisible ? "text" : "password"}
-                      placeholder="كلمة المرور "
-                      className="login-password"
-                    />
-                    <span
-                      className="toggle-password"
-                      onClick={this.togglePasswordVisibility}
-                    >
-                      <img src={eye} alt="eye" className="eye-pw" />
-                    </span>
-                    <div className="login-password-append"></div>
-                    <div>
-                      <a href="#" className="forget-pw">
-                        نسيت كلمة المرور؟
-                      </a>
-                      <p className="remember-me">
-                        تذكرني
-                        <input type="radio" className="remember-input" />
-                      </p>
-                    </div>
-                    <div>
-                      <button type="submit" className="sign-in-btn">
-                        تسجيل الدخول
-                      </button>
-                    </div>
-                  </div>
-                </form>
+                <Formik
+                  onSubmit={this.handleLoginSubmit()}
+                  initialValues={this.state.loginObject}
+                  validationSchema={LoginSchema}
+                >
+                  {({
+                    values,
+                    errors,
+                    touched,
+                    handleBlur,
+                    handleChange,
+                    handleSubmit,
+                  }) => (
+                    <>
+                      <form>
+                        <div style={{ position: "relative" }}>
+                          <input
+                            type="text"
+                            placeholder="رقم الهاتف"
+                            className="login-phone"
+                            name="phone"
+                            onBlur={handleBlur}
+                            onChange={(e) => this.handleChangeInput(e, "phone")}
+                            value={this.state.loginObject.phone}
+                            id="phone"
+                          />
+                          <br />
+                          <input
+                            type={
+                              this.state.passwordVisible ? "text" : "password"
+                            }
+                            placeholder="كلمة المرور "
+                            className="login-password"
+                            name="password"
+                            onChange={(e) =>
+                              this.handleChangeInput(e, "password")
+                            }
+                            value={this.state.loginObject.password}
+                            id="password"
+                            required
+                          />
+                          <span
+                            className="toggle-password"
+                            onClick={this.togglePasswordVisibility}
+                          >
+                            <img src={eye} alt="eye" className="eye-pw" />
+                          </span>
+                          <div className="login-password-append"></div>
+                          <div>
+                            <a href="#" className="forget-pw">
+                              نسيت كلمة المرور؟
+                            </a>
+                            <p className="remember-me">
+                              تذكرني
+                              <input type="radio" className="remember-input" />
+                            </p>
+                          </div>
+                          <div>
+                            <button className="sign-in-btn">
+                              تسجيل الدخول
+                            </button>
+                          </div>
+                        </div>
+                      </form>
+                    </>
+                  )}
+                </Formik>
               </div>
             </div>
           </div>
