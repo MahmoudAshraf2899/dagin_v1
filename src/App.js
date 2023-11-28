@@ -4,10 +4,20 @@ import RightMenu from "./Components/RightMenu";
 import Login from "./Components/Login.js";
 
 function App() {
+  const token = localStorage.getItem("token");
   return (
     <div className="App">
-      {/* <RightMenu /> */}
-      <Login />
+      {token !== null ? (
+        <>
+          <RightMenu />
+        </>
+      ) : (
+        <>
+          <Login />
+        </>
+      )}
+
+      {/*  */}
     </div>
   );
 }

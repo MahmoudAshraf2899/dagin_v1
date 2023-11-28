@@ -1,11 +1,13 @@
 import React, { Component } from "react";
 import arrow from "../../Assets/images/Vector.svg";
 import DatePicker from "react-multi-date-picker";
+import MissionRangePopUp from "./MissionRangePopUp";
 class AddNewMission extends Component {
   constructor(props) {
     super(props);
     this.state = {
       hasException: false,
+      showMissionRange: false,
     };
   }
   componentDidMount() {}
@@ -14,6 +16,7 @@ class AddNewMission extends Component {
       hasException: !prevState.hasException,
     }));
   };
+  showMissionRangePopUp = () => this.setState({ showMissionRange: true });
   handleAddClick = () => {
     console.log("Added Sucessfuly");
   };
@@ -147,7 +150,10 @@ class AddNewMission extends Component {
             {/* اختر  محافظة\مدينة او أكثر */}
             <div class="row mb-3">
               <div class="col-lg-12">
-                <div className="d-flex justify-content-between  select-m-range">
+                <div
+                  className="d-flex justify-content-between  select-m-range"
+                  onClick={this.showMissionRangePopUp}
+                >
                   <span>اختر محافظة\مدينة او أكثر</span>
                   <img src={arrow} alt="arrow" className="arrow-m" />
                 </div>
@@ -281,6 +287,11 @@ class AddNewMission extends Component {
             </div>
           </div>
         </div>
+        {this.state.showMissionRange === true ? (
+          <>
+            <MissionRangePopUp />
+          </>
+        ) : null}
       </div>
     );
   }

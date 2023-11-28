@@ -1653,7 +1653,7 @@ class Mission extends Component {
           className="container"
           style={{
             backgroundColor: "#F1F5F9",
-            height: "auto",
+            height: "100vw",
             width: "100vw",
             marginTop: "15px",
           }}

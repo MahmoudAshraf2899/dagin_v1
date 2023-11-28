@@ -2226,3 +2226,86 @@ color: var(--others-white, #FFF);
   left: 125px;
   margin-top: 5px;
 }
+/*$$$$ Mission Range pop-up $$$$*/
+.mission-header-range{
+  display: inline-flex;
+}
+.mission-range{  
+border-radius: 10px;
+border-radius: 10px;
+background: var(--white-general, #FFF);
+box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);   
+position: fixed;
+z-index: 999999999999999;  
+transform: translateX(-50%);
+top: 50px;   
+left: 50%;  
+right: 3%;
+height: auto;
+width: 800px;
+}
+.range-border{
+border-top: 1px solid #F1F5F9;
+width:100%;
+margin-top: 18px;
+margin-bottom: 18px;
+}
+.select-area{
+color: var(--black-01, #2C3659);
+text-align: right;
+font-family: MadaniArabic-SemiBold;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%; 
+}
+.cities-search{
+display: flex;
+width: 90%;
+margin-right: 20px;
+height: 48px;
+padding: 0px 35px;
+justify-content: flex-end;
+align-items: center;
+gap: 12px;
+flex-shrink: 0;
+border-radius: 12px;
+border: 1px solid var(--greyscale-200, #E2E8F0);
+background-image: url(Assets/icons/Search.svg);
+background-size: 3%;  
+background-repeat: no-repeat;
+/*background-position:  right center;  */
+background-position: calc(100% - 10px) center; /* Adjust the pixel value as needed */
+
+}
+.cities-search::placeholder{
+color: var(--greyscale-500, #64748B);
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
+.cities-search:focus{  
+  border-color: unset;
+}
+.custom-border {
+ border-bottom: 2px solid #F5F5F5; 
+ width: 50%; 
+}
+.mark-city{
+margin-left: 30px;
+}
+.mark-city:focus{
+  padding: 2px;
+justify-content: center;
+align-items: center;
+border-radius: 6px;
+border: 2px solid #70D44B;
+background: #70D44B;
+}
+  
+
+/*$$$$ Mission Range pop-up $$$$*/
+
