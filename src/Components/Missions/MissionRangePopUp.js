@@ -68,12 +68,12 @@ class MissionRangePopUp extends Component {
         <div class="container">
           {/* Header Row */}
           <div class="row mt-3 mission-header-range">
-            <div class="col-10">
+            <div class="col-11">
               <div className="mission-details" style={{ width: "32%" }}>
                 <span className="mission-details-span">تفاصيل المهمة</span>
               </div>
             </div>
-            <div class="col-2">
+            <div class="col-1">
               <img
                 src={closeIcon}
                 alt="close-icon"
@@ -101,8 +101,11 @@ class MissionRangePopUp extends Component {
             </div>
           </div>
           {/* Cities */}
-          <div class="row mt-3  mb-4">
-            <div class="col-12">
+          <div class="row">
+            <div
+              class="col-12"
+              style={{ maxHeight: "600px", overflowY: "auto" }}
+            >
               <ul class="list-unstyled scrollable-list">
                 {this.state.data.map((item) => {
                   return (
@@ -123,12 +126,10 @@ class MissionRangePopUp extends Component {
             </div>
           </div>
           {/* Footer */}
-          <div class="row mt-3 mb-4">
+          <div class="row mb-4" style={{ top: "1000px" }}>
             <div class="col-12">
-              <div>
-                <button>تم</button>
-                <button>الغاء</button>
-              </div>
+              <button>تم</button>
+              <button>الغاء</button>
             </div>
           </div>
         </div>

@@ -16,8 +16,8 @@ class NotificationsPopUp extends Component {
         style={{
           position: "fixed",
           top: "0px",
-          left: "125px",
-          marginTop: "111px",
+          left: "224px",
+          marginTop: "70px",
           width: "382px",
           height: "327px",
           flexShrink: 0,
