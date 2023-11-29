@@ -17,6 +17,11 @@ class AddNewMission extends Component {
     }));
   };
   showMissionRangePopUp = () => this.setState({ showMissionRange: true });
+
+  receiveDataFromChild = (dataFromChild) => {
+    this.setState({ showMissionRange: dataFromChild });
+    // Do something with the data in the parent component
+  };
   handleAddClick = () => {
     console.log("Added Sucessfuly");
   };
@@ -289,7 +294,7 @@ class AddNewMission extends Component {
         </div>
         {this.state.showMissionRange === true ? (
           <>
-            <MissionRangePopUp />
+            <MissionRangePopUp sendDataToParent={this.receiveDataFromChild} />
           </>
         ) : null}
       </div>

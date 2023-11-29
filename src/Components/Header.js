@@ -14,7 +14,6 @@ class Header extends Component {
   handleNotificationClick = () => {
     let openOrClose = this.state.showNotificationPopUp;
     this.setState({ showNotificationPopUp: !openOrClose });
-    console.log("Start Shown Notification Pop Up");
   };
   render() {
     return (
