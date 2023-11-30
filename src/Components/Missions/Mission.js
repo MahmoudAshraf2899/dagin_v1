@@ -3,6 +3,14 @@ import MissionDetailsPopUp from "./MissionDetailsPopUp";
 import AddNewMission from "./AddNewMission";
 import Ellipse from "../../Assets/images/Ellipse 3.svg";
 import Ellipse2 from "../../Assets/images/Ellipse 4.svg";
+import MisisonOptionsPopUp from "./MisisonOptionsPopUp";
+import {
+  Button,
+  UncontrolledPopover,
+  PopoverBody,
+  PopoverHeader,
+} from "reactstrap";
+
 class Mission extends Component {
   constructor(props) {
     super(props);
@@ -10,6 +18,7 @@ class Mission extends Component {
       selectedMission: 0,
       showAddComponent: false,
       showDetailsPopUp: false,
+      showMissionOptionList: false,
     };
   }
   componentDidMount() {}
@@ -27,7 +36,7 @@ class Mission extends Component {
           <div className="missions-section">
             <div
               className="mission-container"
-              onClick={() => this.showDetailsPopUp()}
+              ///onClick={() => this.showDetailsPopUp()}
             >
               <div className="mission-child">
                 <div className="container">
@@ -42,7 +51,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -202,7 +214,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -351,7 +366,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -508,7 +526,7 @@ class Mission extends Component {
           <div className="missions-section">
             <div
               className="mission-container"
-              onClick={() => this.showDetailsPopUp()}
+              ///onClick={() => this.showDetailsPopUp()}
             >
               <div className="mission-child">
                 <div className="container">
@@ -523,27 +541,72 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
+                    <div
+                      class="col-sm-1  more-icon"
+                      style={{ marginLeft: "60px" }}
+                      //onClick={() => this.showMissionOptions()}
+                    >
+                      <Button
+                        id="UncontrolledPopover"
+                        type="button"
+                        style={{ backgroundColor: "unset", border: "none" }}
                       >
-                        <path
-                          d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
-                          fill="#A7AEC1"
-                        />
-                        <path
-                          d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
-                          fill="#A7AEC1"
-                        />
-                        <path
-                          d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
-                          fill="#A7AEC1"
-                        />
-                      </svg>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24"
+                          height="24"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                        >
+                          <path
+                            d="M5 10C3.9 10 3 10.9 3 12C3 13.1 3.9 14 5 14C6.1 14 7 13.1 7 12C7 10.9 6.1 10 5 10Z"
+                            fill="#A7AEC1"
+                          />
+                          <path
+                            d="M19 10C17.9 10 17 10.9 17 12C17 13.1 17.9 14 19 14C20.1 14 21 13.1 21 12C21 10.9 20.1 10 19 10Z"
+                            fill="#A7AEC1"
+                          />
+                          <path
+                            d="M12 10C10.9 10 10 10.9 10 12C10 13.1 10.9 14 12 14C13.1 14 14 13.1 14 12C14 10.9 13.1 10 12 10Z"
+                            fill="#A7AEC1"
+                          />
+                        </svg>
+                      </Button>
+                      <UncontrolledPopover
+                        placement="bottom"
+                        target="UncontrolledPopover"
+                        style={{ borderRadius: "10px" }}
+                      >
+                        <PopoverBody>
+                          <div className="mission-options-el">
+                            <p
+                              class="text-end option-txt"
+                              style={{ marginBottom: "-5px" }}
+                            >
+                              عرض المهمة
+                            </p>
+                          </div>
+                          <br />
+                          <div className="mission-options-el">
+                            <p
+                              class="text-end option-txt"
+                              style={{ marginBottom: "-5px" }}
+                            >
+                              تعديل المهمة
+                            </p>
+                          </div>
+                          <br />
+
+                          <div className="mission-options-el">
+                            <p
+                              class="text-end option-txt-danger"
+                              style={{ marginBottom: "-5px" }}
+                            >
+                              حذف المهمة
+                            </p>
+                          </div>
+                        </PopoverBody>
+                      </UncontrolledPopover>
                     </div>
                   </div>
                 </div>
@@ -670,7 +733,7 @@ class Mission extends Component {
           <div className="missions-section">
             <div
               className="mission-container"
-              onClick={() => this.showDetailsPopUp()}
+              // onClick={() => this.showDetailsPopUp()}
             >
               <div className="mission-child">
                 <div className="container">
@@ -685,7 +748,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -832,6 +898,11 @@ class Mission extends Component {
     );
   };
 
+  showMissionOptions = () => {
+    let option = this.state.showMissionOptionList;
+    this.setState({ showMissionOptionList: !option });
+  };
+
   showCompletedMissionIsAwaitingEvaluation = () => {
     return (
       <div>
@@ -839,7 +910,7 @@ class Mission extends Component {
           <div className="missions-section">
             <div
               className="mission-container"
-              onClick={() => this.showDetailsPopUp()}
+              //onClick={() => this.showDetailsPopUp()}
             >
               <div className="mission-child">
                 <div className="container">
@@ -854,7 +925,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1016,7 +1090,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1178,7 +1255,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1340,7 +1420,10 @@ class Mission extends Component {
                         <br />
                       </span>
                     </div>
-                    <div class="col-sm-1 more-icon">
+                    <div
+                      class="col-sm-1 more-icon"
+                      onClick={() => this.showMissionOptions()}
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="24"
@@ -1679,6 +1762,11 @@ class Mission extends Component {
           {this.state.showDetailsPopUp === true ? (
             <>
               <MissionDetailsPopUp missionType={this.state.selectedMission} />
+            </>
+          ) : null}
+          {this.state.showMissionOptionList === true ? (
+            <>
+              <MisisonOptionsPopUp />
             </>
           ) : null}
         </div>
