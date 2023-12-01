@@ -9,8 +9,12 @@ import {
   UncontrolledPopover,
   PopoverBody,
   PopoverHeader,
+  Util,
 } from "reactstrap";
-
+Util.setGlobalCssModule({
+  btn: "hyperspeed-btn",
+  PopoverBody: "pob-body",
+});
 class Mission extends Component {
   constructor(props) {
     super(props);
@@ -549,7 +553,8 @@ class Mission extends Component {
                       <Button
                         id="UncontrolledPopover"
                         type="button"
-                        style={{ backgroundColor: "unset", border: "none" }}
+                        cssModule={{ btn: "hyperspeed-btn" }}
+                        //style={{ backgroundColor: "unset", border: "none" }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -575,9 +580,10 @@ class Mission extends Component {
                       <UncontrolledPopover
                         placement="bottom"
                         target="UncontrolledPopover"
-                        style={{ borderRadius: "10px" }}
                       >
-                        <PopoverBody>
+                        <PopoverBody
+                          style={{ borderRadius: "8px", width: "155px" }}
+                        >
                           <div className="mission-options-el">
                             <p
                               class="text-end option-txt"

@@ -3,6 +3,7 @@ import notificationIcon from "../Assets/icons/Group.svg";
 import profileImg from "../Assets/images/profileimg.svg";
 import NotificationsPopUp from "./NotificationsPopUp";
 import Mission from "./Missions/Mission";
+import Wallets from "./Wallets/Wallets";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -133,6 +134,10 @@ class Header extends Component {
         {this.props.selectedItem === 1 ? (
           <>
             <Mission />
+          </>
+        ) : this.props.selectedItem === 5 ? (
+          <>
+            <Wallets />
           </>
         ) : null}
 

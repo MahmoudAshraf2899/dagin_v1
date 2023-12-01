@@ -2599,6 +2599,8 @@ font-size: 15px;
 font-style: normal;
 font-weight: 400;
 line-height: 150%; /* 18px */
+cursor: pointer;
+
 }
 .option-txt-danger{
 width: 131px;
@@ -2610,5 +2612,89 @@ font-style: normal;
 font-weight: 400;
 line-height: 150%; /* 18px */
 }
+.hyperspeed-btn{
+background-color: unset;
+border: none
+}
 /*$$$$ options-container $$$$ */
+
+/*$$$$ Wallet Component $$$$ */
+.wallet-types ul li {
+display: inline-flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+}
+.wallet-types ul li {
+cursor: pointer;
+display: inline-flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F1FAEE;
+color: var(--greyscale-500, #64748B);
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 1rem;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 22.4px */
+letter-spacing: 0.2px;
+margin-left: 10px;
+}
+.wallet-types ul li.active {
+cursor: pointer;
+display: inline-flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F1FAEE;
+color: #70D44B;
+text-align: right;
+font-family: MadaniArabic-SemiBold;
+font-size: 1rem;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 22.4px */
+}
+.filterWallet{
+display: flex;
+width: 270px;
+height: 40px;
+padding: 8px 12px 8px 17px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F8FAFC;
+color: var(--greyscale-500, #64748B);
+text-align: center;
+font-family: MadaniArabic-Medium;
+font-size: 0.8rem;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; /* 22.4px */
+letter-spacing: 0.2px;
+background-image: url('./Assets/images/calendar-minus\ 1.svg'); 
+background-position: calc(100% - 10px) center; 
+background-repeat: no-repeat;
+background-size: 6%;
+
+}
+ 
+ 
+/*$$$$ Wallet Component $$$$ */
+ 
 
