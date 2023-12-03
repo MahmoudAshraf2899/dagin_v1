@@ -101,7 +101,7 @@ class MissionRangePopUp extends Component {
             </div>
           </div>
           {/* Cities */}
-          <div class="row">
+          <div class="row" style={{ height: "150px" }}>
             <div
               class="col-12"
               style={{ maxHeight: "600px", overflowY: "auto" }}
@@ -126,11 +126,22 @@ class MissionRangePopUp extends Component {
             </div>
           </div>
           {/* Footer */}
-          <div class="row mb-4" style={{ top: "1000px" }}>
-            <div class="col-12">
-              <button>تم</button>
-              <button>الغاء</button>
-            </div>
+        </div>
+        <div
+          class="row mb-4"
+          style={{ marginTop: "20px", textAlign: "center" }}
+        >
+          <div class="col-2">
+            <button className="done-add-range">تم</button>
+            {/* <button className="cancel-add-range">الغاء</button> */}
+          </div>
+          <div className="col-2">
+            <button
+              className="cancel-add-range"
+              onClick={() => this.sendDataToParent()}
+            >
+              الغاء
+            </button>
           </div>
         </div>
       </div>

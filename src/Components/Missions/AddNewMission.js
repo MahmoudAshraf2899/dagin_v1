@@ -25,6 +25,12 @@ class AddNewMission extends Component {
   handleAddClick = () => {
     console.log("Added Sucessfuly");
   };
+
+  sendDataToParent = () => {
+    const data = false;
+    // Call the callback function passed from the parent
+    this.props.sendDataToParent(data);
+  };
   render() {
     return (
       <div>
@@ -285,7 +291,10 @@ class AddNewMission extends Component {
                   اضافة
                 </button>
 
-                <button type="submit" class="d-inline m-cancel-btn">
+                <button
+                  onClick={() => this.sendDataToParent()}
+                  class="d-inline m-cancel-btn"
+                >
                   الغاء
                 </button>
               </div>

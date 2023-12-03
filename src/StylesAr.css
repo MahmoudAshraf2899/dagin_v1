@@ -2026,7 +2026,7 @@ margin-right: 18px;
 .m-cancel-btn{
 display: flex;
 width: 135px;
-height: 53px;
+height: 35px;
 padding: 8px 44px 9px 41px;
 justify-content: center;
 align-items: center;
@@ -2039,7 +2039,9 @@ font-family: MadaniArabic-Medium;
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
-line-height: 16px; /* 114.286% */
+line-height: 16px; 
+margin-right: 10px;
+margin-bottom: 10px;
 }
  
 /* $$$$ Add New Mission Component $$$$ */
@@ -2151,7 +2153,7 @@ margin-right: 30px;
 .login-phone{
 display: flex;
 width: 427px;
-padding: 10px 35px 16px 300px;
+padding: 10px 35px 16px 30px;
 justify-content: flex-start;
 align-items: flex-start;
 gap: 9px;
@@ -2168,7 +2170,7 @@ margin-right: -100px;
 .login-password{
 width: 427px;
 height: 56px;
-padding: 10px 35px 16px 300px;
+padding: 10px 35px 16px 30px;
 flex-shrink: 0;
 border-radius: 15px;
 border: 1px solid var(--greyscale-300, #E2E8F0);
@@ -2293,6 +2295,13 @@ line-height: 160%;
 .custom-border {
  border-bottom: 2px solid #F5F5F5; 
  width: 50%; 
+ color: var(--black-01, #2C3659);
+ text-align: right;
+ font-family: MadaniArabic-SemiBold;
+ font-size: 16px;
+ font-style: normal;
+ font-weight: 400;
+ line-height: 130%; /* 20.8px */
 }
 .mark-city{
 margin-left: 30px;
@@ -2564,8 +2573,7 @@ margin-left: 30px;
 /*$$$$ Check box $$$$ */
 .scrollable-list{
   overflow-y:scroll;
-   
-  height:40%;
+   height: 20%;
 }
  
 
@@ -2619,15 +2627,7 @@ border: none
 /*$$$$ options-container $$$$ */
 
 /*$$$$ Wallet Component $$$$ */
-.wallet-types ul li {
-display: inline-flex;
-height: 40px;
-padding: 8px 12px;
-justify-content: center;
-align-items: center;
-gap: 8px;
-flex-shrink: 0;
-}
+ 
 .wallet-types ul li {
 cursor: pointer;
 display: inline-flex;
@@ -2638,11 +2638,11 @@ align-items: center;
 gap: 8px;
 flex-shrink: 0;
 border-radius: 8px;
-background: #F1FAEE;
 color: var(--greyscale-500, #64748B);
 text-align: right;
+ 
 font-family: MadaniArabic-Medium;
-font-size: 1rem;
+font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: 160%; /* 22.4px */
@@ -2663,7 +2663,7 @@ background: #F1FAEE;
 color: #70D44B;
 text-align: right;
 font-family: MadaniArabic-SemiBold;
-font-size: 1rem;
+font-size: 0.8rem;
 font-style: normal;
 font-weight: 400;
 line-height: 160%; /* 22.4px */
@@ -2693,7 +2693,40 @@ background-repeat: no-repeat;
 background-size: 6%;
 
 }
- 
+.done-add-range{
+display: flex;
+width: 142px;
+padding: 8px 0px 9px 0px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 114.286% */
+}
+.cancel-add-range{
+margin-right: 20px;
+display: flex;
+width: 135px;
+height: 38px;
+padding: 8px 44px 9px 41px;
+justify-content: center;
+align-items: center;
+flex-shrink: 0;
+border-radius: 15px;
+border: 1px solid #EEE;
+background: #FFF;
+color: #9BA0B1;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; /* 114.286% */
+}
  
 /*$$$$ Wallet Component $$$$ */
  

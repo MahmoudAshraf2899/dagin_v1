@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import rectangleSlider from "../Assets/images/Rectangle 19.png";
 import goldFrame from "../Assets/images/Vector-cropped.png";
+//import { Link, useNavigate } from "react-router-dom";
+
 import eye from "../Assets/images/eye.svg";
 import * as Yup from "yup";
 import { Formik } from "formik";
@@ -46,7 +47,9 @@ class Login extends Component {
       .then((response) => {
         if (response) {
           localStorage.setItem("token", response.data.access_token);
-          console.log(response.data.access_token);
+          window.location.reload();
+          window.location.reload();
+          //useNavigate("/");
         }
       })
       .catch((error) => {
@@ -84,44 +87,6 @@ class Login extends Component {
                 </span>
 
                 <div className="welcome-slider">
-                  <span class="d-inline" style={{ marginLeft: "4px" }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="6"
-                      height="6"
-                      viewBox="0 0 6 6"
-                      fill="none"
-                    >
-                      <circle
-                        opacity="0.5"
-                        cx="3"
-                        cy="3"
-                        r="3"
-                        fill="#F3EFA1"
-                      />
-                    </svg>
-                  </span>
-                  <span class="d-inline" style={{ marginLeft: "4px" }}>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="6"
-                      height="6"
-                      viewBox="0 0 6 6"
-                      fill="none"
-                    >
-                      <circle
-                        opacity="0.5"
-                        cx="3"
-                        cy="3"
-                        r="3"
-                        fill="#F3EFA1"
-                      />
-                    </svg>
-                  </span>
-                  <span class="d-inline">
-                    <img src={rectangleSlider} alt="rectangle-slider" />
-                  </span>
-
                   <div className="last-frame">
                     <img
                       className="gold-frame"
@@ -140,7 +105,7 @@ class Login extends Component {
                 <span class="d-inline">تسجيل الدخول الى حسابك</span>
                 <br />
                 <Formik
-                  onSubmit={this.handleLoginSubmit()}
+                  onSubmit={() => this.handleLoginSubmit()}
                   initialValues={this.state.loginObject}
                   validationSchema={LoginSchema}
                 >
@@ -153,7 +118,7 @@ class Login extends Component {
                     handleSubmit,
                   }) => (
                     <>
-                      <form>
+                      <form onSubmit={handleSubmit}>
                         <div style={{ position: "relative" }}>
                           <input
                             type="text"

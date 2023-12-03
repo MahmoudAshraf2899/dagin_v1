@@ -44,6 +44,10 @@ class RightMenu extends Component {
         this.setState({ currentElementTitle: "الاعدادات" });
         break;
 
+      case 8:
+        this.setState({ currentElementTitle: "اعدادات الاشعارات" });
+        break;
+
       default:
         this.setState({ currentElementTitle: "الداش بورد" });
     }
@@ -488,6 +492,39 @@ class RightMenu extends Component {
                   }
                 >
                   الأعدادات
+                </span>
+              </div>
+            </div>
+            <div onClick={() => this.handleOnClick(8)}>
+              <div className="menuSettingsItem">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="18"
+                  height="18"
+                  viewBox="0 0 18 18"
+                  fill="none"
+                >
+                  <path
+                    d="M7.1665 2.58333C7.1665 2.0971 7.35966 1.63079 7.70348 1.28697C8.04729 0.943154 8.51361 0.75 8.99984 0.75C9.48607 0.75 9.95238 0.943154 10.2962 1.28697C10.64 1.63079 10.8332 2.0971 10.8332 2.58333C11.8859 3.08111 12.7833 3.85597 13.4292 4.82486C14.0751 5.79375 14.4452 6.92015 14.4998 8.08333V10.8333C14.5688 11.4032 14.7707 11.949 15.0891 12.4266C15.4075 12.9043 15.8336 13.3005 16.3332 13.5833H1.6665C2.16603 13.3005 2.59216 12.9043 2.91059 12.4266C3.22902 11.949 3.43085 11.4032 3.49984 10.8333V8.08333C3.55443 6.92015 3.92453 5.79375 4.57046 4.82486C5.21639 3.85597 6.1138 3.08111 7.1665 2.58333"
+                    stroke={this.state.elementId === 8 ? "#70D44B" : "#64748B"}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                  <path
+                    d="M6.25 13.5833V14.4999C6.25 15.2293 6.53973 15.9287 7.05546 16.4445C7.57118 16.9602 8.27065 17.2499 9 17.2499C9.72935 17.2499 10.4288 16.9602 10.9445 16.4445C11.4603 15.9287 11.75 15.2293 11.75 14.4999V13.5833"
+                    stroke={this.state.elementId === 8 ? "#70D44B" : "#64748B"}
+                    stroke-width="1.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+                <span
+                  className={
+                    this.state.elementId === 8 ? "ulActiveElement" : "ulElement"
+                  }
+                >
+                  اعدادات الاشعارات
                 </span>
               </div>
             </div>
