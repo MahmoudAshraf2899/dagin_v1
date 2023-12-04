@@ -1,11 +1,12 @@
 import axios from "axios";
-const token = localStorage.getItem("token");
+const token =
+  localStorage.getItem("token") === null ? "" : localStorage.getItem("token");
 
 const API = axios.create({
   baseURL: "https://dajintest.environ-adapt.tk/",
   timeout: 5000,
   headers: {
-    // Authorization: `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     "Content-type": "application/json",
     Accept: "*/*",
     "Access-Control-Allow-Credentials": true,
@@ -17,7 +18,7 @@ export const APISUBMIT = axios.create({
   timeout: 5000,
   headers: {
     // 'Content-Type': '*/*',
-    // Authorization: `Bearer ${state.token.replace(/"/g, "")}`,
+    Authorization: `Bearer ${token}`,
     "Content-Type": "multipart/form-data",
     Accept: "*/*",
     "Access-Control-Allow-Credentials": true,

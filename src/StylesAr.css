@@ -2729,5 +2729,9 @@ line-height: 16px; /* 114.286% */
 }
  
 /*$$$$ Wallet Component $$$$ */
+#wallet-content{
+  margin-top: 10px;
+}
+/*$$$$ Wallet Component $$$$ */
  
 

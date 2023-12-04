@@ -39,6 +39,7 @@ function Wallets(props) {
   };
   return (
     <div class="container mt-4">
+      {/* Wallet Header */}
       <div class="row">
         <div class="col-9">
           <div className="wallet-types">
@@ -85,17 +86,22 @@ function Wallets(props) {
         </div>
       </div>
       <div
-        class="container m-4"
-        style={{ backgroundColor: "#F1F5F9", height: "100vw", width: "100vw" }}
+        style={{
+          backgroundColor: "#F1F5F9",
+          height: "100vw",
+          width: "100vw",
+          justifyContent: "center",
+          textAlign: "end",
+        }}
       >
-        <div class="row">
-          <div className="col-1">التاريخ</div>
-          <div className="col-1">العميل</div>
-          <div className="col-1">المبلغ المدين</div>
-          <div className="col-1">المبلغ الدائن</div>
-          <div className="col-1">الرصيد</div>
-          <div className="col-1">البيان</div>
-          <div className="col-2">Action</div>
+        <div class="row" id="wallet-content">
+          <div class="col-1">التاريخ</div>
+          <div class="col-1">العميل</div>
+          <div class="col-1">المبلغ المدين</div>
+          <div class="col-1">المبلغ الدائن</div>
+          <div class="col-1">الرصيد</div>
+          <div class="col-1">البيان</div>
+          <div class="col-2">Action</div>
         </div>
       </div>
     </div>
