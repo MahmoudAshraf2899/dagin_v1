@@ -29,7 +29,7 @@ class Mission extends Component {
     API.get(
       "dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=1&limit=10"
     ).then((res) => {
-      if (res.status === 200) {
+      if (res) {
         this.setState({ data: res.data.items });
       } else {
         //Todo : Make Toaster Here
@@ -71,7 +71,7 @@ class Mission extends Component {
     API.get(
       `dashboard/missions?status=${statusType}&sort_by=id&sort_order=DESC&page=1&limit=10`
     ).then((res) => {
-      if (res.status === 200) {
+      if (res) {
         this.setState({ data: res.data.items });
       } else {
         //Todo : Make Toaster Here

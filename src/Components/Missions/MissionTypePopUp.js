@@ -1,14 +1,13 @@
 import React, { Component } from "react";
 import closeIcon from "../../Assets/icons/Close Icon.svg";
 import API from "../Api";
-class AssignMissionToPopUp extends Component {
+class MissionRangePopUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
       closePopUp: props.status,
       selectedCities: [],
       data: [],
-      selectedType: 0,
     };
   }
   componentDidMount = () => {
@@ -47,11 +46,6 @@ class AssignMissionToPopUp extends Component {
       this.setState({ selectedCities: cities });
     }
   };
-
-  handleActiveType = (e) => {
-    this.setState({ selectedType: e });
-  };
-
   render() {
     return (
       <div className="mission-range">
@@ -60,7 +54,7 @@ class AssignMissionToPopUp extends Component {
           <div class="row mt-3 mission-header-range">
             <div class="col-11">
               <div className="mission-details" style={{ width: "32%" }}>
-                <span className="mission-details-span">تعيين المهمة ل</span>
+                <span className="mission-details-span">تفاصيل المهمة</span>
               </div>
             </div>
             <div class="col-1">
@@ -72,46 +66,12 @@ class AssignMissionToPopUp extends Component {
             </div>
           </div>
           <div class="row mt-3">
-            <div className="assign-people-type">
-              <div
-                className={
-                  this.state.selectedType === 0
-                    ? "assign-type-active"
-                    : "assign-type"
-                }
-                onClick={() => this.handleActiveType(0)}
-              >
-                لحسابات اشخاص
-              </div>
-              <div
-                className={
-                  this.state.selectedType === 1
-                    ? "assign-type-active"
-                    : "assign-type"
-                }
-                onClick={() => this.handleActiveType(1)}
-              >
-                لتخصص
-              </div>
-              <div
-                className={
-                  this.state.selectedType === 2
-                    ? "assign-type-active"
-                    : "assign-type"
-                }
-                onClick={() => this.handleActiveType(2)}
-              >
-                لمنطقة جغرافية
-              </div>
-            </div>
-          </div>
-          <div class="row mt-3">
             <div class="col-12 range-border"></div>
           </div>
-          {/* اضف الاشخاص */}
+          {/* اختر المنطقة الجغرافية */}
           <div class="row mt-3">
             <div class="col-12">
-              <span className="select-area">اضف الأشخاص</span>
+              <span className="select-area">اختر نوع المهمة</span>
             </div>
           </div>
           <div class="row mt-3">
@@ -172,5 +132,4 @@ class AssignMissionToPopUp extends Component {
     );
   }
 }
-
-export default AssignMissionToPopUp;
+export default MissionRangePopUp;

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import goldFrame from "../Assets/images/Vector-cropped.png";
-//import { Link, useNavigate } from "react-router-dom";
 
 import eye from "../Assets/images/eye.svg";
 import * as Yup from "yup";
