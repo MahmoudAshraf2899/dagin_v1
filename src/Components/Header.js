@@ -4,6 +4,7 @@ import profileImg from "../Assets/images/profileimg.svg";
 import NotificationsPopUp from "./NotificationsPopUp";
 import Mission from "./Missions/Mission";
 import Wallets from "./Wallets/Wallets";
+import Users from "./ManageUsers/Users";
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -138,6 +139,10 @@ class Header extends Component {
         ) : this.props.selectedItem === 5 ? (
           <>
             <Wallets />
+          </>
+        ) : this.props.selectedItem === 4 ? (
+          <>
+            <Users />
           </>
         ) : null}
 
