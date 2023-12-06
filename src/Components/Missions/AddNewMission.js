@@ -4,8 +4,8 @@ import DatePicker from "react-multi-date-picker";
 import MissionRangePopUp from "./MissionRangePopUp";
 import MissionTypePopUp from "./MissionTypePopUp";
 import AssignMissionToPopUp from "./AssignMissionToPopUp";
-import API from "../Api";
 import { Formik } from "formik";
+import moment from "moment";
 
 class AddNewMission extends Component {
   constructor(props) {
@@ -15,15 +15,23 @@ class AddNewMission extends Component {
       showMissionRange: false,
       showMissionType: false,
       showAssignMission: false,
+      missionTypeText: "اختر نوع المهمة",
+      missionRangeText: "اختر محافظةمدينة او أكثر",
+      assignToText: "اختر شخص  منطقة او اكثر",
+      missionDetailsText: "",
+      financialCompensation: "",
+      missionAddress: null,
+      catalyst: null, // الحافز
+      expiryDate: moment().format(),
+      missionTypeObj: {},
+      addMissionObject: {},
+      selectedCities: [],
+      assignMissionToArr: [],
       addMissionObjeect: {},
     };
   }
   componentDidMount() {}
-  handleChangeException = () => {
-    this.setState((prevState) => ({
-      hasException: !prevState.hasException,
-    }));
-  };
+
   showMissionRangePopUp = () => this.setState({ showMissionRange: true });
   showMissionTypePopUp = () => this.setState({ showMissionType: true });
   showAssignMissionPopUp = () => this.setState({ showAssignMission: true });
@@ -34,11 +42,59 @@ class AddNewMission extends Component {
       showMissionType: dataFromChild,
       showAssignMission: dataFromChild,
     });
-
-    // Do something with the data in the parent component
+    if (typeof dataFromChild === "object" && dataFromChild !== null) {
+      this.setState({ missionTypeObj: dataFromChild });
+      if (dataFromChild.isType == true) {
+        this.handleChangeMissionTypeText(dataFromChild.name);
+      } else {
+        this.setState({ selectedCities: dataFromChild });
+        if (dataFromChild.length > 0) {
+          //Get First object from array
+          let cityName = dataFromChild[0].name;
+          let count = dataFromChild.length - 1;
+          let text = `${cityName} و ${count} أخري`;
+          this.setState({ missionRangeText: text });
+        }
+      }
+    }
   };
-  handleAddClick = () => {
-    console.log("Added Sucessfuly");
+  receiveAssignMissionTo = (data) => {
+    let arr = [...this.state.assignMissionToArr];
+    arr.push(data);
+    let name = data[0].name;
+    let count = data.length - 1;
+    let text = `${name}و ${count} اخرون`;
+
+    this.setState({ assignMissionToArr: arr, assignToText: text });
+  };
+  handleChangeMissionTypeText = (name) => {
+    this.setState({ missionTypeText: name });
+  };
+
+  handleChangeMissionAddress = (e) => {
+    this.setState({ missionAddress: e.target.value });
+  };
+
+  handleChangeDate = (e) => {
+    this.setState({ expiryDate: e });
+  };
+
+  handleChangeMissionDetails = (e) => {
+    this.setState({ missionDetailsText: e.target.value });
+  };
+
+  handleChangeFinancialCompensation = (e) => {
+    this.setState({ financialCompensation: e.target.value });
+  };
+
+  handleChangeException = () => {
+    this.setState((prevState) => ({
+      hasException: !prevState.hasException,
+    }));
+  };
+
+  handleChangeCatalyst = (e) => {
+    this.setState({ catalyst: e.target.value });
   };
 
   sendDataToParent = () => {
@@ -48,6 +104,7 @@ class AddNewMission extends Component {
   };
 
   handleAddMission = () => {
+    console.log("Addedddddddddd");
     // let values = {};
     // values.phone = this.state.loginObject.phone;
     // values.password = this.state.loginObject.password;
@@ -102,7 +159,7 @@ class AddNewMission extends Component {
                       <div class="col-sm-2">
                         <p class=" m-0 px-3 py-2">
                           <span class="text-dark fs-6 fw-normal m-type">
-                            نوع المهمة{" "}
+                            نوع المهمة
                           </span>
                           <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
                             *
@@ -118,7 +175,7 @@ class AddNewMission extends Component {
                           className="d-flex justify-content-between  select-m-type"
                           onClick={this.showMissionTypePopUp}
                         >
-                          <span>اختر نوع المهمة</span>
+                          <span>{this.state.missionTypeText}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
                         </div>
                       </div>
@@ -139,6 +196,7 @@ class AddNewMission extends Component {
                           type="text"
                           placeholder="اكتب عنوان هنا"
                           class="px-1 py-1 bg-white rounded-6  m-title-input"
+                          onChange={(e) => this.handleChangeMissionAddress(e)}
                         />
                       </div>
                       <div class="col-md-6">
@@ -154,7 +212,8 @@ class AddNewMission extends Component {
                           {/*//Todo : Look at bookmark to show datepicker props */}
                           <DatePicker
                             inputClass="date-picker-input"
-                            value={new Date()}
+                            value={this.state.expiryDate}
+                            onChange={(e) => this.handleChangeDate(e)}
                           />
                         </div>
                       </div>
@@ -177,6 +236,7 @@ class AddNewMission extends Component {
                         <textarea
                           placeholder="تفاصيل المهمة"
                           class="px-1 py-1 bg-white rounded-3 border border-1 m-details"
+                          onChange={(e) => this.handleChangeMissionDetails(e)}
                         />
                       </div>
                     </div>
@@ -217,7 +277,7 @@ class AddNewMission extends Component {
                           className="d-flex justify-content-between  select-m-range"
                           onClick={this.showMissionRangePopUp}
                         >
-                          <span>اختر محافظة\مدينة او أكثر</span>
+                          <span>{this.state.missionRangeText}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
                         </div>
                       </div>
@@ -244,7 +304,7 @@ class AddNewMission extends Component {
                           className="d-flex justify-content-between select-m-assign"
                           onClick={this.showAssignMissionPopUp}
                         >
-                          <span>اختر شخص\منطقة او اكثر</span>
+                          <span>{this.state.assignToText}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
                         </div>
                       </div>
@@ -286,6 +346,9 @@ class AddNewMission extends Component {
                         <input
                           placeholder="0.0"
                           className="d-flex justify-content-between financial-input"
+                          onChange={(e) =>
+                            this.handleChangeFinancialCompensation(e)
+                          }
                         />
                       </div>
                     </div>
@@ -328,6 +391,7 @@ class AddNewMission extends Component {
                         <input
                           placeholder="0.0"
                           className="d-flex justify-content-between motivation-input"
+                          onChange={(e) => this.handleChangeCatalyst(e)}
                         />
                       </div>
                     </div>
@@ -338,13 +402,7 @@ class AddNewMission extends Component {
                   <div>
                     <div class="row">
                       <div class="col">
-                        <button
-                          type="submit"
-                          class="d-inline m-submit-btn"
-                          onClick={this.handleAddClick}
-                        >
-                          اضافة
-                        </button>
+                        <button class="d-inline m-submit-btn">اضافة</button>
 
                         <button
                           onClick={() => this.sendDataToParent()}
@@ -362,12 +420,18 @@ class AddNewMission extends Component {
         </Formik>
         {this.state.showMissionRange === true ? (
           <>
-            <MissionRangePopUp sendDataToParent={this.receiveDataFromChild} />
+            <MissionRangePopUp
+              sendDataToParent={this.receiveDataFromChild}
+              selectedCities={this.receiveDataFromChild}
+            />
           </>
         ) : null}
         {this.state.showMissionType === true ? (
           <>
-            <MissionTypePopUp sendDataToParent={this.receiveDataFromChild} />
+            <MissionTypePopUp
+              sendDataToParent={this.receiveDataFromChild}
+              selectedMissionType={this.receiveDataFromChild}
+            />
           </>
         ) : null}
 
@@ -375,6 +439,7 @@ class AddNewMission extends Component {
           <>
             <AssignMissionToPopUp
               sendDataToParent={this.receiveDataFromChild}
+              SalesSpecialties={this.receiveAssignMissionTo}
             />
           </>
         ) : null}

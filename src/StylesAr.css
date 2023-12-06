@@ -2883,3 +2883,11 @@ font-style: normal;
 font-weight: 400;
 line-height: 160%;
 }
+.scrollable-m-type{
+  overflow-y: scroll;
+  height: 60%;
+}
+.scrollable-list-assign{
+  overflow-y: scroll;
+  height: 42%;
+}

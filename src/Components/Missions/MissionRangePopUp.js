@@ -8,6 +8,7 @@ class MissionRangePopUp extends Component {
     this.state = {
       closePopUp: props.status,
       selectedCities: [],
+      selectedList: [],
       data: [],
     };
   }
@@ -27,8 +28,10 @@ class MissionRangePopUp extends Component {
   // Define a method to send data to the parent component
   sendDataToParent = () => {
     const data = false;
+    const cities = [...this.state.selectedList];
     // Call the callback function passed from the parent
     this.props.sendDataToParent(data);
+    this.props.selectedCities(cities);
   };
 
   handleSearch = (event) => {
@@ -45,7 +48,7 @@ class MissionRangePopUp extends Component {
     this.setState({ filteredData });
   };
 
-  handleSelectCity = (cityId) => {
+  handleSelectCity = (cityId, cityName) => {
     //Check if city added before
     let cities = [...this.state.selectedCities];
     const isSelectedBefore = cities.includes(cityId);
@@ -58,7 +61,9 @@ class MissionRangePopUp extends Component {
       }
     } else {
       cities.push(cityId);
-      this.setState({ selectedCities: cities });
+      let list = [...this.state.selectedList];
+      list.push({ id: cityId, name: cityName });
+      this.setState({ selectedCities: cities, selectedList: list });
     }
   };
 
@@ -115,7 +120,9 @@ class MissionRangePopUp extends Component {
                         <input
                           id={`checkbox ${item.id}`}
                           type="checkbox"
-                          onChange={(e) => this.handleSelectCity(item.id)}
+                          onChange={(e) =>
+                            this.handleSelectCity(item.id, item.name)
+                          }
                         />
                         <label for={`checkbox ${item.id}`}></label>
                       </div>
@@ -132,8 +139,12 @@ class MissionRangePopUp extends Component {
           style={{ marginTop: "20px", textAlign: "center" }}
         >
           <div class="col-2">
-            <button className="done-add-range">تم</button>
-            {/* <button className="cancel-add-range">الغاء</button> */}
+            <button
+              className="done-add-range"
+              onClick={() => this.sendDataToParent()}
+            >
+              تم
+            </button>
           </div>
           <div className="col-2">
             <button

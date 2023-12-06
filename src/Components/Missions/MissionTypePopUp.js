@@ -6,46 +6,42 @@ class MissionRangePopUp extends Component {
     super(props);
     this.state = {
       closePopUp: props.status,
-      selectedCities: [],
+      selectedTypes: [],
+      selectedItemId: null,
+      selectedItemName: null,
+      selectedObj: {},
       data: [],
     };
   }
   componentDidMount = () => {
-    API.get("cities").then((res) => {
+    API.get("mission-types").then((res) => {
       if (res) {
-        const cities = res.data.map((item) => ({
-          id: item.id,
-          name: item.name,
-        }));
-
-        this.setState({ data: cities });
+        this.setState({ data: res.data });
       }
     });
   };
   // Define a method to send data to the parent component
   sendDataToParent = () => {
     const data = false;
+    const selectedTypeObj = this.state.selectedObj;
     // Call the callback function passed from the parent
     this.props.sendDataToParent(data);
+    this.props.selectedMissionType(selectedTypeObj);
   };
-
-  //Todo : Change it to handleChangeType
-  handleSelectType = (cityId) => {
-    //Check if city added before
-    let cities = [...this.state.selectedCities];
-    const isSelectedBefore = cities.includes(cityId);
-    if (isSelectedBefore) {
-      const indexToRemove = cities.indexOf(cityId);
-      // Remove the ID if it exists in the array
-      if (indexToRemove !== -1) {
-        cities.splice(indexToRemove, 1);
-        this.setState({ selectedCities: cities });
-      }
-    } else {
-      cities.push(cityId);
-      this.setState({ selectedCities: cities });
+  handleSelectMissionType = (itemId, itemName) => {
+    this.setState({
+      selectedItemId: itemId === this.state.selectedItemId ? null : itemId,
+      selectedItemName: itemId === this.state.selectedItemId ? null : itemName,
+    });
+    if (itemId != this.state.selectedItemId) {
+      let obj = { ...this.state.selectedObj };
+      obj.id = itemId;
+      obj.name = itemName;
+      obj.isType = true;
+      this.setState({ selectedObj: obj });
     }
   };
+
   render() {
     return (
       <div className="mission-range">
@@ -84,13 +80,13 @@ class MissionRangePopUp extends Component {
               />
             </div>
           </div>
-          {/* Cities */}
+          {/* Types */}
           <div class="row" style={{ height: "150px" }}>
             <div
               class="col-12"
-              style={{ maxHeight: "600px", overflowY: "auto" }}
+              style={{ maxHeight: "800px", overflowY: "auto" }}
             >
-              <ul class="list-unstyled scrollable-list">
+              <ul class="list-unstyled scrollable-m-type">
                 {this.state.data.map((item) => {
                   return (
                     <li class="d-flex w-100 justify-content-between py-2">
@@ -99,7 +95,10 @@ class MissionRangePopUp extends Component {
                         <input
                           id={`checkbox ${item.id}`}
                           type="checkbox"
-                          onChange={(e) => this.handleSelectType(item.id)}
+                          checked={item.id === this.state.selectedItemId}
+                          onChange={() =>
+                            this.handleSelectMissionType(item.id, item.name)
+                          }
                         />
                         <label for={`checkbox ${item.id}`}></label>
                       </div>
@@ -116,8 +115,12 @@ class MissionRangePopUp extends Component {
           style={{ marginTop: "20px", textAlign: "center" }}
         >
           <div class="col-2">
-            <button className="done-add-range">تم</button>
-            {/* <button className="cancel-add-range">الغاء</button> */}
+            <button
+              className="done-add-range"
+              onClick={() => this.sendDataToParent()}
+            >
+              تم
+            </button>
           </div>
           <div className="col-2">
             <button

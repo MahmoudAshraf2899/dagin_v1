@@ -6,50 +6,99 @@ class AssignMissionToPopUp extends Component {
     super(props);
     this.state = {
       closePopUp: props.status,
-      selectedCities: [],
+      selectedSales: [],
+      selectedspecialties: [],
+      salesToParent: [],
+      specialtiesToParent: [],
       data: [],
-      selectedType: 0,
+      selectedItem: 0,
     };
   }
   componentDidMount = () => {
-    API.get("cities").then((res) => {
+    API.get("salesman").then((res) => {
       if (res) {
-        const cities = res.data.map((item) => ({
+        const men = res.data.items.map((item) => ({
           id: item.id,
           name: item.name,
         }));
-
-        this.setState({ data: cities });
+        this.setState({ data: men });
       }
     });
   };
   // Define a method to send data to the parent component
   sendDataToParent = () => {
     const data = false;
+    const list =
+      this.state.selectedItem === 0
+        ? [...this.state.salesToParent]
+        : [...this.state.specialtiesToParent];
     // Call the callback function passed from the parent
     this.props.sendDataToParent(data);
+    this.props.SalesSpecialties(list);
   };
 
-  //Todo : Change it to handleChangeType
-  handleSelectType = (cityId) => {
-    //Check if city added before
-    let cities = [...this.state.selectedCities];
-    const isSelectedBefore = cities.includes(cityId);
-    if (isSelectedBefore) {
-      const indexToRemove = cities.indexOf(cityId);
-      // Remove the ID if it exists in the array
-      if (indexToRemove !== -1) {
-        cities.splice(indexToRemove, 1);
-        this.setState({ selectedCities: cities });
+  handleSelectItem = (id, name) => {
+    if (this.state.selectedItem === 0) {
+      //اشخاص
+      let men = [...this.state.selectedSales];
+      const isSelectedBefore = men.includes(id);
+      if (isSelectedBefore) {
+        const indexToRemove = men.indexOf(id);
+        // Remove the ID if it exists in the array
+        if (indexToRemove !== -1) {
+          men.splice(indexToRemove, 1);
+          this.setState({ selectedSales: men });
+        }
+      } else {
+        men.push(id);
+        let arrayOfObj = [...this.state.salesToParent];
+        arrayOfObj.push({ id: id, name: name });
+        this.setState({ selectedSales: men, salesToParent: arrayOfObj });
       }
     } else {
-      cities.push(cityId);
-      this.setState({ selectedCities: cities });
+      let specialties = [...this.state.selectedspecialties];
+      const isSelectedBefore = specialties.includes(id);
+      if (isSelectedBefore) {
+        const indexToRemove = specialties.indexOf(id);
+        // Remove the ID if it exists in the array
+        if (indexToRemove !== -1) {
+          specialties.splice(indexToRemove, 1);
+          this.setState({ selectedspecialties: specialties });
+        }
+      } else {
+        specialties.push(id);
+        let arrayOfObj = [...this.state.specialtiesToParent];
+        arrayOfObj.push({ id: id, name: name });
+        this.setState({
+          selectedspecialties: specialties,
+          specialtiesToParent: arrayOfObj,
+        });
+      }
     }
   };
 
   handleActiveType = (e) => {
-    this.setState({ selectedType: e });
+    this.setState({ selectedItem: e });
+    if (e === 0) {
+      //اشخاص
+      API.get("salesman").then((res) => {
+        if (res) {
+          const men = res.data.items.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+          this.setState({ data: men });
+        }
+      });
+    } else {
+      //تخصصات
+
+      API.get("specialties").then((res) => {
+        if (res) {
+          this.setState({ data: res.data });
+        }
+      });
+    }
   };
 
   render() {
@@ -75,7 +124,7 @@ class AssignMissionToPopUp extends Component {
             <div className="assign-people-type">
               <div
                 className={
-                  this.state.selectedType === 0
+                  this.state.selectedItem === 0
                     ? "assign-type-active"
                     : "assign-type"
                 }
@@ -85,23 +134,13 @@ class AssignMissionToPopUp extends Component {
               </div>
               <div
                 className={
-                  this.state.selectedType === 1
+                  this.state.selectedItem === 1
                     ? "assign-type-active"
                     : "assign-type"
                 }
                 onClick={() => this.handleActiveType(1)}
               >
                 لتخصص
-              </div>
-              <div
-                className={
-                  this.state.selectedType === 2
-                    ? "assign-type-active"
-                    : "assign-type"
-                }
-                onClick={() => this.handleActiveType(2)}
-              >
-                لمنطقة جغرافية
               </div>
             </div>
           </div>
@@ -111,7 +150,11 @@ class AssignMissionToPopUp extends Component {
           {/* اضف الاشخاص */}
           <div class="row mt-3">
             <div class="col-12">
-              <span className="select-area">اضف الأشخاص</span>
+              <span className="select-area">
+                {this.state.selectedItem === 0
+                  ? "اضف الاشخاص"
+                  : "اختر التخصصات"}
+              </span>
             </div>
           </div>
           <div class="row mt-3">
@@ -130,7 +173,7 @@ class AssignMissionToPopUp extends Component {
               class="col-12"
               style={{ maxHeight: "600px", overflowY: "auto" }}
             >
-              <ul class="list-unstyled scrollable-list">
+              <ul class="list-unstyled scrollable-list-assign">
                 {this.state.data.map((item) => {
                   return (
                     <li class="d-flex w-100 justify-content-between py-2">
@@ -139,7 +182,9 @@ class AssignMissionToPopUp extends Component {
                         <input
                           id={`checkbox ${item.id}`}
                           type="checkbox"
-                          onChange={(e) => this.handleSelectType(item.id)}
+                          onChange={(e) =>
+                            this.handleSelectItem(item.id, item.name)
+                          }
                         />
                         <label for={`checkbox ${item.id}`}></label>
                       </div>
@@ -153,11 +198,15 @@ class AssignMissionToPopUp extends Component {
         </div>
         <div
           class="row mb-4"
-          style={{ marginTop: "20px", textAlign: "center" }}
+          style={{ marginTop: "100px", textAlign: "center" }}
         >
           <div class="col-2">
-            <button className="done-add-range">تم</button>
-            {/* <button className="cancel-add-range">الغاء</button> */}
+            <button
+              className="done-add-range"
+              onClick={() => this.sendDataToParent()}
+            >
+              تم
+            </button>
           </div>
           <div className="col-2">
             <button
