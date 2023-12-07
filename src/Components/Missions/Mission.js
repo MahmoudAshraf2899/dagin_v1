@@ -7,6 +7,7 @@ import MisisonOptionsPopUp from "./MisisonOptionsPopUp";
 import API from "../Api";
 import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 Util.setGlobalCssModule({
   btn: "hyperspeed-btn",
@@ -28,13 +29,23 @@ class Mission extends Component {
   componentDidMount() {
     API.get(
       "dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=1&limit=10"
-    ).then((res) => {
-      if (res) {
-        this.setState({ data: res.data.items });
-      } else {
-        //Todo : Make Toaster Here
-      }
-    });
+    )
+      .then((res) => {
+        if (res) {
+          if (res.status === 403) {
+            toast.error("You don't have permission to access this page");
+          } else {
+            this.setState({ data: res.data.items });
+          }
+        } else {
+          toast.error(
+            "Something goes wrong please contact your administrators"
+          );
+        }
+      })
+      .catch((error) => {
+        toast.error("Something goes wrong please contact your administrators");
+      });
   }
 
   handleOnClick = (e) => {

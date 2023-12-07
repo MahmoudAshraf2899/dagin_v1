@@ -4,9 +4,11 @@ import DatePicker from "react-multi-date-picker";
 import MissionRangePopUp from "./MissionRangePopUp";
 import MissionTypePopUp from "./MissionTypePopUp";
 import AssignMissionToPopUp from "./AssignMissionToPopUp";
+import DatePickerComponent from "../SubComponents/DatePickerComponent";
 import { Formik } from "formik";
 import moment from "moment";
 import { toast } from "react-toastify";
+import API from "../Api";
 
 class AddNewMission extends Component {
   constructor(props) {
@@ -23,12 +25,13 @@ class AddNewMission extends Component {
       financialCompensation: "",
       missionAddress: null,
       financialincentive: null, // الحافز
-      expiryDate: moment().format(),
+      expiryDate: null,
       missionTypeObj: {},
       addMissionObject: {},
       selectedCities: [],
       assignMissionToArr: [],
       citiesIds: [],
+      date: null,
     };
   }
   componentDidMount() {}
@@ -44,8 +47,8 @@ class AddNewMission extends Component {
       showAssignMission: dataFromChild,
     });
     if (typeof dataFromChild === "object" && dataFromChild !== null) {
-      this.setState({ missionTypeObj: dataFromChild });
       if (dataFromChild.isType == true) {
+        this.setState({ missionTypeObj: dataFromChild });
         this.handleChangeMissionTypeText(dataFromChild.name);
       } else {
         this.setState({ selectedCities: dataFromChild });
@@ -70,6 +73,11 @@ class AddNewMission extends Component {
     this.setState({ assignMissionToArr: arr, assignToText: text });
   };
 
+  receiveDataFromDatePicker = (data) => {
+    let fromatedDate = moment(data).format("YYYY-MM-DD");
+    this.setState({ expiryDate: fromatedDate });
+  };
+
   handleChangeMissionTypeText = (name) => {
     this.setState({ missionTypeText: name });
   };
@@ -78,8 +86,10 @@ class AddNewMission extends Component {
     this.setState({ missionAddress: e.target.value });
   };
 
-  handleChangeDate = (e) => {
-    this.setState({ expiryDate: e });
+  handleChangeDate = (selectedDate) => {
+    let formattedDate = new Date();
+    formattedDate = selectedDate;
+    this.setState({ expiryDate: formattedDate });
   };
 
   handleChangeMissionDetails = (e) => {
@@ -108,18 +118,27 @@ class AddNewMission extends Component {
 
   handleAddMission = () => {
     const cities = [...this.state.selectedCities];
-    const citiesIds = cities.data.map((item) => ({
-      id: item.id,
-    }));
+    const citiesIds = cities.map((item) => Number(item.id));
 
     let values = {};
-    values.type_id = this.state.missionTypeObj.id; //نوع المهمة
+    values.type_id = Number(this.state.missionTypeObj.id); //نوع المهمة
     values.work_area_ids = citiesIds; //نطاق المهمة
-    values.name = this.state.missionAddress;
-    values.due_at = this.state.expiryDate;
-    values.details = this.state.missionDetailsText;
-    values.reward = this.state.financialCompensation;
-    values.early_bonus = this.state.financialincentive;
+    values.name = this.state.missionAddress; //عنوان المهمة
+    values.due_at = moment(this.state.expiryDate).format("YYYY-MM-DD"); //تاريخ الأنتهاء
+
+    values.details = this.state.missionDetailsText; //تفاصيل المهمة
+    values.reward = Number(this.state.financialCompensation); //المقابل المادي
+    values.early_bonus = Number(this.state.financialincentive); //الحافز
+    API.post("dashboard/missions", values)
+      .then((response) => {
+        if (response) {
+          toast.success("Mission Created successfully");
+          this.sendDataToParent(); //To Close The Page and return to the Mission Page
+        }
+      })
+      .catch((error) => {
+        toast.error("Something goes wrong please contact your administrators");
+      });
   };
 
   render() {
@@ -199,24 +218,9 @@ class AddNewMission extends Component {
                           onChange={(e) => this.handleChangeMissionAddress(e)}
                         />
                       </div>
-                      <div class="col-md-6">
-                        <p class=" m-0 px-3 py-2">
-                          <span class="text-dark fs-6 fw-normal font-family-MadaniArabic-Regular">
-                            تاريخ الانتهاء
-                          </span>
-                          <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
-                            *
-                          </span>
-                        </p>
-                        <div>
-                          {/*//Todo : Look at bookmark to show datepicker props */}
-                          <DatePicker
-                            inputClass="date-picker-input"
-                            value={this.state.expiryDate}
-                            onChange={(e) => this.handleChangeDate(e)}
-                          />
-                        </div>
-                      </div>
+                      <DatePickerComponent
+                        sendDataToParent={this.receiveDataFromDatePicker}
+                      />
                     </div>
 
                     {/* تفاصيل المهمة */}
@@ -284,7 +288,7 @@ class AddNewMission extends Component {
                     </div>
 
                     {/* تعيين المهمة */}
-                    <div class="row mb-3">
+                    {/* <div class="row mb-3">
                       <div class="col-sm-10">
                         <p class=" m-0 px-3 py-2">
                           <span class="text-dark fs-6 fw-normal m-assign">
@@ -295,10 +299,10 @@ class AddNewMission extends Component {
                           </span>
                         </p>
                       </div>
-                    </div>
+                    </div> */}
 
                     {/* اختر شخص\منطقة او اكثر */}
-                    <div class="row mb-3">
+                    {/* <div class="row mb-3">
                       <div class="col-lg-12">
                         <div
                           className="d-flex justify-content-between select-m-assign"
@@ -308,7 +312,7 @@ class AddNewMission extends Component {
                           <img src={arrow} alt="arrow" className="arrow-m" />
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
 
@@ -407,7 +411,9 @@ class AddNewMission extends Component {
                   <div>
                     <div class="row">
                       <div class="col">
-                        <button class="d-inline m-submit-btn">اضافة</button>
+                        <button type="submit" class="d-inline m-submit-btn">
+                          اضافة
+                        </button>
 
                         <button
                           onClick={() => this.sendDataToParent()}

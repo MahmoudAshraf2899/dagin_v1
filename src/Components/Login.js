@@ -8,8 +8,8 @@ import API from "./Api";
 import { toast } from "react-toastify";
 
 const LoginSchema = Yup.object().shape({
-  phone: Yup.string().required(),
-  password: Yup.string().required("Password is required"),
+  // phone: Yup.number.required("required"),
+  // password: Yup.string().required("required"),
 });
 class Login extends Component {
   constructor(props) {
@@ -54,7 +54,7 @@ class Login extends Component {
         }
       })
       .catch((error) => {
-        // toast.error(error.message);
+        toast.error("The username or password is incorrect");
       });
   };
   render() {
@@ -105,20 +105,9 @@ class Login extends Component {
                 <br />
                 <span class="d-inline">تسجيل الدخول الى حسابك</span>
                 <br />
-                {/* 
-                {{ ...this.state.loginObject }}
-                                    validationSchema={this.state.rerenderValid == false ?
-                                      (validationSchemaForItem0.concat(validationSchemaForItem1)) :
-                                      (validationSchemaForItem0.concat(validationSchemaForItem2))}
-                                    enableReinitialize={true}
-                                    onSubmit={values => {
-                                      this.addSubmittalItems();
-                                    }}>
-                */}
                 <Formik
-                  onSubmit={(values) => this.handleLoginSubmit(values)}
-                  initialValues={{ ...this.state.loginObject }}
-                  enableReinitialize={true}
+                  onSubmit={() => this.handleLoginSubmit()}
+                  initialValues={this.state.loginObject}
                   validationSchema={LoginSchema}
                 >
                   {({
@@ -139,11 +128,10 @@ class Login extends Component {
                             name="phone"
                             onBlur={handleBlur}
                             onChange={(e) => this.handleChangeInput(e, "phone")}
-                            value={values.phone}
+                            value={this.state.loginObject.phone}
                             id="phone"
                             required
                           />
-
                           <br />
                           <input
                             type={
@@ -155,7 +143,7 @@ class Login extends Component {
                             onChange={(e) =>
                               this.handleChangeInput(e, "password")
                             }
-                            value={values.password}
+                            value={this.state.loginObject.password}
                             id="password"
                             required
                           />
@@ -180,7 +168,6 @@ class Login extends Component {
                               تسجيل الدخول
                             </button>
                           </div>
-                          {console.log("errors", errors)}
                         </div>
                       </form>
                     </>

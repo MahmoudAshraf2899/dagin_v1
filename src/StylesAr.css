@@ -2195,6 +2195,10 @@ margin-right: -95px;
 margin-top: 10px;
 text-decoration: none;
 }
+.forget-pw:hover{
+color: #05A357;
+
+}
 .remember-me{
 position: absolute;
 color: #1A202C;
