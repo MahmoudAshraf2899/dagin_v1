@@ -6,6 +6,7 @@ import MissionTypePopUp from "./MissionTypePopUp";
 import AssignMissionToPopUp from "./AssignMissionToPopUp";
 import { Formik } from "formik";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 class AddNewMission extends Component {
   constructor(props) {
@@ -21,13 +22,13 @@ class AddNewMission extends Component {
       missionDetailsText: "",
       financialCompensation: "",
       missionAddress: null,
-      catalyst: null, // الحافز
+      financialincentive: null, // الحافز
       expiryDate: moment().format(),
       missionTypeObj: {},
       addMissionObject: {},
       selectedCities: [],
       assignMissionToArr: [],
-      addMissionObjeect: {},
+      citiesIds: [],
     };
   }
   componentDidMount() {}
@@ -58,6 +59,7 @@ class AddNewMission extends Component {
       }
     }
   };
+
   receiveAssignMissionTo = (data) => {
     let arr = [...this.state.assignMissionToArr];
     arr.push(data);
@@ -67,6 +69,7 @@ class AddNewMission extends Component {
 
     this.setState({ assignMissionToArr: arr, assignToText: text });
   };
+
   handleChangeMissionTypeText = (name) => {
     this.setState({ missionTypeText: name });
   };
@@ -94,7 +97,7 @@ class AddNewMission extends Component {
   };
 
   handleChangeCatalyst = (e) => {
-    this.setState({ catalyst: e.target.value });
+    this.setState({ financialincentive: e.target.value });
   };
 
   sendDataToParent = () => {
@@ -104,22 +107,19 @@ class AddNewMission extends Component {
   };
 
   handleAddMission = () => {
-    console.log("Addedddddddddd");
-    // let values = {};
-    // values.phone = this.state.loginObject.phone;
-    // values.password = this.state.loginObject.password;
-    // API.post("auth/login", values)
-    //   .then((response) => {
-    //     if (response) {
-    //       localStorage.setItem("token", response.data.access_token);
-    //       window.location.reload();
-    //       window.location.reload();
-    //       //useNavigate("/");
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     // toast.error(error.message);
-    //   });
+    const cities = [...this.state.selectedCities];
+    const citiesIds = cities.data.map((item) => ({
+      id: item.id,
+    }));
+
+    let values = {};
+    values.type_id = this.state.missionTypeObj.id; //نوع المهمة
+    values.work_area_ids = citiesIds; //نطاق المهمة
+    values.name = this.state.missionAddress;
+    values.due_at = this.state.expiryDate;
+    values.details = this.state.missionDetailsText;
+    values.reward = this.state.financialCompensation;
+    values.early_bonus = this.state.financialincentive;
   };
 
   render() {
@@ -127,7 +127,7 @@ class AddNewMission extends Component {
       <div>
         <Formik
           onSubmit={() => this.handleAddMission()}
-          initialValues={this.state.addMissionObjeect}
+          initialValues={this.state.addMissionObject}
           validationSchema={null}
         >
           {({
@@ -315,7 +315,7 @@ class AddNewMission extends Component {
                 {/* Financial compensation */}
                 <div className="m-financial-compensation">
                   <div>
-                    {/* المقابل المادي */}
+                    {/* Header المقابل المادي */}
                     <div class="row">
                       <div class="col-sm-10">
                         <div className="financial-m-header">
@@ -373,28 +373,33 @@ class AddNewMission extends Component {
                     </div>
 
                     {/* الحافز */}
-                    <div class="row mb-3">
-                      <div class="col-sm-10">
-                        <p class=" m-0 px-3 py-2">
-                          <span class="text-dark fs-6 fw-normal m-motivation">
-                            الحافز
-                          </span>
-                          <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
-                            *
-                          </span>
-                        </p>
-                      </div>
-                    </div>
-                    {/* قيمة الحافظ */}
-                    <div class="row mb-3">
-                      <div class="col-lg-12">
-                        <input
-                          placeholder="0.0"
-                          className="d-flex justify-content-between motivation-input"
-                          onChange={(e) => this.handleChangeCatalyst(e)}
-                        />
-                      </div>
-                    </div>
+                    {this.state.hasException === true ? (
+                      <>
+                        {" "}
+                        <div class="row mb-3">
+                          <div class="col-sm-10">
+                            <p class=" m-0 px-3 py-2">
+                              <span class="text-dark fs-6 fw-normal m-motivation">
+                                الحافز
+                              </span>
+                              <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
+                                *
+                              </span>
+                            </p>
+                          </div>
+                        </div>
+                        {/* قيمة الحافز */}
+                        <div class="row mb-3">
+                          <div class="col-lg-12">
+                            <input
+                              placeholder="0.0"
+                              className="d-flex justify-content-between motivation-input"
+                              onChange={(e) => this.handleChangeCatalyst(e)}
+                            />
+                          </div>
+                        </div>
+                      </>
+                    ) : null}
                   </div>
                 </div>
 
