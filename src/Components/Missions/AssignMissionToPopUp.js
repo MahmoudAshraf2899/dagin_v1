@@ -35,6 +35,9 @@ class AssignMissionToPopUp extends Component {
     // Call the callback function passed from the parent
     this.props.sendDataToParent(data);
     this.props.SalesSpecialties(list);
+    this.props.assignedToType(
+      this.state.selectedItem === 0 ? "اشخاص" : "تخصصات"
+    );
   };
 
   handleSelectItem = (id, name) => {

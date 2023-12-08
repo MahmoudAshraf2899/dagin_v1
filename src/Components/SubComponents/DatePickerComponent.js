@@ -4,9 +4,15 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default function DatePickerComponent(props) {
   const [startDate, setStartDate] = useState(new Date());
+  const [changed, setChanged] = useState(false);
   const handleChangeDate = (dateParam) => {
     setStartDate(dateParam);
+    setChanged(true);
     sendDataToParent(dateParam);
+    sendDataStatusToParent(true);
+  };
+  const sendDataStatusToParent = (data) => {
+    props.isChanged(data);
   };
   const sendDataToParent = (dateParam) => {
     props.sendDataToParent(dateParam);

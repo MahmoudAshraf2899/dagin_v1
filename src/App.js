@@ -12,12 +12,12 @@ function App() {
       {token !== null ? (
         <>
           <RightMenu />
-          <ToastContainer />
+          <ToastContainer rtl />
         </>
       ) : (
         <>
           <Login />
-          <ToastContainer />
+          <ToastContainer rtl />
         </>
       )}
 

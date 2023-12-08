@@ -30,11 +30,15 @@ class AddNewMission extends Component {
       addMissionObject: {},
       selectedCities: [],
       assignMissionToArr: [],
+      assignToType: null,
       citiesIds: [],
+      dateChanged: false,
       date: null,
     };
   }
-  componentDidMount() {}
+  componentDidMount() {
+    moment.locale("en");
+  }
 
   showMissionRangePopUp = () => this.setState({ showMissionRange: true });
   showMissionTypePopUp = () => this.setState({ showMissionType: true });
@@ -65,17 +69,29 @@ class AddNewMission extends Component {
 
   receiveAssignMissionTo = (data) => {
     let arr = [...this.state.assignMissionToArr];
-    arr.push(data);
-    let name = data[0].name;
-    let count = data.length - 1;
-    let text = `${name}و ${count} اخرون`;
+    if (data.length > 0) {
+      arr.push(data);
+      let name = data[0].name;
+      let count = data.length - 1;
+      let text = `${name}  و  ${count} اخرون`;
 
-    this.setState({ assignMissionToArr: arr, assignToText: text });
+      this.setState({ assignMissionToArr: arr, assignToText: text });
+    }
+  };
+
+  assignedMissionToType = (data) => {
+    this.setState({ assignToType: data });
   };
 
   receiveDataFromDatePicker = (data) => {
     let fromatedDate = moment(data).format("YYYY-MM-DD");
     this.setState({ expiryDate: fromatedDate });
+  };
+
+  isDataPickerChaned = (data) => {
+    if (data === true) {
+      this.setState({ dateChanged: true });
+    }
   };
 
   handleChangeMissionTypeText = (name) => {
@@ -97,7 +113,15 @@ class AddNewMission extends Component {
   };
 
   handleChangeFinancialCompensation = (e) => {
-    this.setState({ financialCompensation: e.target.value });
+    // Allow any number of digits before and after the decimal point
+    const priceRegex = /^\d+(\.\d*)?$/;
+
+    // Check if the entered value matches the regex pattern
+    if (priceRegex.test(e.target.value) || e.target.value === "") {
+      this.setState({ financialCompensation: e.target.value });
+    } else {
+      toast.error("من فضلك قم بأدخال قيمة صحيحة للمقابل المادي ");
+    }
   };
 
   handleChangeException = () => {
@@ -107,7 +131,14 @@ class AddNewMission extends Component {
   };
 
   handleChangeCatalyst = (e) => {
-    this.setState({ financialincentive: e.target.value });
+    const priceRegex = /^\d+(\.\d*)?$/;
+
+    // Check if the entered value matches the regex pattern
+    if (priceRegex.test(e.target.value) || e.target.value === "") {
+      this.setState({ financialincentive: e.target.value });
+    } else {
+      toast.error("من فضلك قم بأدخال قيمة صحيحة للحافز ");
+    }
   };
 
   sendDataToParent = () => {
@@ -119,10 +150,39 @@ class AddNewMission extends Component {
   handleAddMission = () => {
     const cities = [...this.state.selectedCities];
     const citiesIds = cities.map((item) => Number(item.id));
-
+    const assignedTo = [...this.state.assignMissionToArr];
+    const assignedToIds = assignedTo[0].map((item) => Number(item.id));
     let values = {};
+    if (this.state.missionTypeObj.id == null) {
+      toast.warn("من فضلك قم بأختيار نوع المهمة");
+    } else if (this.state.missionAddress === null) {
+      toast.warn("من فضلك قم بأدخال عنوان المهمة");
+    } else if (this.state.dateChanged === false) {
+      toast.warn("من فضلك قم بأختيار تاريخ الأنتهاء");
+    } else if (cities.length === 0) {
+      toast.warn("من فضلك قم بأختيار نطاق المهمة");
+    } else if (this.state.assignMissionToArr.length === 0) {
+      toast.warn("من فضلك قم بتحديد لمن ستعين المهمة");
+    } else if (this.state.financialCompensation == "") {
+      toast.warn("من فضلك قم بأدخال قيمة المقابل المادي");
+    } else if (this.state.hasException === true) {
+      if (this.state.financialincentive == null) {
+        toast.warn("من فضلك قم بأختيار قيمة الحافز");
+      } else {
+        this.submitAddMission(values, citiesIds, assignedToIds);
+      }
+    } else {
+      this.submitAddMission(values, citiesIds, assignedToIds);
+    }
+  };
+
+  submitAddMission(values, citiesIds, assignedToIds) {
     values.type_id = Number(this.state.missionTypeObj.id); //نوع المهمة
     values.work_area_ids = citiesIds; //نطاق المهمة
+    values.assignment = {
+      type: this.state.assignToType,
+      ids: assignedToIds,
+    };
     values.name = this.state.missionAddress; //عنوان المهمة
     values.due_at = moment(this.state.expiryDate).format("YYYY-MM-DD"); //تاريخ الأنتهاء
 
@@ -132,14 +192,14 @@ class AddNewMission extends Component {
     API.post("dashboard/missions", values)
       .then((response) => {
         if (response) {
-          toast.success("Mission Created successfully");
+          toast.success("تمت أضافة المهمة بنجاح");
           this.sendDataToParent(); //To Close The Page and return to the Mission Page
         }
       })
       .catch((error) => {
-        toast.error("Something goes wrong please contact your administrators");
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
       });
-  };
+  }
 
   render() {
     return (
@@ -220,6 +280,7 @@ class AddNewMission extends Component {
                       </div>
                       <DatePickerComponent
                         sendDataToParent={this.receiveDataFromDatePicker}
+                        isChanged={this.isDataPickerChaned}
                       />
                     </div>
 
@@ -288,7 +349,7 @@ class AddNewMission extends Component {
                     </div>
 
                     {/* تعيين المهمة */}
-                    {/* <div class="row mb-3">
+                    <div class="row mb-3">
                       <div class="col-sm-10">
                         <p class=" m-0 px-3 py-2">
                           <span class="text-dark fs-6 fw-normal m-assign">
@@ -299,10 +360,10 @@ class AddNewMission extends Component {
                           </span>
                         </p>
                       </div>
-                    </div> */}
+                    </div>
 
                     {/* اختر شخص\منطقة او اكثر */}
-                    {/* <div class="row mb-3">
+                    <div class="row mb-3">
                       <div class="col-lg-12">
                         <div
                           className="d-flex justify-content-between select-m-assign"
@@ -312,7 +373,7 @@ class AddNewMission extends Component {
                           <img src={arrow} alt="arrow" className="arrow-m" />
                         </div>
                       </div>
-                    </div> */}
+                    </div>
                   </div>
                 </div>
 
@@ -451,6 +512,7 @@ class AddNewMission extends Component {
             <AssignMissionToPopUp
               sendDataToParent={this.receiveDataFromChild}
               SalesSpecialties={this.receiveAssignMissionTo}
+              assignedToType={this.assignedMissionToType}
             />
           </>
         ) : null}

@@ -50,6 +50,7 @@ class Mission extends Component {
 
   handleOnClick = (e) => {
     let statusType = "";
+    this.setState({ data: [] }); //for popover
     switch (e) {
       case 1:
         this.setState({ currentElementTitle: "in_progress" });
@@ -93,10 +94,7 @@ class Mission extends Component {
   deleteMission = (id) => {
     API.delete(`dashboard/missions/${id}`).then((res) => {
       if (res.status === 200) {
-        let dataObj = [...this.state.data];
-        let removedObject = dataObj.find((item) => item.id === id);
-        dataObj = dataObj.filter((item) => item.id !== id);
-        this.setState({ data: dataObj });
+        this.extractObjectForDelete(id);
       }
     });
   };
@@ -118,6 +116,15 @@ class Mission extends Component {
     this.setState({ showAddComponent: dataFromChild });
     // Do something with the data in the parent component
   };
+  deleteObjectFromDetails = (item) => {
+    this.extractObjectForDelete(item);
+  };
+  extractObjectForDelete(id) {
+    let dataObj = [...this.state.data];
+    let removedObject = dataObj.find((item) => item.id === id);
+    dataObj = dataObj.filter((item) => item.id !== id);
+    this.setState({ data: dataObj });
+  }
   showInProgressMissions = () => {
     return (
       <div>
@@ -1270,14 +1277,12 @@ class Mission extends Component {
                     </div>
                     <div
                       class="col-sm-1 more-icon"
-                      //onClick={() => this.showMissionOptions()}
                       style={{ marginLeft: "60px" }}
                     >
                       <Button
                         id="UncontrolledPopover"
                         type="button"
                         cssModule={{ btn: "hyperspeed-btn" }}
-                        //style={{ backgroundColor: "unset", border: "none" }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1469,14 +1474,12 @@ class Mission extends Component {
                     </div>
                     <div
                       class="col-sm-1 more-icon"
-                      //onClick={() => this.showMissionOptions()}
                       style={{ marginLeft: "60px" }}
                     >
                       <Button
                         id="UncontrolledPopover"
                         type="button"
                         cssModule={{ btn: "hyperspeed-btn" }}
-                        //style={{ backgroundColor: "unset", border: "none" }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -1683,14 +1686,12 @@ class Mission extends Component {
                     </div>
                     <div
                       class="col-sm-1 more-icon"
-                      //onClick={() => this.showMissionOptions()}
                       style={{ marginLeft: "60px" }}
                     >
                       <Button
                         id="UncontrolledPopover"
                         type="button"
                         cssModule={{ btn: "hyperspeed-btn" }}
-                        //style={{ backgroundColor: "unset", border: "none" }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -2291,6 +2292,7 @@ class Mission extends Component {
               <MissionDetailsPopUp
                 missionType={this.state.selectedMission}
                 id={this.state.missionId}
+                deletedElement={this.deleteObjectFromDetails}
               />
             </>
           ) : null}
