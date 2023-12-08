@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import profileImg from "../../Assets/images/profileimg.svg";
+import threeDots from "../../Assets/icons/Three dots.svg";
+import { Card, CardTitle, CardText, Button } from "reactstrap";
 
 class Users extends Component {
   constructor(props) {
@@ -99,7 +101,7 @@ class Users extends Component {
         >
           <div class="row">
             <div class="col-6" style={{ marginTop: "50px" }}>
-              <div className="user-card">
+              {/* <div className="user-card">
                 <div style={{ display: "flex", alignItems: "flex-end" }}>
                   <img
                     className="profile-photo"
@@ -107,13 +109,16 @@ class Users extends Component {
                     alt="profile-img"
                   />
                   <div
-                    style={{ display: "inline-grid", paddingRight: "0.5rem" }}
+                  //style={{ display: "inline-grid", paddingRight: "0.5rem" }}
                   >
-                    <span className="account-name">رحمة محمد</span>
-                    <span className="filed-type-content">
-                      <span className="filed-type">نوع التخصص</span>. حديث
-                      التخرج . عضو منذ ١٢\١٠\٢٠٢٣
-                    </span>
+                    <div>
+                      <span className="account-name">رحمة محمد</span>
+                      <br />
+                      <span className="filed-type-content">
+                        <span className="filed-type">نوع التخصص</span>. حديث
+                        التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
+                    </div>
                   </div>
                   <div style={{ marginLeft: "auto" }}>icon</div>
                 </div>
@@ -122,7 +127,38 @@ class Users extends Component {
                   <h3 className="user-name">رحمة محمد</h3>
                   <span className="user-title">ادمن</span>
                 </div>
-              </div>
+              </div> */}
+              <Card body>
+                <CardTitle tag="h5">
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "35px",
+                      bottom: "105px",
+                    }}
+                  >
+                    <img src={threeDots} alt="three-dots" />
+                  </span>
+                  <img
+                    className="profile-photo"
+                    src={profileImg}
+                    alt="profile-img"
+                  />
+                  <div style={{ display: "inline-grid", paddingRight: "10px" }}>
+                    <span className="account-name">رحمة محمد</span>
+
+                    <span
+                      className="filed-type"
+                      style={{ position: "relative" }}
+                    >
+                      نوع التخصص . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                    </span>
+                  </div>
+                </CardTitle>
+                <div>
+                  <button className="UnActive-btn">الغاء تفعيل الحساب</button>
+                </div>
+              </Card>
             </div>
             <div class="col-6" style={{ marginTop: "50px" }}>
               Left Section

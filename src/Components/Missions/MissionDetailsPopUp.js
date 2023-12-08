@@ -7,6 +7,7 @@ import moment from "moment";
 import { format } from "date-fns";
 import { ar, enUS } from "date-fns/locale";
 import "moment/locale/ar"; // Import the Arabic locale
+import { toast } from "react-toastify";
 
 class MissionDetailsPopUp extends Component {
   constructor(props) {
@@ -43,6 +44,17 @@ class MissionDetailsPopUp extends Component {
   handleDeleteMission = () => {
     API.delete(`dashboard/missions/${this.props.id}`).then((res) => {
       if (res.status === 200) {
+        toast.success("تم حذف المهمة بنجاح");
+        this.sendPropsToDeleteObject();
+        this.closePopUp();
+      }
+    });
+  };
+
+  makeMissionCompleted = () => {
+    API.post(`dashboard/missions/${this.props.id}/complete`).then((res) => {
+      if (res.status === 200) {
+        toast.success("تم تحديد المهمة كمهمة تامة بنجاح");
         this.sendPropsToDeleteObject();
         this.closePopUp();
       }
@@ -537,6 +549,7 @@ class MissionDetailsPopUp extends Component {
                 </div>
               </div>
               <div class="col-md-auto" style={{ marginTop: "25px" }}>
+                {/* Edit Icon */}
                 <svg
                   style={{ marginLeft: "48px" }}
                   xmlns="http://www.w3.org/2000/svg"
@@ -552,6 +565,8 @@ class MissionDetailsPopUp extends Component {
                     stroke-linecap="round"
                   />
                 </svg>
+
+                {/* Delete Icon */}
                 <svg
                   style={{ marginLeft: "48px" }}
                   xmlns="http://www.w3.org/2000/svg"
@@ -559,6 +574,7 @@ class MissionDetailsPopUp extends Component {
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
+                  onClick={() => this.handleDeleteMission()}
                 >
                   <path
                     d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3"
@@ -568,6 +584,8 @@ class MissionDetailsPopUp extends Component {
                     stroke-linejoin="round"
                   />
                 </svg>
+
+                {/* Close Icon */}
                 <img
                   onClick={() => this.closePopUp()}
                   src={closeIcon}
@@ -863,6 +881,7 @@ class MissionDetailsPopUp extends Component {
                 </div>
               </div>
               <div class="col-md-auto" style={{ marginTop: "25px" }}>
+                {/* Edit Icon */}
                 <svg
                   style={{ marginLeft: "48px" }}
                   xmlns="http://www.w3.org/2000/svg"
@@ -878,6 +897,7 @@ class MissionDetailsPopUp extends Component {
                     stroke-linecap="round"
                   />
                 </svg>
+                {/* Delete Icon */}
                 <svg
                   style={{ marginLeft: "48px" }}
                   xmlns="http://www.w3.org/2000/svg"
@@ -885,6 +905,7 @@ class MissionDetailsPopUp extends Component {
                   height="24"
                   viewBox="0 0 24 24"
                   fill="none"
+                  onClick={() => this.handleDeleteMission()}
                 >
                   <path
                     d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3"
@@ -1181,11 +1202,12 @@ class MissionDetailsPopUp extends Component {
             <div class="row" id="mission-button-action">
               <div class="col" onClick={() => this.sendAlert()}>
                 {/* //Todo : We Will Make Click Function Here ^_^ */}
-                <div className="mission-button-action">
-                  <div className="mark-completed" style={{ cursor: "pointer" }}>
-                    <span>تعيين كمهمة تامة</span>
-                  </div>
-                </div>
+                <button
+                  className="mark-finished"
+                  onClick={() => this.makeMissionCompleted()}
+                >
+                  تحديد كمهمة تامة
+                </button>
               </div>
             </div>
           </div>
@@ -1508,7 +1530,7 @@ class MissionDetailsPopUp extends Component {
                 {/* //Todo : We Will Make Click Function Here ^_^ */}
                 <div className="mission-button-action">
                   <div className="mark-completed-evaluation">
-                    <span>تعيين كمهمة تامة</span>
+                    <span>تحديد كمهمة تامة</span>
                   </div>
                 </div>
               </div>

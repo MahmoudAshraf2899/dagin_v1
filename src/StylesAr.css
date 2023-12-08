@@ -287,8 +287,26 @@ flex-shrink: 0;
 border-radius: 40px;
 background:  lightgray 50% / cover no-repeat;
 margin-right: 21px;
-
+margin-top: 15px;
 } 
+.UnActive-btn{
+display: flex;
+width: 496px;
+height: 48px;
+padding: 8px;
+justify-content: center;
+align-items: center;
+gap: 10px;
+flex-shrink: 0;
+border-radius: 15px;
+background: #124734;
+color: #FFF;
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%; 
+}
 .user-info{
 display: flex;
 flex-direction: column;
@@ -1167,6 +1185,7 @@ align-items: center;
 border-radius: 15px;
 background: #124734;
 margin-left: 10px;
+cursor: pointer;
 }
 .decline-btn{
 display: flex;
@@ -1178,6 +1197,7 @@ align-items: center;
 flex-shrink: 0;
 border-radius: 15px;
 background: #C11818;
+cursor: pointer;
 }
 .agree-decile-title{
 color: #FFF;
@@ -1186,6 +1206,20 @@ font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: 16px;
+}
+.mark-finished{
+display: inline-flex;
+padding: 8px 27.5px 9px 26.5px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px;  
 }
 /* $$$$ Mission Details Component $$$$ */
 
