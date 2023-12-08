@@ -86,7 +86,7 @@ class Mission extends Component {
       if (res) {
         this.setState({ data: res.data.items });
       } else {
-        //Todo : Make Toaster Here
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
       }
     });
   };
@@ -129,6 +129,16 @@ class Mission extends Component {
     return (
       <div>
         {this.state.data.map((item) => {
+          const createdAtDate = moment(item.created_at);
+          const dueDate = moment(
+            item.due_at == null ? new Date() : item.due_at
+          );
+
+          // Set the locale to Arabic
+          moment.locale("ar");
+          const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
+          const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
+
           return (
             <div class="row">
               <div className="missions-section">
@@ -138,7 +148,7 @@ class Mission extends Component {
                       <div className="row">
                         <div class="col-sm-11">
                           <span class="ml-2 mission-span-1">
-                            {item.goal}
+                            {item.type != null ? item.type.name : ""}
                             <br />
                             <span className="mission-span-2">{item.name}</span>
                             <br />
@@ -228,11 +238,13 @@ class Mission extends Component {
                       <div class="row">
                         <div class="col">
                           <div className="mission-info">
+                            {/* سعر|reward */}
                             <div class="d-inline mission-price">
                               <span className="mission-price-span">
                                 السعر {item.reward} جنيه
                               </span>
                             </div>
+                            {/* نطاق المهمة */}
                             <div class="d-inline mission-info-child">
                               <svg
                                 className="location-icon"
@@ -250,10 +262,11 @@ class Mission extends Component {
                               </svg>
                               <span className="mission-info-child-span">
                                 {item.full_addresss == null
-                                  ? "الجيزة"
+                                  ? ""
                                   : item.full_addresss}
                               </span>
                             </div>
+                            {/* انشئت في */}
                             <div class="d-inline mission-info-child">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -307,12 +320,69 @@ class Mission extends Component {
                                 />
                               </svg>
                               <span className="mission-info-child-span">
-                                انشئت في :
-                                {moment(item.created_at).format("MM/DD/YYYY")}
+                                انشئت في :{createdAtDate_Arabic}
+                              </span>
+                            </div>
+                            {/* تنتهي في */}
+                            <div class="d-inline mission-info-child">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="16"
+                                viewBox="0 0 15 16"
+                                fill="none"
+                              >
+                                <path
+                                  d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                />
+                                <path
+                                  d="M1.875 6.125H13.125"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                />
+                                <path
+                                  d="M5 1.75L5 3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M10 1.75V3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <circle
+                                  cx="7.5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="10"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                              </svg>
+                              <span className="mission-info-child-span">
+                                تنتهي في :{dueDate_Arabic}
                               </span>
                             </div>
                           </div>
                         </div>
+                        {/*حالة المهمة */}
                         <div
                           class="col-md-auto mission-status-in-progress"
                           style={{ marginTop: "10px" }}
@@ -331,6 +401,8 @@ class Mission extends Component {
                             </span>
                           </div>
                         ) : (
+                          //Todo : if sales man is more than three so get code from [
+                          //Build Mission Details Pop up for CompletedMissionIsAwaitingEvaluation] Commit
                           <div
                             class="col-md-auto mission-assigned"
                             style={{ marginTop: "10px" }}
@@ -374,7 +446,8 @@ class Mission extends Component {
                       <div className="row">
                         <div class="col-sm-11">
                           <span class="ml-2 mission-span-1">
-                            {item.goal}
+                            {item.type != null ? item.type.name : ""}
+
                             <br />
                             <span className="mission-span-2">{item.name}</span>
                             <br />
@@ -598,6 +671,16 @@ class Mission extends Component {
     return (
       <div>
         {this.state.data.map((item) => {
+          const createdAtDate = moment(item.created_at);
+          const dueDate = moment(
+            item.due_at == null ? new Date() : item.due_at
+          );
+
+          // Set the locale to Arabic
+          moment.locale("ar");
+          const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
+          const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
+
           return (
             <div class="row">
               <div className="missions-section">
@@ -607,7 +690,7 @@ class Mission extends Component {
                       <div className="row">
                         <div class="col-sm-11">
                           <span class="ml-2 mission-span-1">
-                            {item.goal}
+                            {item.type != null ? item.type.name : ""}
                             <br />
                             <span className="mission-span-2">{item.name}</span>
                             <br />
@@ -770,8 +853,63 @@ class Mission extends Component {
                                 />
                               </svg>
                               <span className="mission-info-child-span">
-                                انشئت في :
-                                {moment(item.created_at).format("MM/DD/YYYY")}
+                                انشئت في :{createdAtDate_Arabic}
+                              </span>
+                            </div>
+                            <div class="d-inline mission-info-child">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="16"
+                                viewBox="0 0 15 16"
+                                fill="none"
+                              >
+                                <path
+                                  d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                />
+                                <path
+                                  d="M1.875 6.125H13.125"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                />
+                                <path
+                                  d="M5 1.75L5 3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M10 1.75V3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <circle
+                                  cx="7.5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="10"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                              </svg>
+                              <span className="mission-info-child-span">
+                                تنتهي في :{dueDate_Arabic}
                               </span>
                             </div>
                           </div>
@@ -838,7 +976,7 @@ class Mission extends Component {
                       <div className="row">
                         <div class="col-sm-11">
                           <span class="ml-2 mission-span-1">
-                            {item.goal}
+                            {item.type != null ? item.type.name : ""}
                             <br />
                             <span className="mission-span-2">{item.name}</span>
                             <br />
@@ -1222,6 +1360,62 @@ class Mission extends Component {
                           </svg>
                           <span className="mission-info-child-span">
                             انشئت في : ٢٠ يوليو ٢٠٢٣
+                          </span>
+                        </div>
+                        <div class="d-inline mission-info-child">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="15"
+                            height="16"
+                            viewBox="0 0 15 16"
+                            fill="none"
+                          >
+                            <path
+                              d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                              stroke="#9BA0B1"
+                              stroke-width="1.5"
+                            />
+                            <path
+                              d="M1.875 6.125H13.125"
+                              stroke="#9BA0B1"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                            />
+                            <path
+                              d="M5 1.75L5 3.625"
+                              stroke="#9BA0B1"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <path
+                              d="M10 1.75V3.625"
+                              stroke="#9BA0B1"
+                              stroke-width="1.5"
+                              stroke-linecap="round"
+                              stroke-linejoin="round"
+                            />
+                            <circle
+                              cx="7.5"
+                              cy="9.875"
+                              r="0.625"
+                              fill="#9BA0B1"
+                            />
+                            <circle
+                              cx="10"
+                              cy="9.875"
+                              r="0.625"
+                              fill="#9BA0B1"
+                            />
+                            <circle
+                              cx="5"
+                              cy="9.875"
+                              r="0.625"
+                              fill="#9BA0B1"
+                            />
+                          </svg>
+                          <span className="mission-info-child-span">
+                            تنتهي في : ٢٠ يوليو ٢٠٢٣
                           </span>
                         </div>
                       </div>

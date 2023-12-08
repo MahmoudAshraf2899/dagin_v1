@@ -507,6 +507,22 @@ class MissionDetailsPopUp extends Component {
   };
 
   renderInProgressMissionsType = () => {
+    const createdAtDate = moment(this.state.data.created_at);
+    const dueDate = moment(this.state.data.due_at);
+    const assingedAt = moment(this.state.data.created_at);
+
+    // Set the locale to Arabic
+    moment.locale("ar");
+    const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
+    const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
+
+    const assignedHour = assingedAt.hours();
+    let date_type = "مساءً";
+    if (assignedHour < 12) date_type = "صباحا";
+
+    const formatted_Assign_Date = assingedAt.format(
+      `DD MMMM YYYY -   HH:mm  ${date_type}`
+    );
     return (
       <div>
         <div class="Details-PopUp-Container">
@@ -569,7 +585,9 @@ class MissionDetailsPopUp extends Component {
                       <div className="row">
                         <div class="col-sm-10">
                           <span class="ml-2 mission-span-1">
-                            {this.state.data.goal}
+                            {this.state.data.type != null
+                              ? this.state.data.type.name
+                              : ""}
                             <br />
                             <span className="mission-span-2">
                               {this.state.data.name}
@@ -602,27 +620,8 @@ class MissionDetailsPopUp extends Component {
                                 السعر {this.state.data.reward} جنيه
                               </span>
                             </div>
-                            <div class="d-inline mission-info-child">
-                              <svg
-                                className="location-icon"
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="11"
-                                height="14"
-                                viewBox="0 0 11 14"
-                                fill="none"
-                              >
-                                <path
-                                  d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
-                                  stroke="#9BA0B1"
-                                  stroke-width="1.5"
-                                />
-                              </svg>
-                              <span className="mission-info-child-span">
-                                {this.state.data.full_address == null
-                                  ? "الجيزة"
-                                  : this.state.data.full_address}
-                              </span>
-                            </div>
+
+                            {/* انشئت فيه */}
                             <div class="d-inline mission-info-child">
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -676,10 +675,64 @@ class MissionDetailsPopUp extends Component {
                                 />
                               </svg>
                               <span className="mission-info-child-span">
-                                انشئت في :
-                                {moment(this.state.data.created_at).format(
-                                  "MM/DD/YYYY"
-                                )}
+                                انشئت في :{createdAtDate_Arabic}
+                              </span>
+                            </div>
+                            {/* تنتهي في */}
+                            <div class="d-inline mission-info-child">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="16"
+                                viewBox="0 0 15 16"
+                                fill="none"
+                              >
+                                <path
+                                  d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                />
+                                <path
+                                  d="M1.875 6.125H13.125"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                />
+                                <path
+                                  d="M5 1.75L5 3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M10 1.75V3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <circle
+                                  cx="7.5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="10"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                              </svg>
+                              <span className="mission-info-child-span">
+                                تنتهي في :{dueDate_Arabic}
                               </span>
                             </div>
                           </div>
@@ -699,45 +752,31 @@ class MissionDetailsPopUp extends Component {
 
             <div class="row" id="mission-details-range">
               <div class="col-sm-10">
-                <div class="d-inline mission-info-child">
-                  <svg
-                    className="location-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="14"
-                    viewBox="0 0 11 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
-                      stroke="#9BA0B1"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                  <span className="mission-info-child-span">
-                    {this.state.data.full_address == null
-                      ? "الجيزة"
-                      : this.state.data.full_address}
-                  </span>
-                </div>
-
-                <div class="d-inline mission-info-child">
-                  <svg
-                    className="location-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="14"
-                    viewBox="0 0 11 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
-                      stroke="#9BA0B1"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                  <span className="mission-info-child-span">اسكندرية</span>
-                </div>
+                {this.state.data.workAreas != null ? (
+                  <>
+                    {this.state.data.workAreas.map((item) => {
+                      <div class="d-inline mission-info-child">
+                        <svg
+                          className="location-icon"
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="11"
+                          height="14"
+                          viewBox="0 0 11 14"
+                          fill="none"
+                        >
+                          <path
+                            d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
+                            stroke="#9BA0B1"
+                            stroke-width="1.5"
+                          />
+                        </svg>
+                        <span className="mission-info-child-span">
+                          {item.name}
+                        </span>
+                      </div>;
+                    })}
+                  </>
+                ) : null}
               </div>
             </div>
 
@@ -750,26 +789,28 @@ class MissionDetailsPopUp extends Component {
               <div className="assign-date">
                 <span>
                   تم الاسناد في
-                  {moment(this.state.data.created_at).format("MM/DD/YYYY")}
+                  {formatted_Assign_Date}
                 </span>
               </div>
             </div>
             <div class="row" id="assign-people">
               <div>
-                <div class="d-inline assigned-user">
-                  <img src={Ellipse} alt="user" className="assign-user-photo" />
-                  <span className="assign-user-name">
-                    {this.state.data.salesman}
-                  </span>
-                </div>
-                {/* <div class="d-inline assigned-user">
-                  <img src={Ellipse} alt="user" className="assign-user-photo" />
-                  <span className="assign-user-name">محمد حسين</span>
-                </div>
-                <div class="d-inline assigned-user">
-                  <img src={Ellipse} alt="user" className="assign-user-photo" />
-                  <span className="assign-user-name">محمد حسين</span>
-                </div> */}
+                {this.state.data.assignedUsers != null ? (
+                  <>
+                    {this.state.data.assignedUsers.map((item) => {
+                      return (
+                        <div class="d-inline assigned-user">
+                          <img
+                            src={Ellipse}
+                            alt="user"
+                            className="assign-user-photo"
+                          />
+                          <span className="assign-user-name">{item.name}</span>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
               </div>
             </div>
 
@@ -792,6 +833,22 @@ class MissionDetailsPopUp extends Component {
   };
 
   renderLateMissionsType = () => {
+    const createdAtDate = moment(this.state.data.created_at);
+    const dueDate = moment(this.state.data.due_at);
+    const assingedAt = moment(this.state.data.created_at);
+
+    // Set the locale to Arabic
+    moment.locale("ar");
+    const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
+    const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
+
+    const assignedHour = assingedAt.hours();
+    let date_type = "مساءً";
+    if (assignedHour < 12) date_type = "صباحا";
+
+    const formatted_Assign_Date = assingedAt.format(
+      `DD MMMM YYYY -   HH:mm  ${date_type}`
+    );
     return (
       <div>
         <div class="Details-PopUp-Container">
@@ -854,7 +911,9 @@ class MissionDetailsPopUp extends Component {
                       <div className="row">
                         <div class="col-sm-10">
                           <span class="ml-2 mission-span-1">
-                            {this.state.data.goal}
+                            {this.state.data.type != null
+                              ? this.state.data.type.name
+                              : ""}
                             <br />
                             <span className="mission-span-2">
                               {this.state.data.name}
@@ -887,25 +946,61 @@ class MissionDetailsPopUp extends Component {
                                 السعر {this.state.data.reward} جنيه
                               </span>
                             </div>
+
                             <div class="d-inline mission-info-child">
                               <svg
-                                className="location-icon"
                                 xmlns="http://www.w3.org/2000/svg"
-                                width="11"
-                                height="14"
-                                viewBox="0 0 11 14"
+                                width="15"
+                                height="16"
+                                viewBox="0 0 15 16"
                                 fill="none"
                               >
                                 <path
-                                  d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
+                                  d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
                                   stroke="#9BA0B1"
                                   stroke-width="1.5"
                                 />
+                                <path
+                                  d="M1.875 6.125H13.125"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                />
+                                <path
+                                  d="M5 1.75L5 3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M10 1.75V3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <circle
+                                  cx="7.5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="10"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
                               </svg>
                               <span className="mission-info-child-span">
-                                {this.state.data.full_addresss == null
-                                  ? "الجيزة"
-                                  : this.state.data.full_addresss}
+                                انشئت في :{createdAtDate_Arabic}
                               </span>
                             </div>
                             <div class="d-inline mission-info-child">
@@ -961,10 +1056,7 @@ class MissionDetailsPopUp extends Component {
                                 />
                               </svg>
                               <span className="mission-info-child-span">
-                                انشئت في :
-                                {moment(this.state.data.created_at).format(
-                                  "MM/DD/YYYY"
-                                )}
+                                تنتهي في :{dueDate_Arabic}
                               </span>
                             </div>
                           </div>
@@ -984,73 +1076,69 @@ class MissionDetailsPopUp extends Component {
 
             <div class="row" id="mission-details-range">
               <div class="col-sm-10">
-                <div class="d-inline mission-info-child">
-                  <svg
-                    className="location-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="14"
-                    viewBox="0 0 11 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
-                      stroke="#9BA0B1"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                  <span className="mission-info-child-span">الجيزة</span>
-                </div>
-
-                <div class="d-inline mission-info-child">
-                  <svg
-                    className="location-icon"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="11"
-                    height="14"
-                    viewBox="0 0 11 14"
-                    fill="none"
-                  >
-                    <path
-                      d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
-                      stroke="#9BA0B1"
-                      stroke-width="1.5"
-                    />
-                  </svg>
-                  <span className="mission-info-child-span">اسكندرية</span>
-                </div>
+                {this.state.data.workAreas != null ? (
+                  <>
+                    {this.state.data.workAreas.map((item) => {
+                      return (
+                        <div class="d-inline mission-info-child">
+                          <svg
+                            className="location-icon"
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="11"
+                            height="14"
+                            viewBox="0 0 11 14"
+                            fill="none"
+                          >
+                            <path
+                              d="M2.14575 2.3796L2.14575 2.3796C3.9996 0.493217 7.00045 0.493221 8.85427 2.37959C10.7192 4.2773 10.7088 7.40685 8.86152 9.23578L8.8559 9.24135L8.8504 9.24703L5.49605 12.7111L2.14574 9.3021C0.284754 7.40848 0.28475 4.27324 2.14575 2.3796ZM3.58905 5.81128C3.58905 6.8629 4.43502 7.74263 5.50003 7.74263C6.56499 7.74263 7.41093 6.86287 7.41093 5.81128C7.41093 4.75973 6.56497 3.88 5.50003 3.88C4.43505 3.88 3.58905 4.7597 3.58905 5.81128Z"
+                              stroke="#9BA0B1"
+                              stroke-width="1.5"
+                            />
+                          </svg>
+                          <span className="mission-info-child-span">
+                            {item.name}
+                          </span>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
               </div>
             </div>
-
+            {/* تعيين المهمة ل */}
             <div class="row" id="assign-mission-to">
               <div className="assign-mission-to">
                 <span>تعيين المهمة ل</span>
               </div>
             </div>
+            {/* تم الاسناد في*/}
             <div class="row" id="assign-date">
               <div className="assign-date">
                 <span>
-                  تم الاسناد في{" "}
-                  {moment(this.state.data.created_at).format("MM/DD/YYYY")}
+                  تم الاسناد في
+                  {formatted_Assign_Date}
                 </span>
               </div>
             </div>
+            {/* Assigned Users */}
             <div class="row" id="assign-people">
               <div>
-                <div class="d-inline assigned-user">
-                  <img src={Ellipse} alt="user" className="assign-user-photo" />
-                  <span className="assign-user-name">
-                    {this.state.data.salesman}
-                  </span>
-                </div>
-                {/* <div class="d-inline assigned-user">
-                  <img src={Ellipse} alt="user" className="assign-user-photo" />
-                  <span className="assign-user-name">محمد حسين</span>
-                </div>
-                <div class="d-inline assigned-user">
-                  <img src={Ellipse} alt="user" className="assign-user-photo" />
-                  <span className="assign-user-name">محمد حسين</span>
-                </div> */}
+                {this.state.data.assignedUsers != null ? (
+                  <>
+                    {this.state.data.assignedUsers.map((item) => {
+                      return (
+                        <div class="d-inline assigned-user">
+                          <img
+                            src={Ellipse}
+                            alt="user"
+                            className="assign-user-photo"
+                          />
+                          <span className="assign-user-name">{item.name}</span>
+                        </div>
+                      );
+                    })}
+                  </>
+                ) : null}
               </div>
             </div>
 
@@ -1094,7 +1182,7 @@ class MissionDetailsPopUp extends Component {
               <div class="col" onClick={() => this.sendAlert()}>
                 {/* //Todo : We Will Make Click Function Here ^_^ */}
                 <div className="mission-button-action">
-                  <div className="mark-completed">
+                  <div className="mark-completed" style={{ cursor: "pointer" }}>
                     <span>تعيين كمهمة تامة</span>
                   </div>
                 </div>
