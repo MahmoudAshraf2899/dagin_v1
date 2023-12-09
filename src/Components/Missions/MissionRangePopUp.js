@@ -13,7 +13,7 @@ class MissionRangePopUp extends Component {
     };
   }
   componentDidMount = () => {
-    API.get("cities").then((res) => {
+    API.get("work-areas").then((res) => {
       if (res) {
         const cities = res.data.map((item) => ({
           id: item.id,
