@@ -8,6 +8,7 @@ import API from "../Api";
 import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 
 Util.setGlobalCssModule({
   btn: "hyperspeed-btn",
@@ -21,30 +22,44 @@ class Mission extends Component {
       showAddComponent: false,
       showDetailsPopUp: false,
       showMissionOptionList: false,
-      currentElementTitle: "",
+      currentElementTitle: "pending",
       missionId: 0,
       data: [],
+      pageNumber: 1,
+      pageSize: 10,
+      lastIndex: 0,
+      firstIndex: 0,
+      pagedData: [],
+      noPages: 0,
+      totalRows: 0,
     };
   }
   componentDidMount() {
     API.get(
-      "dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=1&limit=10"
+      `dashboard/missions?status=pending&sort_by=id&sort_order=DESC&page=1&limit=${this.state.pageSize}`
     )
       .then((res) => {
         if (res) {
           if (res.status === 403) {
             toast.error("You don't have permission to access this page");
           } else {
-            this.setState({ data: res.data.items });
+            const pageNumber = this.state.pageNumber;
+            const pageSize = this.state.pageSize;
+            const lastIndexValue = pageNumber * pageSize;
+            const firstIndexValue = lastIndexValue - pageSize;
+            let dataArr = res.data.items;
+            let pagedDataValue = dataArr.slice(firstIndexValue, lastIndexValue);
+            this.setState({
+              data: pagedDataValue,
+              totalRows: res.data.totalCount,
+            });
           }
         } else {
-          toast.error(
-            "Something goes wrong please contact your administrators"
-          );
+          toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
         }
       })
       .catch((error) => {
-        toast.error("Something goes wrong please contact your administrators");
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
       });
   }
 
@@ -81,10 +96,16 @@ class Mission extends Component {
     this.setState({ selectedMission: e, currentElementTitle: statusType });
 
     API.get(
-      `dashboard/missions?status=${statusType}&sort_by=id&sort_order=DESC&page=1&limit=10`
+      `dashboard/missions?status=${statusType}&sort_by=id&sort_order=DESC&page=1&limit=${this.state.pageSize}`
     ).then((res) => {
       if (res) {
-        this.setState({ data: res.data.items });
+        const lastIndexValue = this.state.pageNumber * this.state.pageSize;
+        const firstIndexValue = lastIndexValue - this.state.pageSize;
+        let dataArr = res.data.items;
+        let rowsLength = res.data.totalCount;
+        let pagedDataValue = dataArr.slice(firstIndexValue, lastIndexValue);
+        this.setState({ data: pagedDataValue, totalRows: rowsLength });
+        // this.setState({ data: res.data.items });
       } else {
         toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
       }
@@ -98,9 +119,11 @@ class Mission extends Component {
       }
     });
   };
+
   showAddNewMissionComponent = () => {
     this.setState({ showAddComponent: true });
   };
+
   showDetailsPopUp = (id) => {
     let option = this.state.showDetailsPopUp;
 
@@ -116,9 +139,92 @@ class Mission extends Component {
     this.setState({ showAddComponent: dataFromChild });
     // Do something with the data in the parent component
   };
+
   deleteObjectFromDetails = (item) => {
     this.extractObjectForDelete(item);
   };
+
+  handleNextPage = () => {
+    const pageNumberValue = this.state.pageNumber;
+    const lastIndex = this.state.lastIndex;
+    if (pageNumberValue !== lastIndex) {
+      API.get(
+        `dashboard/missions?status=${
+          this.state.currentElementTitle
+        }&sort_by=id&sort_order=DESC&page=${pageNumberValue + 1}&limit=${
+          this.state.pageSize
+        }`
+      ).then((res) => {
+        let dataArr = res.data.items;
+        this.setState({
+          data: dataArr,
+          pageNumber: pageNumberValue + 1,
+        });
+      });
+    }
+  };
+
+  hanldeChangePage = (n) => {
+    API.get(
+      `dashboard/missions?status=${this.state.currentElementTitle}&sort_by=id&sort_order=DESC&page=${n}&limit=${this.state.pageSize}`
+    ).then((res) => {
+      let dataArr = res.data.items;
+      this.setState({ data: dataArr, pageNumber: n });
+    });
+  };
+
+  handlePrevPage = () => {
+    const pageNumberValue = this.state.pageNumber;
+    const firstIndex = this.state.firstIndex;
+    if (pageNumberValue !== firstIndex) {
+      API.get(
+        `dashboard/missions?status=${
+          this.state.currentElementTitle
+        }&sort_by=id&sort_order=DESC&page=${pageNumberValue - 1}&limit=${
+          this.state.pageSize
+        }`
+      ).then((res) => {
+        let dataArr = res.data.items;
+        this.setState({
+          data: dataArr,
+          pageNumber: pageNumberValue - 1,
+        });
+      });
+    }
+  };
+
+  renderPagination = () => {
+    const pageSize = this.state.pageSize;
+    let dataArr = this.state.data;
+    const nPages = Math.ceil(this.state.totalRows / pageSize);
+    const numbers = [...Array(nPages + 1).keys()].slice(1);
+
+    let data = numbers.map((n) => (
+      <PaginationItem
+        className={this.state.pageNumber === n ? "active" : ""}
+        style={{ marginRight: "10px", marginLeft: "10px" }}
+        onClick={() => this.hanldeChangePage(n)}
+        key={n}
+      >
+        <PaginationLink
+          href="#"
+          style={{
+            width: "70px",
+            height: "50px",
+            fontSize: "15px",
+            textAlign: "center",
+            paddingTop: "12px",
+            backgroundColor: this.state.pageNumber === n ? "#70D44B" : "",
+            color: this.state.pageNumber !== n ? "black" : "",
+          }}
+        >
+          {n}
+        </PaginationLink>
+      </PaginationItem>
+    ));
+    return data;
+  };
+
   extractObjectForDelete(id) {
     let dataObj = [...this.state.data];
     let removedObject = dataObj.find((item) => item.id === id);
@@ -2474,6 +2580,61 @@ class Mission extends Component {
               ? this.showFinishedMissions()
               : this.showPendingMissions()}
           </div>
+          {/* Pagination */}
+
+          {this.state.data.length === 0 ? null : (
+            <>
+              <div class="row">
+                <Pagination
+                  aria-label="Page navigation example"
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginTop: "50px",
+                  }}
+                >
+                  {/* Previous */}
+                  <PaginationItem
+                    disabled
+                    style={{ marginRight: "10px", marginLeft: "10px" }}
+                    onClick={() => this.handlePrevPage()}
+                  >
+                    <PaginationLink
+                      href="#"
+                      style={{
+                        width: "70px",
+                        height: "50px",
+                        fontSize: "15px",
+                        textAlign: "center",
+                        paddingTop: "12px",
+                        color: "#70D44B",
+                      }}
+                      previous
+                    />
+                  </PaginationItem>
+                  {this.renderPagination(this.state.noPages)}
+                  {/* Next  */}
+                  <PaginationItem
+                    style={{ marginRight: "10px", marginLeft: "10px" }}
+                    onClick={() => this.handleNextPage()}
+                  >
+                    <PaginationLink
+                      href="#"
+                      style={{
+                        width: "70px",
+                        height: "50px",
+                        fontSize: "15px",
+                        textAlign: "center",
+                        paddingTop: "12px",
+                        color: "#70D44B",
+                      }}
+                      next
+                    />
+                  </PaginationItem>
+                </Pagination>
+              </div>
+            </>
+          )}
           {/* Render Add New Mission Component */}
           <div class="row">
             {this.state.showAddComponent === true ? (

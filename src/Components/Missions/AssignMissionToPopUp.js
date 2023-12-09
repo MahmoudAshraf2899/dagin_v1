@@ -107,117 +107,119 @@ class AssignMissionToPopUp extends Component {
   render() {
     return (
       <div className="mission-range">
-        <div class="container">
-          {/* Header Row */}
-          <div class="row mt-3 mission-header-range">
-            <div class="col-11">
-              <div className="mission-details" style={{ width: "32%" }}>
-                <span className="mission-details-span">تعيين المهمة ل</span>
+        <div className="content">
+          <div class="container">
+            {/* Header Row */}
+            <div class="row mt-3 mission-header-range">
+              <div class="col-11">
+                <div className="mission-details" style={{ width: "32%" }}>
+                  <span className="mission-details-span">تعيين المهمة ل</span>
+                </div>
+              </div>
+              <div class="col-1">
+                <img
+                  src={closeIcon}
+                  alt="close-icon"
+                  onClick={() => this.sendDataToParent()}
+                />
               </div>
             </div>
-            <div class="col-1">
-              <img
-                src={closeIcon}
-                alt="close-icon"
+            <div class="row mt-3">
+              <div className="assign-people-type">
+                <div
+                  className={
+                    this.state.selectedItem === 0
+                      ? "assign-type-active"
+                      : "assign-type"
+                  }
+                  onClick={() => this.handleActiveType(0)}
+                >
+                  لحسابات اشخاص
+                </div>
+                <div
+                  className={
+                    this.state.selectedItem === 1
+                      ? "assign-type-active"
+                      : "assign-type"
+                  }
+                  onClick={() => this.handleActiveType(1)}
+                >
+                  لتخصص
+                </div>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12 range-border"></div>
+            </div>
+            {/* اضف الاشخاص */}
+            <div class="row mt-3">
+              <div class="col-12">
+                <span className="select-area">
+                  {this.state.selectedItem === 0
+                    ? "اضف الاشخاص"
+                    : "اختر التخصصات"}
+                </span>
+              </div>
+            </div>
+            <div class="row mt-3">
+              <div class="col-12">
+                <input
+                  type="text"
+                  placeholder="ابحث"
+                  className="cities-search"
+                  onChange={this.handleSearch}
+                />
+              </div>
+            </div>
+            {/* Cities */}
+            <div class="row" style={{ height: "150px" }}>
+              <div
+                class="col-12"
+                style={{ maxHeight: "600px", overflowY: "auto" }}
+              >
+                <ul class="list-unstyled scrollable-list-assign">
+                  {this.state.data.map((item) => {
+                    return (
+                      <li class="d-flex w-100 justify-content-between py-2">
+                        <div class="custom-border">{item.name}</div>
+                        <div class="checkbox checkbox-success">
+                          <input
+                            id={`checkbox ${item.id}`}
+                            type="checkbox"
+                            onChange={(e) =>
+                              this.handleSelectItem(item.id, item.name)
+                            }
+                          />
+                          <label for={`checkbox ${item.id}`}></label>
+                        </div>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            </div>
+            {/* Footer */}
+          </div>
+          <div
+            class="row mb-4"
+            style={{ marginTop: "100px", textAlign: "center" }}
+          >
+            <div class="col-2">
+              <button
+                className="done-add-range"
                 onClick={() => this.sendDataToParent()}
-              />
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div className="assign-people-type">
-              <div
-                className={
-                  this.state.selectedItem === 0
-                    ? "assign-type-active"
-                    : "assign-type"
-                }
-                onClick={() => this.handleActiveType(0)}
               >
-                لحسابات اشخاص
-              </div>
-              <div
-                className={
-                  this.state.selectedItem === 1
-                    ? "assign-type-active"
-                    : "assign-type"
-                }
-                onClick={() => this.handleActiveType(1)}
+                تم
+              </button>
+            </div>
+            <div className="col-2">
+              <button
+                className="cancel-add-range"
+                onClick={() => this.sendDataToParent()}
               >
-                لتخصص
-              </div>
+                الغاء
+              </button>
             </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12 range-border"></div>
-          </div>
-          {/* اضف الاشخاص */}
-          <div class="row mt-3">
-            <div class="col-12">
-              <span className="select-area">
-                {this.state.selectedItem === 0
-                  ? "اضف الاشخاص"
-                  : "اختر التخصصات"}
-              </span>
-            </div>
-          </div>
-          <div class="row mt-3">
-            <div class="col-12">
-              <input
-                type="text"
-                placeholder="ابحث"
-                className="cities-search"
-                onChange={this.handleSearch}
-              />
-            </div>
-          </div>
-          {/* Cities */}
-          <div class="row" style={{ height: "150px" }}>
-            <div
-              class="col-12"
-              style={{ maxHeight: "600px", overflowY: "auto" }}
-            >
-              <ul class="list-unstyled scrollable-list-assign">
-                {this.state.data.map((item) => {
-                  return (
-                    <li class="d-flex w-100 justify-content-between py-2">
-                      <div class="custom-border">{item.name}</div>
-                      <div class="checkbox checkbox-success">
-                        <input
-                          id={`checkbox ${item.id}`}
-                          type="checkbox"
-                          onChange={(e) =>
-                            this.handleSelectItem(item.id, item.name)
-                          }
-                        />
-                        <label for={`checkbox ${item.id}`}></label>
-                      </div>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
-          {/* Footer */}
-        </div>
-        <div
-          class="row mb-4"
-          style={{ marginTop: "100px", textAlign: "center" }}
-        >
-          <div class="col-2">
-            <button
-              className="done-add-range"
-              onClick={() => this.sendDataToParent()}
-            >
-              تم
-            </button>
-          </div>
-          <div className="col-2">
-            <button
-              className="cancel-add-range"
-              onClick={() => this.sendDataToParent()}
-            >
-              الغاء
-            </button>
           </div>
         </div>
       </div>

@@ -1,7 +1,13 @@
 import React, { Component } from "react";
 import profileImg from "../../Assets/images/profileimg.svg";
 import threeDots from "../../Assets/icons/Three dots.svg";
-import { Card, CardTitle, CardText, Button } from "reactstrap";
+import {
+  Card,
+  CardTitle,
+  Pagination,
+  PaginationItem,
+  PaginationLink,
+} from "reactstrap";
 
 class Users extends Component {
   constructor(props) {
@@ -164,6 +170,7 @@ class Users extends Component {
               Left Section
             </div>
           </div>
+          <div class="row"></div>
         </div>
       </div>
     );
