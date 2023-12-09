@@ -543,6 +543,15 @@ class Mission extends Component {
     return (
       <div>
         {this.state.data.map((item) => {
+          const createdAtDate = moment(item.created_at);
+          const dueDate = moment(
+            item.due_at == null ? new Date() : item.due_at
+          );
+
+          // Set the locale to Arabic
+          moment.locale("ar");
+          const createdAtDate_Arabic = createdAtDate.format("DD MMM YYYY");
+          const dueDate_Arabic = dueDate.format("DD MMMM YYYY");
           return (
             <div class="row">
               <div className="missions-section">
@@ -718,8 +727,64 @@ class Mission extends Component {
                                 />
                               </svg>
                               <span className="mission-info-child-span">
-                                انشئت في :
-                                {moment(item.created_at).format("MM/DD/YYYY")}
+                                انشئت في :{createdAtDate_Arabic}
+                              </span>
+                            </div>
+
+                            <div class="d-inline mission-info-child">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="15"
+                                height="16"
+                                viewBox="0 0 15 16"
+                                fill="none"
+                              >
+                                <path
+                                  d="M1.875 6.6875C1.875 4.47836 3.66586 2.6875 5.875 2.6875H9.125C11.3341 2.6875 13.125 4.47836 13.125 6.6875V10.25C13.125 12.4591 11.3341 14.25 9.125 14.25H5.875C3.66586 14.25 1.875 12.4591 1.875 10.25V6.6875Z"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                />
+                                <path
+                                  d="M1.875 6.125H13.125"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                />
+                                <path
+                                  d="M5 1.75L5 3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <path
+                                  d="M10 1.75V3.625"
+                                  stroke="#9BA0B1"
+                                  stroke-width="1.5"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                />
+                                <circle
+                                  cx="7.5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="10"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                                <circle
+                                  cx="5"
+                                  cy="9.875"
+                                  r="0.625"
+                                  fill="#9BA0B1"
+                                />
+                              </svg>
+                              <span className="mission-info-child-span">
+                                تنتهي في :{dueDate_Arabic}
                               </span>
                             </div>
                           </div>
@@ -2590,7 +2655,7 @@ class Mission extends Component {
                   style={{
                     display: "flex",
                     justifyContent: "center",
-                    marginTop: "50px",
+                    marginTop: "10px",
                   }}
                 >
                   {/* Previous */}
