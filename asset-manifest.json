@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/dagin_v1/static/css/main.713d3e21.css",
-    "main.js": "/dagin_v1/static/js/main.7ac1d01b.js",
+    "main.js": "/dagin_v1/static/js/main.97f15c30.js",
     "static/js/787.c5e788cf.chunk.js": "/dagin_v1/static/js/787.c5e788cf.chunk.js",
     "static/media/fa-solid-900.ttf": "/dagin_v1/static/media/fa-solid-900.bb5be820e5eb072d5758.ttf",
     "static/media/alfont_com_Madani-Arabic-Semi-Bold.ttf": "/dagin_v1/static/media/alfont_com_Madani-Arabic-Semi-Bold.2fa121d1ab7b3156c65f.ttf",
@@ -32,11 +32,11 @@
     "static/media/about phone.svg": "/dagin_v1/static/media/about phone.7ff544b5d641ed8ace04.svg",
     "static/media/Close Icon.svg": "/dagin_v1/static/media/Close Icon.123e26606a26f70d4d8b02b580c9dc12.svg",
     "main.713d3e21.css.map": "/dagin_v1/static/css/main.713d3e21.css.map",
-    "main.7ac1d01b.js.map": "/dagin_v1/static/js/main.7ac1d01b.js.map",
+    "main.97f15c30.js.map": "/dagin_v1/static/js/main.97f15c30.js.map",
     "787.c5e788cf.chunk.js.map": "/dagin_v1/static/js/787.c5e788cf.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.713d3e21.css",
-    "static/js/main.7ac1d01b.js"
+    "static/js/main.97f15c30.js"
   ]
 }
