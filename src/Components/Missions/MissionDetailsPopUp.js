@@ -8,6 +8,8 @@ import { format } from "date-fns";
 import { ar, enUS } from "date-fns/locale";
 import "moment/locale/ar"; // Import the Arabic locale
 import { toast } from "react-toastify";
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import CustomCloseButton from "../SubComponents/CustomCloseButton ";
 
 class MissionDetailsPopUp extends Component {
   constructor(props) {
@@ -39,7 +41,10 @@ class MissionDetailsPopUp extends Component {
     // Call the callback function passed from the parent
     this.props.deletedElement(data);
   };
-  showEvaluationPopUp = () => this.setState({ showEvaluationModal: true });
+  showEvaluationPopUp = () => {
+    let value = this.state.showEvaluationModal;
+    this.setState({ showEvaluationModal: !value });
+  };
 
   handleDeleteMission = () => {
     API.delete(`dashboard/missions/${this.props.id}`).then((res) => {
@@ -64,6 +69,12 @@ class MissionDetailsPopUp extends Component {
   closeEvaluationPopUp = () => this.setState({ showEvaluationModal: false });
 
   handleEvaluation = (e) => this.setState({ selectedEvaluation: e });
+
+  sendEvaluation = () => {
+    //Todo : Make Api Here
+    //Todo : Toaster With Success
+    //Todo : Close Evaluation Pop Up ..
+  };
 
   renderEvaluationPopUp = () => {
     return (
@@ -1642,9 +1653,24 @@ class MissionDetailsPopUp extends Component {
     const formatted_Assign_Date = assingedAt.format(
       `DD MMMM YYYY -   HH:mm  ${date_type}`
     );
+
+    const closeBtnProps = {
+      /* Add your custom props here */
+      // For example:
+      style: { color: "red" },
+      onClick: () => console.log("Custom close button clicked"),
+    };
     return (
       <div>
-        <div class="Details-PopUp-Container">
+        <div
+          class="Details-PopUp-Container"
+          style={{
+            zIndex:
+              this.state.showEvaluationModal === true
+                ? "9"
+                : "99999999999999999999999",
+          }}
+        >
           <div class="container">
             <div class="row">
               <div
@@ -1919,7 +1945,6 @@ class MissionDetailsPopUp extends Component {
             <div class="row" id="assign-date">
               <div className="assign-date">
                 <span>
-                  {" "}
                   تم الاسناد في
                   {formatted_Assign_Date}
                 </span>
@@ -2005,16 +2030,64 @@ class MissionDetailsPopUp extends Component {
             </div>
             {/* المرفقات والتسليمات */}
             <div class="row" id="mission-button-action">
-              <div class="col" onClick={() => this.showEvaluationPopUp()}>
+              <div class="col">
                 {/* //Todo : Change Classes With New Type For Finished Mission ^_^ */}
-                <div className="mission-button-action">
+                {/* <div className="mission-button-action">
                   <div className="evaluation">
                     <span>تقييم</span>
                   </div>
+                </div> */}
+                <div
+                  className="evaluation"
+                  onClick={() => this.showEvaluationPopUp()}
+                >
+                  <span>تقييم</span>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        <div className="content">
+          <Modal
+            isOpen={this.state.showEvaluationModal}
+            toggle={() => this.showEvaluationPopUp()}
+            style={{
+              display: "flex",
+              zIndex: "9999999999999999999999999999999999",
+            }}
+          >
+            <div style={{ borderBottom: "1px solid #F1F5F9" }}>
+              <div style={{ marginTop: "25px", marginBottom: "8px" }}>
+                <div style={{ display: "flex", padding: "10px" }}>
+                  <span className="mission-evaluation">تقييم المهمة</span>
+                  <img
+                    onClick={() => this.showEvaluationPopUp()}
+                    src={closeIcon}
+                    alt="close-icon"
+                    className="close-evaluation"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <ModalBody>
+              <span className="eval-question">ماهو تقييمك لهذه المهمة</span>
+              <div className="evaluation-options">
+                <div className="eval-option-active">غير مرضي</div>
+                <div className="eval-option">جيد</div>
+                <div className="eval-option">جيد جداً</div>
+                <div className="eval-option">استثنائي</div>
+              </div>
+            </ModalBody>
+            <div style={{ marginBottom: "40px", marginRight: "17px" }}>
+              <button
+                className="send-eval"
+                onClick={() => this.sendEvaluation()}
+              >
+                ارسال التقييم
+              </button>
+            </div>
+          </Modal>
         </div>
       </div>
     );
@@ -2036,9 +2109,9 @@ class MissionDetailsPopUp extends Component {
           : this.props.missionType === 4
           ? this.renderFinishedMissionsType()
           : null}
-        {this.state.showEvaluationModal === true
+        {/* {this.state.showEvaluationModal === true
           ? this.renderEvaluationPopUp()
-          : null}
+          : null} */}
       </div>
     );
   }
