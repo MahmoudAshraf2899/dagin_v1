@@ -3067,3 +3067,113 @@ font-style: normal;
 font-weight: 400;
 line-height: 16px; 
 }
+.evaluation-actions{
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin-top: 10px;
+  width: 70%;
+}
+.button-eval{
+  display: flex;
+  padding: 6px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  background: #124734;
+  margin-left: 10px;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+}
+.button-eval-span{
+color: #FFFFFF;
+text-align: right; 
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+}
+.refuse-m-btn{
+display: flex;
+padding: 6px 8px;
+justify-content: center;
+align-items: center;
+gap: 6px;
+border-radius: 8px;
+background: #C11818;
+margin-left: 10px;
+width: 50%;
+text-align: center;
+cursor: pointer;
+
+}
+.refuse-btn-span{
+color: #FFFFFF;
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+padding-right: 5px;
+}
+.edit-mission-btn{
+  display: flex;
+  padding: 6px 8px;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  border-radius: 8px;
+  background: hsl(59, 78%, 43%);
+  margin-left: 10px;
+  width: 50%;
+  text-align: center; 
+  cursor: pointer;
+
+}
+.edit-btn-span{
+color: #FFFFFF;
+text-align: right;
+font-family: MadaniArabic-Medium;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+padding-right: 5px;
+}
+.yes-refuse{
+display: inline-flex;
+padding: 8px 43.5px 9px 42.5px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px; 
+margin-left: 15px;
+cursor: pointer;
+}
+.no-refuse{
+  display: inline-flex;
+  padding: 8px 43.5px 9px 42.5px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: #C11818;
+  color: #FFF;
+  font-family: MadaniArabic-Medium;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;  
+  cursor: pointer;
+
+}

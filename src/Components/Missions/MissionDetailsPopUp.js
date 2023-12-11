@@ -4,12 +4,11 @@ import Ellipse from "../../Assets/images/Ellipse 3.svg";
 import downloadImg from "../../Assets/images/Download.svg";
 import API from "../Api";
 import moment from "moment";
-import { format } from "date-fns";
-import { ar, enUS } from "date-fns/locale";
-import "moment/locale/ar"; // Import the Arabic locale
 import { toast } from "react-toastify";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-import CustomCloseButton from "../SubComponents/CustomCloseButton ";
+import { Modal, ModalBody } from "reactstrap";
+import "moment/locale/ar"; // Import the Arabic locale
+import { ar, enUS } from "date-fns/locale";
+import { format } from "date-fns";
 
 class MissionDetailsPopUp extends Component {
   constructor(props) {
@@ -17,6 +16,7 @@ class MissionDetailsPopUp extends Component {
     this.state = {
       closePopUp: false,
       showEvaluationModal: false,
+      showRefuseModal: false,
       selectedEvaluation: 1,
       data: {},
       salesman: {},
@@ -44,6 +44,10 @@ class MissionDetailsPopUp extends Component {
   showEvaluationPopUp = () => {
     let value = this.state.showEvaluationModal;
     this.setState({ showEvaluationModal: !value });
+  };
+  showRefuseMissionPopUp = () => {
+    let value = this.state.showRefuseModal;
+    this.setState({ showRefuseModal: !value });
   };
 
   handleDeleteMission = () => {
@@ -1263,13 +1267,23 @@ class MissionDetailsPopUp extends Component {
     const assignedHour = assingedAt.hours();
     let date_type = "مساءً";
     if (assignedHour < 12) date_type = "صباحا";
+    moment.locale("ar");
 
     const formatted_Assign_Date = assingedAt.format(
       `DD MMMM YYYY -   HH:mm  ${date_type}`
     );
     return (
       <div>
-        <div class="Details-PopUp-Container">
+        <div
+          class="Details-PopUp-Container"
+          style={{
+            zIndex:
+              this.state.showEvaluationModal === true ||
+              this.state.showRefuseModal === true
+                ? "9"
+                : "99999999999999999999999",
+          }}
+        >
           <div className="content">
             <div class="container">
               <div class="row">
@@ -1282,40 +1296,6 @@ class MissionDetailsPopUp extends Component {
                   </div>
                 </div>
                 <div class="col-md-auto" style={{ marginTop: "25px" }}>
-                  {/* Edit Icon */}
-                  <svg
-                    style={{ marginLeft: "48px" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z"
-                      stroke="#28303F"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                    />
-                  </svg>
-                  {/* Delete Icon */}
-                  <svg
-                    style={{ marginLeft: "48px" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    onClick={() => this.handleDeleteMission()}
-                  >
-                    <path
-                      d="M5 8V18C5 20.2091 6.79086 22 9 22H15C17.2091 22 19 20.2091 19 18V8M14 11V17M10 11L10 17M16 5L14.5937 2.8906C14.2228 2.3342 13.5983 2 12.9296 2H11.0704C10.4017 2 9.7772 2.3342 9.40627 2.8906L8 5M16 5H8M16 5H21M8 5H3"
-                      stroke="#EB001B"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    />
-                  </svg>
                   {/*  Close Icon */}
                   <img
                     onClick={() => this.closePopUp()}
@@ -1533,7 +1513,7 @@ class MissionDetailsPopUp extends Component {
                   ) : null}
                 </div>
               </div>
-
+              {/* تعيين المهمة ل */}
               <div class="row" id="assign-mission-to">
                 <div className="assign-mission-to">
                   <span>تعيين المهمة ل</span>
@@ -1548,7 +1528,7 @@ class MissionDetailsPopUp extends Component {
                   </span>
                 </div>
               </div>
-
+              {/* من اسندت لهم المهمة */}
               <div class="row" id="assign-people">
                 <div>
                   {this.state.data.assignedUsers != null ? (
@@ -1571,13 +1551,13 @@ class MissionDetailsPopUp extends Component {
                   ) : null}
                 </div>
               </div>
-
+              {/* الوصف */}
               <div class="row" id="mission-description">
                 <div>
                   <span>الوصف</span>
                 </div>
               </div>
-
+              {/* الوصف */}
               <div class="row" id="mission-description-content">
                 <div class="col-9">
                   <span className="mission-description-content">
@@ -1591,7 +1571,7 @@ class MissionDetailsPopUp extends Component {
                   <span>المرفقات والتسليمات</span>
                 </div>
               </div>
-
+              {/* المرفقات والتسليمات */}
               <div class="row" id="mission-attch-container">
                 <div class="col" id="mission-attch-section">
                   <div class="d-inline attach-user">
@@ -1615,22 +1595,153 @@ class MissionDetailsPopUp extends Component {
                   </div>
                 </div>
               </div>
-              {/* المرفقات والتسليمات */}
-              <div class="row" id="mission-button-action">
-                <div class="col">
-                  <div
-                    className="mission-button-action"
-                    style={{ cursor: "pointer" }}
-                    onClick={() => this.makeMissionCompleted()}
-                  >
-                    <div className="mark-completed-evaluation">
-                      <span>تحديد كمهمة تامة</span>
+              {/* Actions */}
+              <div class="container">
+                <div class="row">
+                  <div class="col-12">
+                    <div className="evaluation-actions">
+                      {/* تقييم المهمة */}
+                      <div
+                        class="d-inline button-eval"
+                        onClick={() => this.showEvaluationPopUp()}
+                      >
+                        <span className="button-eval-span">تقييم المهمة</span>
+                      </div>
+                      {/* تعديل المهمة */}
+                      <div class="d-inline edit-mission-btn">
+                        <span className="edit-btn-span">تعديل المهمة</span>
+                      </div>
+                      {/* رفض المهمة */}
+                      <div
+                        class="d-inline refuse-m-btn"
+                        onClick={() => this.showRefuseMissionPopUp()}
+                      >
+                        <span className="refuse-btn-span">رفض المهمة</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        {/* Mission Evaluation Pop Up */}
+        <div className="content">
+          <Modal
+            isOpen={this.state.showEvaluationModal}
+            toggle={() => this.showEvaluationPopUp()}
+            style={{
+              display: "flex",
+              zIndex: "9999999999999999999999999999999999",
+            }}
+          >
+            <div style={{ borderBottom: "1px solid #F1F5F9" }}>
+              <div style={{ marginTop: "25px", marginBottom: "8px" }}>
+                <div style={{ display: "flex", padding: "10px" }}>
+                  <span className="mission-evaluation">تقييم المهمة</span>
+                  <img
+                    onClick={() => this.showEvaluationPopUp()}
+                    src={closeIcon}
+                    alt="close-icon"
+                    className="close-evaluation"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <ModalBody>
+              <span className="eval-question">ماهو تقييمك لهذه المهمة</span>
+              <div className="evaluation-options">
+                <div
+                  className={
+                    this.state.selectedEvaluation === 1
+                      ? "eval-option-active"
+                      : "eval-option"
+                  }
+                  onClick={() => this.handleEvaluation(1)}
+                >
+                  غير مرضي
+                </div>
+                <div
+                  className={
+                    this.state.selectedEvaluation === 2
+                      ? "eval-option-active"
+                      : "eval-option"
+                  }
+                  onClick={() => this.handleEvaluation(2)}
+                >
+                  جيد
+                </div>
+                <div
+                  className={
+                    this.state.selectedEvaluation === 3
+                      ? "eval-option-active"
+                      : "eval-option"
+                  }
+                  onClick={() => this.handleEvaluation(3)}
+                >
+                  جيد جداً
+                </div>
+                <div
+                  className={
+                    this.state.selectedEvaluation === 4
+                      ? "eval-option-active"
+                      : "eval-option"
+                  }
+                  onClick={() => this.handleEvaluation(4)}
+                >
+                  استثنائي
+                </div>
+              </div>
+            </ModalBody>
+            <div style={{ marginBottom: "40px", marginRight: "17px" }}>
+              <button
+                className="send-eval"
+                onClick={() => this.sendEvaluation()}
+              >
+                ارسال التقييم
+              </button>
+            </div>
+          </Modal>
+        </div>
+
+        <div className="content">
+          <Modal
+            isOpen={this.state.showRefuseModal}
+            toggle={() => this.showRefuseMissionPopUp()}
+            style={{
+              display: "flex",
+              zIndex: "9999999999999999999999999999999999",
+            }}
+          >
+            <div style={{ borderBottom: "1px solid #F1F5F9" }}>
+              <div style={{ marginTop: "25px", marginBottom: "8px" }}>
+                <div style={{ display: "flex", padding: "10px" }}>
+                  <span className="mission-evaluation">رفض المهمة</span>
+                  <img
+                    onClick={() => this.showRefuseMissionPopUp()}
+                    src={closeIcon}
+                    alt="close-icon"
+                    className="close-evaluation"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <ModalBody>
+              <span className="eval-question">
+                هل أنت متأكد أنك تريد رفض هذه المهمة؟
+              </span>
+            </ModalBody>
+            <div style={{ marginBottom: "40px", marginRight: "17px" }}>
+              <div className="yes-refuse" onClick={() => this.sendEvaluation()}>
+                نعم
+              </div>
+              <div className="no-refuse" onClick={() => this.sendEvaluation()}>
+                لا
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     );
@@ -1654,23 +1765,9 @@ class MissionDetailsPopUp extends Component {
       `DD MMMM YYYY -   HH:mm  ${date_type}`
     );
 
-    const closeBtnProps = {
-      /* Add your custom props here */
-      // For example:
-      style: { color: "red" },
-      onClick: () => console.log("Custom close button clicked"),
-    };
     return (
       <div>
-        <div
-          class="Details-PopUp-Container"
-          style={{
-            zIndex:
-              this.state.showEvaluationModal === true
-                ? "9"
-                : "99999999999999999999999",
-          }}
-        >
+        <div class="Details-PopUp-Container">
           <div class="container">
             <div class="row">
               <div
@@ -1940,8 +2037,8 @@ class MissionDetailsPopUp extends Component {
                 <span>تعيين المهمة ل</span>
               </div>
             </div>
-            {/* تم الاسناد في */}
 
+            {/* تم الاسناد في */}
             <div class="row" id="assign-date">
               <div className="assign-date">
                 <span>
@@ -2032,11 +2129,7 @@ class MissionDetailsPopUp extends Component {
             <div class="row" id="mission-button-action">
               <div class="col">
                 {/* //Todo : Change Classes With New Type For Finished Mission ^_^ */}
-                {/* <div className="mission-button-action">
-                  <div className="evaluation">
-                    <span>تقييم</span>
-                  </div>
-                </div> */}
+
                 <div
                   className="evaluation"
                   onClick={() => this.showEvaluationPopUp()}
@@ -2046,48 +2139,6 @@ class MissionDetailsPopUp extends Component {
               </div>
             </div>
           </div>
-        </div>
-        <div className="content">
-          <Modal
-            isOpen={this.state.showEvaluationModal}
-            toggle={() => this.showEvaluationPopUp()}
-            style={{
-              display: "flex",
-              zIndex: "9999999999999999999999999999999999",
-            }}
-          >
-            <div style={{ borderBottom: "1px solid #F1F5F9" }}>
-              <div style={{ marginTop: "25px", marginBottom: "8px" }}>
-                <div style={{ display: "flex", padding: "10px" }}>
-                  <span className="mission-evaluation">تقييم المهمة</span>
-                  <img
-                    onClick={() => this.showEvaluationPopUp()}
-                    src={closeIcon}
-                    alt="close-icon"
-                    className="close-evaluation"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <ModalBody>
-              <span className="eval-question">ماهو تقييمك لهذه المهمة</span>
-              <div className="evaluation-options">
-                <div className="eval-option-active">غير مرضي</div>
-                <div className="eval-option">جيد</div>
-                <div className="eval-option">جيد جداً</div>
-                <div className="eval-option">استثنائي</div>
-              </div>
-            </ModalBody>
-            <div style={{ marginBottom: "40px", marginRight: "17px" }}>
-              <button
-                className="send-eval"
-                onClick={() => this.sendEvaluation()}
-              >
-                ارسال التقييم
-              </button>
-            </div>
-          </Modal>
         </div>
       </div>
     );
@@ -2109,9 +2160,6 @@ class MissionDetailsPopUp extends Component {
           : this.props.missionType === 4
           ? this.renderFinishedMissionsType()
           : null}
-        {/* {this.state.showEvaluationModal === true
-          ? this.renderEvaluationPopUp()
-          : null} */}
       </div>
     );
   }
