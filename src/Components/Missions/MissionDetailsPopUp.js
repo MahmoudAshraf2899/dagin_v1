@@ -80,116 +80,6 @@ class MissionDetailsPopUp extends Component {
     //Todo : Close Evaluation Pop Up ..
   };
 
-  renderEvaluationPopUp = () => {
-    return (
-      <div>
-        <div class="Evaluation-PopUp-Container">
-          <div className="content">
-            <div class="container">
-              {/* تفاصيل المهمة */}
-              <div class="row">
-                <div
-                  class="col"
-                  style={{ marginTop: "25px", marginBottom: "8px" }}
-                >
-                  <div className="mission-details">
-                    <span className="mission-details-span">تفاصيل المهمة</span>
-                  </div>
-                </div>
-                <div class="col-md-auto" style={{ marginTop: "25px" }}>
-                  <img
-                    onClick={() => this.closeEvaluationPopUp()}
-                    src={closeIcon}
-                    alt="close-icon"
-                    style={{ marginLeft: "27.5px" }}
-                  />
-                </div>
-              </div>
-
-              <div className="details-popup-border"></div>
-              <div class="row">
-                <div>
-                  <div>
-                    <div>
-                      <div className="container">
-                        <div className="row">
-                          <div class="col-sm-10">
-                            <span className="mission-span-2">
-                              ما هو تقييمك لهذه المهمة
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="container">
-                        <div class="row">
-                          <div class="col">
-                            <div className="mission-info">
-                              <div
-                                class={
-                                  this.state.selectedEvaluation === 1
-                                    ? "d-inline isActiveEvaluation"
-                                    : "d-inline normal-eval"
-                                }
-                                onClick={() => this.handleEvaluation(1)}
-                              >
-                                <span>غير مرضي</span>
-                              </div>
-                              <div
-                                class={
-                                  this.state.selectedEvaluation === 2
-                                    ? "d-inline isActiveEvaluation"
-                                    : "d-inline normal-eval"
-                                }
-                                onClick={() => this.handleEvaluation(2)}
-                              >
-                                <span>جيد</span>
-                              </div>
-                              <div
-                                class={
-                                  this.state.selectedEvaluation === 3
-                                    ? "d-inline isActiveEvaluation"
-                                    : "d-inline normal-eval"
-                                }
-                                onClick={() => this.handleEvaluation(3)}
-                              >
-                                <span>جيد جداً</span>
-                              </div>
-                              <div
-                                class={
-                                  this.state.selectedEvaluation === 4
-                                    ? "d-inline isActiveEvaluation"
-                                    : "d-inline normal-eval"
-                                }
-                                onClick={() => this.handleEvaluation(4)}
-                              >
-                                <span>استثنائي</span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="details-popup-border"></div>
-                      <div class="row">
-                        <div class="col">
-                          <div>
-                            <button className="send-Evaluation">
-                              ارسال التقييم
-                            </button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
   renderPendingMissionType = () => {
     const createdAtDate = moment(this.state.data.created_at);
     const dueDate = moment(this.state.data.due_at);
@@ -519,17 +409,6 @@ class MissionDetailsPopUp extends Component {
                   <span className="mission-description-content">
                     {this.state.data.details}
                   </span>
-                </div>
-              </div>
-
-              <div class="row" id="mission-button-action">
-                <div className="mission-button-action">
-                  <div class="d-inline agree-btn">
-                    <span className="agree-decile-title">موافقة</span>
-                  </div>
-                  <div class="d-inline decline-btn">
-                    <span className="agree-decile-title">رفض</span>
-                  </div>
                 </div>
               </div>
             </div>
