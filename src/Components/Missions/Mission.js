@@ -64,6 +64,7 @@ class Mission extends Component {
   }
 
   handleOnClick = (e) => {
+    console.log("data:", this.state.data);
     let statusType = "";
     this.setState({ data: [] }); //for popover
     switch (e) {
@@ -75,7 +76,6 @@ class Mission extends Component {
       case 2:
         this.setState({ currentElementTitle: "late" });
         statusType = "late";
-
         break;
 
       case 3:
@@ -293,6 +293,7 @@ class Mission extends Component {
                           <UncontrolledPopover
                             placement="bottom"
                             target={`UncontrolledPopover${item.id}`}
+                            trigger="legacy"
                           >
                             <PopoverBody
                               style={{ borderRadius: "8px", width: "155px" }}
@@ -601,6 +602,7 @@ class Mission extends Component {
                           <UncontrolledPopover
                             placement="bottom"
                             target={`UncontrolledPopover${item.id}`}
+                            trigger="legacy"
                           >
                             <PopoverBody
                               style={{ borderRadius: "8px", width: "155px" }}
@@ -872,7 +874,7 @@ class Mission extends Component {
                           style={{ marginLeft: "60px" }}
                         >
                           <Button
-                            id="UncontrolledPopover"
+                            id={`UncontrolledPopover${item.id}`}
                             type="button"
                             cssModule={{ btn: "hyperspeed-btn" }}
                           >
@@ -899,7 +901,8 @@ class Mission extends Component {
                           </Button>
                           <UncontrolledPopover
                             placement="bottom"
-                            target="UncontrolledPopover"
+                            target={`UncontrolledPopover${item.id}`}
+                            trigger="legacy"
                           >
                             <PopoverBody
                               style={{ borderRadius: "8px", width: "155px" }}
@@ -1195,6 +1198,7 @@ class Mission extends Component {
                           <UncontrolledPopover
                             placement="bottom"
                             target={`UncontrolledPopover${item.id}`}
+                            trigger="legacy"
                           >
                             <PopoverBody
                               style={{ borderRadius: "8px", width: "155px" }}
@@ -1482,6 +1486,7 @@ class Mission extends Component {
                           <UncontrolledPopover
                             placement="bottom"
                             target={`UncontrolledPopover${item.id}`}
+                            trigger="legacy"
                           >
                             <PopoverBody
                               style={{ borderRadius: "8px", width: "155px" }}
@@ -1495,25 +1500,6 @@ class Mission extends Component {
                                   style={{ marginBottom: "-5px" }}
                                 >
                                   عرض المهمة
-                                </p>
-                              </div>
-                              <br />
-                              <div className="mission-options-el">
-                                <p
-                                  class="text-end option-txt"
-                                  style={{ marginBottom: "-5px" }}
-                                >
-                                  تعديل المهمة
-                                </p>
-                              </div>
-                              <br />
-
-                              <div className="mission-options-el">
-                                <p
-                                  class="text-end option-txt-danger"
-                                  style={{ marginBottom: "-5px" }}
-                                >
-                                  حذف المهمة
                                 </p>
                               </div>
                             </PopoverBody>

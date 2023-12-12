@@ -15,7 +15,7 @@ class MissionDetailsPopUp extends Component {
     super(props);
     this.state = {
       closePopUp: false,
-      showEvaluationModal: false,
+      showMissionCompletedModal: false,
       showRefuseModal: false,
       selectedEvaluation: 1,
       data: {},
@@ -41,9 +41,9 @@ class MissionDetailsPopUp extends Component {
     // Call the callback function passed from the parent
     this.props.deletedElement(data);
   };
-  showEvaluationPopUp = () => {
-    let value = this.state.showEvaluationModal;
-    this.setState({ showEvaluationModal: !value });
+  showMarkMissionCompletedPopUp = () => {
+    let value = this.state.showMissionCompletedModal;
+    this.setState({ showMissionCompletedModal: !value });
   };
   showRefuseMissionPopUp = () => {
     let value = this.state.showRefuseModal;
@@ -62,23 +62,38 @@ class MissionDetailsPopUp extends Component {
 
   makeMissionCompleted = () => {
     API.post(`dashboard/missions/${this.props.id}/complete`).then((res) => {
-      if (res.status === 200) {
+      if (res.status === 201) {
         toast.success("تم تحديد المهمة كمهمة تامة بنجاح");
         this.sendPropsToDeleteObject();
+        this.showMarkMissionCompletedPopUp();
+        this.closePopUp();
+      } else {
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+        this.showMarkMissionCompletedPopUp();
         this.closePopUp();
       }
     });
   };
 
-  closeEvaluationPopUp = () => this.setState({ showEvaluationModal: false });
+  handleRefuseMission = () => {
+    API.post(`dashboard/missions/${this.props.id}/reject`).then((res) => {
+      if (res.status === 200) {
+        toast.success("تم رفض المهمة بنجاح");
+        this.sendPropsToDeleteObject();
+        this.showRefuseMissionPopUp();
+        this.closePopUp();
+      } else {
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+        this.showRefuseMissionPopUp();
+        this.closePopUp();
+      }
+    });
+  };
+
+  closeEvaluationPopUp = () =>
+    this.setState({ showMissionCompletedModal: false });
 
   handleEvaluation = (e) => this.setState({ selectedEvaluation: e });
-
-  sendEvaluation = () => {
-    //Todo : Make Api Here
-    //Todo : Toaster With Success
-    //Todo : Close Evaluation Pop Up ..
-  };
 
   renderPendingMissionType = () => {
     const createdAtDate = moment(this.state.data.created_at);
@@ -1095,26 +1110,30 @@ class MissionDetailsPopUp extends Component {
                   <span>المرفقات والتسليمات</span>
                 </div>
               </div>
-
-              <div class="row" id="mission-attch-container">
-                <div class="col" id="mission-attch-section">
-                  <div class="d-inline attach-user">
-                    <img
-                      src={Ellipse}
-                      alt="user"
-                      className="attach-userPhoto"
-                    />
-                    <span className="attach-userName">
-                      {this.state.data.salesman}
-                    </span>
-                    <br />
-                    <span className="attach-status">لم يسلم بعد</span>
-                  </div>
-                  <div className="send-alert" onClick={() => this.sendAlert()}>
-                    <span>ارسال تنبيه</span>
+              {this.state.data.length > 0 ? (
+                <div class="row" id="mission-attch-container">
+                  <div class="col" id="mission-attch-section">
+                    <div class="d-inline attach-user">
+                      <img
+                        src={Ellipse}
+                        alt="user"
+                        className="attach-userPhoto"
+                      />
+                      <span className="attach-userName">
+                        {this.state.salesman.name}
+                      </span>
+                      <br />
+                      <span className="attach-status">لم يسلم بعد</span>
+                    </div>
+                    <div
+                      className="send-alert"
+                      onClick={() => this.sendAlert()}
+                    >
+                      <span>ارسال تنبيه</span>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ) : null}
 
               <div class="row" id="mission-button-action">
                 <div class="col" onClick={() => this.sendAlert()}>
@@ -1157,7 +1176,7 @@ class MissionDetailsPopUp extends Component {
           class="Details-PopUp-Container"
           style={{
             zIndex:
-              this.state.showEvaluationModal === true ||
+              this.state.showMissionCompletedModal === true ||
               this.state.showRefuseModal === true
                 ? "9"
                 : "99999999999999999999999",
@@ -1479,12 +1498,14 @@ class MissionDetailsPopUp extends Component {
                 <div class="row">
                   <div class="col-12">
                     <div className="evaluation-actions">
-                      {/* تقييم المهمة */}
+                      {/* تحديد كمهمة تامة  */}
                       <div
                         class="d-inline button-eval"
-                        onClick={() => this.showEvaluationPopUp()}
+                        onClick={() => this.showMarkMissionCompletedPopUp()}
                       >
-                        <span className="button-eval-span">تقييم المهمة</span>
+                        <span className="button-eval-span">
+                          تحديد كمهمة تامة{" "}
+                        </span>
                       </div>
                       {/* تعديل المهمة */}
                       <div class="d-inline edit-mission-btn">
@@ -1507,8 +1528,8 @@ class MissionDetailsPopUp extends Component {
         {/* Mission Evaluation Pop Up */}
         <div className="content">
           <Modal
-            isOpen={this.state.showEvaluationModal}
-            toggle={() => this.showEvaluationPopUp()}
+            isOpen={this.state.showMissionCompletedModal}
+            toggle={() => this.showMarkMissionCompletedPopUp()}
             style={{
               display: "flex",
               zIndex: "9999999999999999999999999999999999",
@@ -1517,9 +1538,9 @@ class MissionDetailsPopUp extends Component {
             <div style={{ borderBottom: "1px solid #F1F5F9" }}>
               <div style={{ marginTop: "25px", marginBottom: "8px" }}>
                 <div style={{ display: "flex", padding: "10px" }}>
-                  <span className="mission-evaluation">تقييم المهمة</span>
+                  <span className="mission-evaluation">تعيين كمهمة تامة</span>
                   <img
-                    onClick={() => this.showEvaluationPopUp()}
+                    onClick={() => this.showMarkMissionCompletedPopUp()}
                     src={closeIcon}
                     alt="close-icon"
                     className="close-evaluation"
@@ -1529,57 +1550,23 @@ class MissionDetailsPopUp extends Component {
             </div>
 
             <ModalBody>
-              <span className="eval-question">ماهو تقييمك لهذه المهمة</span>
-              <div className="evaluation-options">
-                <div
-                  className={
-                    this.state.selectedEvaluation === 1
-                      ? "eval-option-active"
-                      : "eval-option"
-                  }
-                  onClick={() => this.handleEvaluation(1)}
-                >
-                  غير مرضي
-                </div>
-                <div
-                  className={
-                    this.state.selectedEvaluation === 2
-                      ? "eval-option-active"
-                      : "eval-option"
-                  }
-                  onClick={() => this.handleEvaluation(2)}
-                >
-                  جيد
-                </div>
-                <div
-                  className={
-                    this.state.selectedEvaluation === 3
-                      ? "eval-option-active"
-                      : "eval-option"
-                  }
-                  onClick={() => this.handleEvaluation(3)}
-                >
-                  جيد جداً
-                </div>
-                <div
-                  className={
-                    this.state.selectedEvaluation === 4
-                      ? "eval-option-active"
-                      : "eval-option"
-                  }
-                  onClick={() => this.handleEvaluation(4)}
-                >
-                  استثنائي
-                </div>
-              </div>
+              <span className="eval-question">
+                هل انت متأكد من انك تريد تحديد هذه المهمة كمهمة تامة ؟
+              </span>
             </ModalBody>
             <div style={{ marginBottom: "40px", marginRight: "17px" }}>
-              <button
-                className="send-eval"
-                onClick={() => this.sendEvaluation()}
+              <div
+                className="yes-refuse"
+                onClick={() => this.makeMissionCompleted()}
               >
-                ارسال التقييم
-              </button>
+                نعم
+              </div>
+              <div
+                className="no-refuse"
+                onClick={() => this.showMarkMissionCompletedPopUp()}
+              >
+                لا
+              </div>
             </div>
           </Modal>
         </div>
@@ -1613,10 +1600,16 @@ class MissionDetailsPopUp extends Component {
               </span>
             </ModalBody>
             <div style={{ marginBottom: "40px", marginRight: "17px" }}>
-              <div className="yes-refuse" onClick={() => this.sendEvaluation()}>
+              <div
+                className="yes-refuse"
+                onClick={() => this.handleRefuseMission()}
+              >
                 نعم
               </div>
-              <div className="no-refuse" onClick={() => this.sendEvaluation()}>
+              <div
+                className="no-refuse"
+                onClick={() => this.showRefuseMissionPopUp()}
+              >
                 لا
               </div>
             </div>
@@ -2001,19 +1994,6 @@ class MissionDetailsPopUp extends Component {
                   onClick={() => this.sendAlert()}
                 >
                   <img src={downloadImg} alt="download-icon" />
-                </div>
-              </div>
-            </div>
-            {/* المرفقات والتسليمات */}
-            <div class="row" id="mission-button-action">
-              <div class="col">
-                {/* //Todo : Change Classes With New Type For Finished Mission ^_^ */}
-
-                <div
-                  className="evaluation"
-                  onClick={() => this.showEvaluationPopUp()}
-                >
-                  <span>تقييم</span>
                 </div>
               </div>
             </div>
