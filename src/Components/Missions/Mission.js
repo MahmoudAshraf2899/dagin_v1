@@ -9,6 +9,7 @@ import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
+import EditMission from "./EditMission";
 
 Util.setGlobalCssModule({
   btn: "hyperspeed-btn",
@@ -32,6 +33,8 @@ class Mission extends Component {
       pagedData: [],
       noPages: 0,
       totalRows: 0,
+      showEditMission: false,
+      editMissionId: null,
     };
   }
   componentDidMount() {
@@ -142,6 +145,10 @@ class Mission extends Component {
 
   deleteObjectFromDetails = (item) => {
     this.extractObjectForDelete(item);
+  };
+
+  EditMissionFromDetails = (item) => {
+    this.setState({ showEditMission: true, editMissionId: item });
   };
 
   handleNextPage = () => {
@@ -1696,7 +1703,11 @@ class Mission extends Component {
           <div
             class="col"
             style={{
-              display: this.state.showAddComponent === true ? "none" : "unset",
+              display:
+                this.state.showAddComponent === true ||
+                this.state.showEditMission === true
+                  ? "none"
+                  : "unset",
             }}
           >
             <div
@@ -1799,7 +1810,11 @@ class Mission extends Component {
           <div
             class="col-md-auto"
             style={{
-              display: this.state.showAddComponent === true ? "none" : "unset",
+              display:
+                this.state.showAddComponent === true ||
+                this.state.showEditMission === true
+                  ? "none"
+                  : "unset",
             }}
           >
             <div className="filter-container">
@@ -1826,7 +1841,11 @@ class Mission extends Component {
             class="col col-lg-2"
             onClick={() => this.showAddNewMissionComponent()}
             style={{
-              display: this.state.showAddComponent === true ? "none" : "unset",
+              display:
+                this.state.showAddComponent === true ||
+                this.state.showEditMission === true
+                  ? "none"
+                  : "unset",
             }}
           >
             <div className="Add-New-Mission">
@@ -1858,7 +1877,11 @@ class Mission extends Component {
         >
           <div
             style={{
-              display: this.state.showAddComponent === true ? "none" : "unset",
+              display:
+                this.state.showAddComponent === true ||
+                this.state.showEditMission === true
+                  ? "none"
+                  : "unset",
             }}
           >
             {this.state.selectedMission === 1
@@ -1874,7 +1897,8 @@ class Mission extends Component {
           {/* Pagination */}
 
           {this.state.data.length === 0 ||
-          this.state.showAddComponent === true ? null : (
+          this.state.showAddComponent === true ||
+          this.state.showEditMission === true ? null : (
             <>
               <div class="row">
                 <Pagination
@@ -1933,6 +1957,13 @@ class Mission extends Component {
               <AddNewMission sendDataToParent={this.receiveDataFromChild} />
             ) : null}
           </div>
+
+          {/* Render Edit Mission Component */}
+          <div class="row">
+            {this.state.showEditMission === true ? (
+              <EditMission id={this.state.editMissionId} />
+            ) : null}
+          </div>
           {/* Details Pop Up */}
           {this.state.showDetailsPopUp === true ? (
             <>
@@ -1940,6 +1971,7 @@ class Mission extends Component {
                 missionType={this.state.selectedMission}
                 id={this.state.missionId}
                 deletedElement={this.deleteObjectFromDetails}
+                EditMissionProps={this.EditMissionFromDetails}
               />
             </>
           ) : null}

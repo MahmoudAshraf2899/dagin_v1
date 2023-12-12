@@ -41,6 +41,12 @@ class MissionDetailsPopUp extends Component {
     // Call the callback function passed from the parent
     this.props.deletedElement(data);
   };
+
+  routeToEditPage = () => {
+    this.closePopUp();
+    const data = this.props.id;
+    this.props.EditMissionProps(data);
+  };
   showMarkMissionCompletedPopUp = () => {
     let value = this.state.showMissionCompletedModal;
     this.setState({ showMissionCompletedModal: !value });
@@ -1508,7 +1514,10 @@ class MissionDetailsPopUp extends Component {
                         </span>
                       </div>
                       {/* تعديل المهمة */}
-                      <div class="d-inline edit-mission-btn">
+                      <div
+                        class="d-inline edit-mission-btn"
+                        onClick={() => this.routeToEditPage()}
+                      >
                         <span className="edit-btn-span">تعديل المهمة</span>
                       </div>
                       {/* رفض المهمة */}
