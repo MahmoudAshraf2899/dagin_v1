@@ -7,6 +7,7 @@ import AssignMissionToPopUp from "./AssignMissionToPopUp";
 import DatePickerComponent from "../SubComponents/DatePickerComponent";
 import { Formik } from "formik";
 import moment from "moment";
+
 import { toast } from "react-toastify";
 import API from "../Api";
 
@@ -151,7 +152,8 @@ class AddNewMission extends Component {
     const cities = [...this.state.selectedCities];
     const citiesIds = cities.map((item) => Number(item.id));
     const assignedTo = [...this.state.assignMissionToArr];
-    const assignedToIds = assignedTo[0].map((item) => Number(item.id));
+    const assignedToIds =
+      assignedTo.length > 0 ? assignedTo[0].map((item) => Number(item.id)) : [];
     let values = {};
     if (this.state.missionTypeObj.id == null) {
       toast.warn("من فضلك قم بأختيار نوع المهمة");
@@ -184,6 +186,8 @@ class AddNewMission extends Component {
       ids: assignedToIds,
     };
     values.name = this.state.missionAddress; //عنوان المهمة
+    moment.locale("en");
+
     values.due_at = moment(this.state.expiryDate).format("YYYY-MM-DD"); //تاريخ الأنتهاء
 
     values.details = this.state.missionDetailsText; //تفاصيل المهمة

@@ -21,7 +21,11 @@ class AssignMissionToPopUp extends Component {
           id: item.id,
           name: item.name,
         }));
-        this.setState({ data: men });
+        if (this.props.isEdit === true) {
+          this.setState({ data: men, selectedCities: this.props.data });
+        } else {
+          this.setState({ data: men });
+        }
       }
     });
   };

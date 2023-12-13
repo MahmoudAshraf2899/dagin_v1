@@ -16,7 +16,15 @@ class MissionRangePopUp extends Component {
   componentDidMount = () => {
     API.get("mission-types").then((res) => {
       if (res) {
-        this.setState({ data: res.data });
+        if (this.props.isEdit === true) {
+          this.setState({
+            selectedItemId: this.props.typeId,
+            selectedItemName: this.props.typeName,
+            data: res.data,
+          });
+        } else {
+          this.setState({ data: res.data });
+        }
       }
     });
   };

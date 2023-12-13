@@ -28,14 +28,6 @@ export default function DatePickerComponent(props) {
         </span>
       </p>
       <div>
-        {/*//Todo : Look at bookmark to show datepicker props */}
-        {/* <DatePicker
-        inputClass="date-picker-input"
-        selected={this.state.expiryDate}
-        onChange={(selectedDate) =>
-          this.handleChangeDate(selectedDate)
-        }
-      /> */}
         <DatePicker
           selected={startDate}
           onChange={(date) => handleChangeDate(date)}

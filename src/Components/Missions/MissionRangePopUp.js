@@ -19,8 +19,11 @@ class MissionRangePopUp extends Component {
           id: item.id,
           name: item.name,
         }));
-
-        this.setState({ data: cities });
+        if (this.props.isEdit === true) {
+          this.setState({ data: cities, selectedCities: this.props.data });
+        } else {
+          this.setState({ data: cities });
+        }
       }
     });
   };
