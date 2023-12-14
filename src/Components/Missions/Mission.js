@@ -139,7 +139,10 @@ class Mission extends Component {
   };
 
   receiveDataFromChild = (dataFromChild) => {
-    this.setState({ showAddComponent: dataFromChild });
+    this.setState({
+      showAddComponent: dataFromChild,
+      showEditMission: dataFromChild,
+    });
     // Do something with the data in the parent component
   };
 
@@ -923,15 +926,6 @@ class Mission extends Component {
                                   style={{ marginBottom: "-5px" }}
                                 >
                                   عرض المهمة
-                                </p>
-                              </div>
-                              <br />
-                              <div className="mission-options-el">
-                                <p
-                                  class="text-end option-txt"
-                                  style={{ marginBottom: "-5px" }}
-                                >
-                                  تعديل المهمة
                                 </p>
                               </div>
                               <br />
@@ -1961,7 +1955,10 @@ class Mission extends Component {
           {/* Render Edit Mission Component */}
           <div class="row">
             {this.state.showEditMission === true ? (
-              <EditMission id={this.state.editMissionId} />
+              <EditMission
+                id={this.state.editMissionId}
+                sendDataToParent={this.receiveDataFromChild}
+              />
             ) : null}
           </div>
           {/* Details Pop Up */}

@@ -62,6 +62,13 @@ class EditMission extends Component {
       }
     });
   }
+
+  sendDataToParent = () => {
+    const data = false;
+    // Call the callback function passed from the parent
+    this.props.sendDataToParent(data);
+  };
+
   showMissionRangePopUp = () => this.setState({ showMissionRange: true });
   showMissionTypePopUp = () => this.setState({ showMissionType: true });
   showAssignMissionPopUp = () => this.setState({ showAssignMission: true });
@@ -155,19 +162,16 @@ class EditMission extends Component {
 
   handleEditMission = () => {
     const cities = [...this.state.workAreas];
-    const citiesIds = cities.map((item) => Number(item.id));
+    const citiesIds = cities[0].map((item) => Number(item.id));
     const assignedTo = [...this.state.assignMissionToArr];
     const assignedToIds =
       assignedTo.length > 0 ? assignedTo[0].map((item) => Number(item.id)) : [];
-    let values = {};
     let document = { ...this.state.document };
-    /* 
-      Todo Work With Mission Type
-     if (document.name == null||document.name.trim().length === 0) {
+    let missionType = { ...this.state.types };
+
+    if (missionType.id === undefined || missionType.name === undefined) {
       toast.warn("من فضلك قم بأختيار نوع المهمة");
-    } else 
-    */
-    if (document.name == null || document.name.trim().length === 0) {
+    } else if (document.name == null || document.name.trim().length === 0) {
       toast.warn("من فضلك قم بأدخال عنوان المهمة");
     } else if (this.state.dateChanged === false) {
       toast.warn("من فضلك قم بأختيار تاريخ الأنتهاء");
@@ -175,61 +179,44 @@ class EditMission extends Component {
       toast.warn("من فضلك قم بأختيار نطاق المهمة");
     } else if (this.state.assignMissionToArr.length === 0) {
       toast.warn("من فضلك قم بتحديد لمن ستعين المهمة");
-    } else if (document.reward.trim().length === 0 || document.reward === "") {
+    } else if (document.reward == null || document.reward === "") {
       toast.warn("من فضلك قم بأدخال قيمة المقابل المادي");
     } else if (this.state.hasException === true) {
       if (document.early_bonus == null) {
         toast.warn("من فضلك قم بأختيار قيمة الحافز");
       } else {
-        this.submitEditMission(citiesIds, assignedToIds);
+        this.submitEditMission(document, citiesIds, assignedToIds);
       }
     } else {
-      this.submitEditMission(citiesIds, assignedToIds);
+      this.submitEditMission(document, citiesIds, assignedToIds);
     }
   };
-  /* 
-    {
-    "goal": "housing", 
-    "name": "edited",
-    "due_at": "2023-12-17",
-    "details": "edited",
-    "full_address": "edited", 
-    "latitude": "5.55", 
-    "longitude": "4.44", 
-    "reward": 99, 
-    "early_bonus_due_at": "2024-12-03", 
-    "early_bonus": 0, 
-    "salesman_id": 1, 
-    "farm_id": 1, 
-    "farmer_id": 1, 
-    "trader_id": 1 
-}
 
-  */
-  submitEditMission(citiesIds, assignedToIds) {
+  submitEditMission(document, citiesIds, assignedToIds) {
     let values = {};
-    values.type_id = Number(this.state.missionTypeObj.id); //نوع المهمة
+    values.type_id = Number(this.state.types.id); //نوع المهمة
     values.work_area_ids = citiesIds; //نطاق المهمة
     values.assignment = {
       type: this.state.assignToType,
       ids: assignedToIds,
     };
-    values.name = this.state.missionAddress; //عنوان المهمة
+    values.name = document.name;
     moment.locale("en");
 
     values.due_at = moment(this.state.expiryDate).format("YYYY-MM-DD"); //تاريخ الأنتهاء
 
-    values.details = this.state.missionDetailsText; //تفاصيل المهمة
-    values.reward = Number(this.state.financialCompensation); //المقابل المادي
-    values.early_bonus = Number(this.state.financialincentive); //الحافز
-    API.post("dashboard/missions", values)
+    values.details = document.details; //تفاصيل المهمة
+    values.reward = Number(document.reward); //المقابل المادي
+    values.early_bonus = Number(document.early_bonus); //الحافز
+    API.patch(`dashboard/missions/${document.id}`, values)
       .then((response) => {
         if (response) {
-          toast.success("تمت أضافة المهمة بنجاح");
+          toast.success("تمت تعديل المهمة بنجاح");
           this.sendDataToParent(); //To Close The Page and return to the Mission Page
         }
       })
       .catch((error) => {
+        console.log("error:", error);
         toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
       });
   }
@@ -516,7 +503,7 @@ class EditMission extends Component {
                     <div class="row">
                       <div class="col">
                         <button type="submit" class="d-inline m-submit-btn">
-                          اضافة
+                          تعديل المهمة
                         </button>
 
                         <button
