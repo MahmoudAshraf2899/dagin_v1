@@ -17,9 +17,12 @@ class MissionDetailsPopUp extends Component {
       closePopUp: false,
       showMissionCompletedModal: false,
       showRefuseModal: false,
+      showReAssignModal: false,
       selectedEvaluation: 1,
       data: {},
       salesman: {},
+      assignTo: [],
+      selectedItem: 0,
     };
   }
   componentDidMount() {
@@ -56,14 +59,20 @@ class MissionDetailsPopUp extends Component {
     this.setState({ showRefuseModal: !value });
   };
 
-  handleDeleteMission = () => {
-    API.delete(`dashboard/missions/${this.props.id}`).then((res) => {
-      if (res.status === 200) {
-        toast.success("تم حذف المهمة بنجاح");
-        this.sendPropsToDeleteObject();
-        this.closePopUp();
-      }
-    });
+  showReAssignModalPopUp = () => {
+    let value = this.state.showReAssignModal;
+    if (value === false) {
+      API.get("salesman").then((res) => {
+        if (res) {
+          const men = res.data.items.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+          this.setState({ assignTo: men });
+        }
+      });
+    }
+    this.setState({ showReAssignModal: !value });
   };
 
   makeMissionCompleted = () => {
@@ -81,6 +90,56 @@ class MissionDetailsPopUp extends Component {
     });
   };
 
+  handleDeleteMission = () => {
+    API.delete(`dashboard/missions/${this.props.id}`).then((res) => {
+      if (res.status === 200) {
+        toast.success("تم حذف المهمة بنجاح");
+        this.sendPropsToDeleteObject();
+        this.closePopUp();
+      }
+    });
+  };
+
+  handleSelectItem = (id, name) => {
+    if (this.state.selectedItem === 0) {
+      //اشخاص
+      let men = [...this.state.selectedSales];
+      const isSelectedBefore = men.includes(id);
+      if (isSelectedBefore) {
+        const indexToRemove = men.indexOf(id);
+        // Remove the ID if it exists in the array
+        if (indexToRemove !== -1) {
+          men.splice(indexToRemove, 1);
+          this.setState({ selectedSales: men });
+        }
+      } else {
+        men.push(id);
+        let arrayOfObj = [...this.state.salesToParent];
+        arrayOfObj.push({ id: id, name: name });
+        this.setState({ selectedSales: men, salesToParent: arrayOfObj });
+      }
+    } else {
+      let specialties = [...this.state.selectedspecialties];
+      const isSelectedBefore = specialties.includes(id);
+      if (isSelectedBefore) {
+        const indexToRemove = specialties.indexOf(id);
+        // Remove the ID if it exists in the array
+        if (indexToRemove !== -1) {
+          specialties.splice(indexToRemove, 1);
+          this.setState({ selectedspecialties: specialties });
+        }
+      } else {
+        specialties.push(id);
+        let arrayOfObj = [...this.state.specialtiesToParent];
+        arrayOfObj.push({ id: id, name: name });
+        this.setState({
+          selectedspecialties: specialties,
+          specialtiesToParent: arrayOfObj,
+        });
+      }
+    }
+  };
+
   handleRefuseMission = () => {
     API.post(`dashboard/missions/${this.props.id}/reject`).then((res) => {
       if (res.status === 200) {
@@ -96,10 +155,50 @@ class MissionDetailsPopUp extends Component {
     });
   };
 
-  closeEvaluationPopUp = () =>
-    this.setState({ showMissionCompletedModal: false });
+  handleReAssignMission = () => {
+    //Todo :Change The API
+    // API.post(`dashboard/missions/${this.props.id}/reject`).then((res) => {
+    //   if (res.status === 200) {
+    //     toast.success("تم اعادة تعيين المهمة بنجاح");
+    //     this.sendPropsToDeleteObject();
+    //     this.showReAssignModalPopUp();
+    //     this.closePopUp();
+    //   } else {
+    //     toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+    //     this.showReAssignModalPopUp();
+    //     this.closePopUp();
+    //   }
+    // });
+  };
+
+  handleActiveType = (e) => {
+    this.setState({ selectedItem: e });
+    if (e === 0) {
+      //اشخاص
+      API.get("salesman").then((res) => {
+        if (res) {
+          const men = res.data.items.map((item) => ({
+            id: item.id,
+            name: item.name,
+          }));
+          this.setState({ data: men });
+        }
+      });
+    } else {
+      //تخصصات
+
+      API.get("specialties").then((res) => {
+        if (res) {
+          this.setState({ data: res.data });
+        }
+      });
+    }
+  };
 
   handleEvaluation = (e) => this.setState({ selectedEvaluation: e });
+
+  closeEvaluationPopUp = () =>
+    this.setState({ showMissionCompletedModal: false });
 
   renderPendingMissionType = () => {
     const createdAtDate = moment(this.state.data.created_at);
@@ -800,7 +899,15 @@ class MissionDetailsPopUp extends Component {
     );
     return (
       <div>
-        <div class="Details-PopUp-Container">
+        <div
+          class="Details-PopUp-Container"
+          style={{
+            zIndex:
+              this.state.showReAssignModal === true
+                ? "9"
+                : "99999999999999999999999",
+          }}
+        >
           <div className="content">
             <div class="container">
               <div class="row">
@@ -813,22 +920,6 @@ class MissionDetailsPopUp extends Component {
                   </div>
                 </div>
                 <div class="col-md-auto" style={{ marginTop: "25px" }}>
-                  {/* Edit Icon */}
-                  <svg
-                    style={{ marginLeft: "48px" }}
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                  >
-                    <path
-                      d="M22 12V18C22 20.2091 20.2091 22 18 22H6C3.79086 22 2 20.2091 2 18V6C2 3.79086 3.79086 2 6 2H12M15.6864 4.02275C15.6864 4.02275 15.6864 5.45305 17.1167 6.88334C18.547 8.31364 19.9773 8.31364 19.9773 8.31364M9.15467 15.9896L12.1583 15.5605C12.5916 15.4986 12.9931 15.2978 13.3025 14.9884L21.4076 6.88334C22.1975 6.09341 22.1975 4.81268 21.4076 4.02275L19.9773 2.59245C19.1873 1.80252 17.9066 1.80252 17.1167 2.59245L9.01164 10.6975C8.70217 11.0069 8.50142 11.4084 8.43952 11.8417L8.01044 14.8453C7.91508 15.5128 8.4872 16.0849 9.15467 15.9896Z"
-                      stroke="#28303F"
-                      stroke-width="1.5"
-                      stroke-linecap="round"
-                    />
-                  </svg>
                   {/* Delete Icon */}
                   <svg
                     style={{ marginLeft: "48px" }}
@@ -1111,48 +1202,135 @@ class MissionDetailsPopUp extends Component {
                 </div>
               </div>
 
-              <div class="row" id="mission-attachment">
-                <div>
-                  <span>المرفقات والتسليمات</span>
-                </div>
-              </div>
-              {this.state.data.length > 0 ? (
-                <div class="row" id="mission-attch-container">
-                  <div class="col" id="mission-attch-section">
-                    <div class="d-inline attach-user">
-                      <img
-                        src={Ellipse}
-                        alt="user"
-                        className="attach-userPhoto"
-                      />
-                      <span className="attach-userName">
-                        {this.state.salesman.name}
-                      </span>
-                      <br />
-                      <span className="attach-status">لم يسلم بعد</span>
-                    </div>
-                    <div
-                      className="send-alert"
-                      onClick={() => this.sendAlert()}
-                    >
-                      <span>ارسال تنبيه</span>
-                    </div>
-                  </div>
-                </div>
-              ) : null}
-
               <div class="row" id="mission-button-action">
-                <div class="col" onClick={() => this.sendAlert()}>
+                <div class="col">
                   <button
-                    className="mark-finished"
-                    onClick={() => this.makeMissionCompleted()}
+                    className="re-assign"
+                    onClick={() => this.showReAssignModalPopUp()}
                   >
-                    تحديد كمهمة تامة
+                    اعادة تعيين المهمة
                   </button>
                 </div>
               </div>
             </div>
           </div>
+        </div>
+        {/* Re-Assigm Mission Pop Up */}
+        <div className="content">
+          <Modal
+            isOpen={this.state.showReAssignModal}
+            toggle={() => this.showReAssignModalPopUp()}
+            style={{
+              display: "flex",
+              zIndex: "9999999999999999999999999999999999",
+            }}
+          >
+            <div style={{ borderBottom: "1px solid #F1F5F9" }}>
+              <div style={{ marginTop: "25px", marginBottom: "8px" }}>
+                <div style={{ display: "flex", padding: "10px" }}>
+                  <span className="mission-re-assign">اعادة تعيين المهمة</span>
+                  <img
+                    onClick={() => this.showReAssignModalPopUp()}
+                    src={closeIcon}
+                    alt="close-icon"
+                    className="close-evaluation"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <ModalBody>
+              <div class="container">
+                <div class="row mt-3">
+                  <div className="assign-people-type">
+                    <div
+                      className={
+                        this.state.selectedItem === 0
+                          ? "assign-type-active"
+                          : "assign-type"
+                      }
+                      onClick={() => this.handleActiveType(0)}
+                    >
+                      لحسابات اشخاص
+                    </div>
+                    <div
+                      className={
+                        this.state.selectedItem === 1
+                          ? "assign-type-active"
+                          : "assign-type"
+                      }
+                      onClick={() => this.handleActiveType(1)}
+                    >
+                      لتخصص
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-3">
+                  <div class="col-12 range-border"></div>
+                  {/* اضف الاشخاص */}
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <span className="select-area">
+                        {this.state.selectedItem === 0
+                          ? "اضف الاشخاص"
+                          : "اختر التخصصات"}
+                      </span>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-12">
+                      <input
+                        type="text"
+                        placeholder="ابحث"
+                        className="cities-search"
+                        //onChange={this.handleSearch}
+                      />
+                    </div>
+                  </div>
+                  <div class="row" style={{ height: "150px" }}>
+                    <div
+                      class="col-12"
+                      style={{ maxHeight: "600px", overflowY: "auto" }}
+                    >
+                      <ul class="list-unstyled scrollable-list-re-assign">
+                        {this.state.assignTo.map((item) => {
+                          return (
+                            <li class="d-flex w-100 justify-content-between py-2">
+                              <div class="custom-border">{item.name}</div>
+                              <div class="checkbox checkbox-success">
+                                <input
+                                  id={`checkbox ${item.id}`}
+                                  type="checkbox"
+                                  onChange={(e) =>
+                                    this.handleSelectItem(item.id, item.name)
+                                  }
+                                />
+                                <label for={`checkbox ${item.id}`}></label>
+                              </div>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ModalBody>
+            <div style={{ marginBottom: "40px", marginRight: "17px" }}>
+              <div
+                className="yes-reAssign"
+                onClick={() => this.handleReAssignMission()}
+              >
+                نعم
+              </div>
+              <div
+                className="no-reAssign"
+                onClick={() => this.showRefuseMissionPopUp()}
+              >
+                لا
+              </div>
+            </div>
+          </Modal>
         </div>
       </div>
     );
@@ -1579,7 +1757,7 @@ class MissionDetailsPopUp extends Component {
             </div>
           </Modal>
         </div>
-
+        {/* Mission Refuse Popup */}
         <div className="content">
           <Modal
             isOpen={this.state.showRefuseModal}
