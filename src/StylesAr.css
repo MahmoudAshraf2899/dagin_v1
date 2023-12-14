@@ -3261,38 +3261,74 @@ line-height: 160%;
       line-height: 130%;
       }    
 
-      .yes-reAssign{
-        display: inline-flex;
-        padding: 8px 43.5px 9px 42.5px;
-        justify-content: center;
-        align-items: center;
-        border-radius: 15px;
-        background: #124734;
-        color: #FFF;
-        font-family: MadaniArabic-Medium;
-        font-size: 14px;
-        font-style: normal;
-        font-weight: 400;
-        line-height: 16px; 
-        margin-left: 15px;
-        cursor: pointer;
-        }
-        .no-reAssign{
-          display: inline-flex;
-          padding: 8px 43.5px 9px 42.5px;
-          justify-content: center;
-          align-items: center;
-          border-radius: 15px;
-          background: #C11818;
-          color: #FFF;
-          font-family: MadaniArabic-Medium;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: 400;
-          line-height: 16px;  
-          cursor: pointer;
-        }      
-        .scrollable-list-re-assign{
-          overflow-y: scroll;
-          height: 24%;
-        }
+.yes-reAssign{
+  display: inline-flex;
+  padding: 8px 43.5px 9px 42.5px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 15px;
+  background: #124734;
+  color: #FFF;
+  font-family: MadaniArabic-Medium;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; 
+  margin-left: 15px;
+  cursor: pointer;
+  }
+  .no-reAssign{
+    display: inline-flex;
+    padding: 8px 43.5px 9px 42.5px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 15px;
+    background: #C11818;
+    color: #FFF;
+    font-family: MadaniArabic-Medium;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 16px;  
+    cursor: pointer;
+  }      
+  .scrollable-list-re-assign{
+    overflow-y: scroll;
+    height: 24%;
+  }
+  
+.logout-elements{
+height: 20px;
+width: 208px;
+color: #64748B;
+text-align: right;
+font-family: MadaniArabic-Regular;
+font-size: 12px;
+font-style: normal;
+font-weight: 400;
+line-height: 150%;
+}
+.settings-option{
+  position: absolute;
+  width: 160px;
+  color: #64748B;
+  text-align: right;
+  font-family: MadaniArabic-Regular;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 18px */
+  cursor: pointer;
+}
+.signout-option{
+  position: absolute;
+  width: 160px;
+  color: #EB4335;
+  text-align: right;
+  font-family: MadaniArabic-Regular;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 150%; /* 18px */
+  cursor: pointer;
+}

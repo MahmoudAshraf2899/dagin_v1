@@ -5,6 +5,8 @@ import NotificationsPopUp from "./NotificationsPopUp";
 import Mission from "./Missions/Mission";
 import Wallets from "./Wallets/Wallets";
 import Users from "./ManageUsers/Users";
+import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
+
 class Header extends Component {
   constructor(props) {
     super(props);
@@ -16,6 +18,10 @@ class Header extends Component {
   handleNotificationClick = () => {
     let openOrClose = this.state.showNotificationPopUp;
     this.setState({ showNotificationPopUp: !openOrClose });
+  };
+  handleSignOut = () => {
+    localStorage.removeItem("token");
+    window.location.reload();
   };
   render() {
     return (
@@ -112,7 +118,7 @@ class Header extends Component {
             </div>
           </div>
           <div class="col col-lg-2" style={{ marginLeft: "-120px" }}>
-            <div className="arrow-down">
+            <div className="arrow-down" id={`UncontrolledPopover`}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="16"
@@ -129,6 +135,35 @@ class Header extends Component {
                 />
               </svg>
             </div>
+            <UncontrolledPopover
+              placement="bottom"
+              target={`UncontrolledPopover`}
+              trigger="legacy"
+            >
+              <PopoverBody style={{ borderRadius: "8px", width: "155px" }}>
+                <div style={{ cursor: "pointer" }} className="logout-elements">
+                  <p
+                    class="text-end settings-option"
+                    style={{ marginBottom: "-5px" }}
+                  >
+                    اعدادات الحساب
+                  </p>
+                </div>
+                <br />
+                <div
+                  style={{ cursor: "pointer" }}
+                  className="logout-elements"
+                  onClick={() => this.handleSignOut()}
+                >
+                  <p
+                    class="text-end signout-option"
+                    style={{ marginBottom: "-5px" }}
+                  >
+                    تسجيل الخروج
+                  </p>
+                </div>
+              </PopoverBody>
+            </UncontrolledPopover>
           </div>
           {/* Profile Section */}
         </div>
