@@ -5,7 +5,7 @@ import NotificationsPopUp from "./NotificationsPopUp";
 import Mission from "./Missions/Mission";
 import Wallets from "./Wallets/Wallets";
 import Users from "./ManageUsers/Users";
-import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
+import { UncontrolledPopover, PopoverBody } from "reactstrap";
 
 class Header extends Component {
   constructor(props) {

@@ -3,6 +3,8 @@ import { DateObject } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import transition from "react-element-popper/animations/transition";
 import opacity from "react-element-popper/animations/opacity";
+import Ellipse from "../../Assets/images/Ellipse 3.svg";
+import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
 
 // Define a functional component
 function Wallets(props) {
@@ -38,41 +40,80 @@ function Wallets(props) {
     setSelectedElement(e);
   };
   return (
-    <div class="container mt-4">
-      {/* Wallet Header */}
+    <div class="container walletPage">
       <div class="row">
-        <div class="col-9">
-          <div className="wallet-types">
-            <ul>
-              <li
-                onClick={() => handleChangeElements(0)}
-                className={selectedElement === 0 ? "active" : ""}
-              >
-                كل الحركات
-              </li>
-              <li
-                onClick={() => handleChangeElements(1)}
-                className={selectedElement === 1 ? "active" : ""}
-              >
-                الحركات المدينة فقط
-              </li>
-              <li
-                onClick={() => handleChangeElements(2)}
-                className={selectedElement === 2 ? "active" : ""}
-              >
-                الحركات الدائنة فقط
-              </li>
-              <li
-                onClick={() => handleChangeElements(3)}
-                className={selectedElement === 3 ? "active" : ""}
-              >
-                الأرصدة المستحقة فقط
-              </li>
-            </ul>
+        <div class="col">
+          <div
+            onClick={() => handleChangeElements(0)}
+            className={
+              selectedElement === 0 ? "mission-active" : "mission-type"
+            }
+          >
+            <span
+              class="d-inline"
+              id={
+                selectedElement === 0
+                  ? "mission-span-active"
+                  : "mission-type-span"
+              }
+            >
+              كل الحركات
+            </span>
+          </div>
+          <div
+            onClick={() => handleChangeElements(1)}
+            className={
+              selectedElement === 1 ? "mission-active" : "mission-type"
+            }
+          >
+            <span
+              class="d-inline"
+              id={
+                selectedElement === 1
+                  ? "mission-span-active"
+                  : "mission-type-span"
+              }
+            >
+              الحركات المدينة فقط
+            </span>
+          </div>
+          <div
+            onClick={() => handleChangeElements(2)}
+            className={
+              selectedElement === 2 ? "mission-active" : "mission-type"
+            }
+          >
+            <span
+              class="d-inline"
+              id={
+                selectedElement === 2
+                  ? "mission-span-active"
+                  : "mission-type-span"
+              }
+            >
+              الحركات الدائنة فقط
+            </span>
+          </div>
+          <div
+            onClick={() => handleChangeElements(3)}
+            className={
+              selectedElement === 3 ? "mission-active" : "mission-type"
+            }
+          >
+            <span
+              class="d-inline"
+              id={
+                selectedElement === 3
+                  ? "mission-span-active"
+                  : "mission-type-span"
+              }
+            >
+              الأرصدة المستحقة فقط
+            </span>
           </div>
         </div>
-        <div class="col-3">
-          {/* <DatePicker inputClass="filter-movements" value={new Date()} /> */}
+        {/* Date Filter */}
+        <div class="col-md-auto" style={{ marginLeft: "50px" }}>
           <DatePicker
             inputClass="filterWallet"
             value={values}
@@ -82,26 +123,57 @@ function Wallets(props) {
             rangeHover
             animations={[opacity(), transition({ from: 35, duration: 800 })]}
           />
-          {/* التاريخ من ١٠\١٠\٢٠٢٢ الي ١٠\١٠\٢٠٢٣ */}
         </div>
       </div>
+
       <div
+        className="container"
         style={{
           backgroundColor: "#F1F5F9",
           height: "100vw",
           width: "100vw",
-          justifyContent: "center",
-          textAlign: "end",
+          marginTop: "15px",
         }}
       >
-        <div class="row" id="wallet-content">
-          <div class="col-1">التاريخ</div>
-          <div class="col-1">العميل</div>
-          <div class="col-1">المبلغ المدين</div>
-          <div class="col-1">المبلغ الدائن</div>
-          <div class="col-1">الرصيد</div>
-          <div class="col-1">البيان</div>
-          <div class="col-2">Action</div>
+        <div>
+          {/* Banner : التاريخ & العميل ... */}
+          <div className="walletBanner">
+            <div className="bannerText">التاريخ</div>
+            <div className="bannerText">العميل</div>
+            <div className="bannerText">المبلغ المدين</div>
+            <div className="bannerText">المبلغ الدائن</div>
+            <div className="bannerText">الرصيد</div>
+            <div className="bannerText">البيان</div>
+            <div className="bannerText">Action</div>
+          </div>
+
+          {/* Wallet Data */}
+          <div>
+            <div class="row">
+              <div className="wallet-data-section">
+                <div className="wallet-container">
+                  <div className="wallet-child">
+                    <div className="container">
+                      <div className="row">
+                        <div class="col-lg-12 wallet-wrapper">
+                          <span class="ml-2 wallet-date">١٢\١٠\٢٠٢٣</span>
+                          <span class="ml-2 wallet-client-name">رحمة محمد</span>
+                          <span class="ml-2 wallet-price">400 جم</span>
+                          <span class="ml-2 wallet-price">400 جم</span>
+                          <span class="ml-2 wallet-price">1000 جم</span>
+                          <span class="ml-2 wallet-price">
+                            قيمة مهمة
+                            <span className="mission-number">رقم 123</span>
+                          </span>
+                          <span class="ml-2 adjust-wallet">تسوية</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
