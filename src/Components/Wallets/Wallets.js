@@ -5,10 +5,12 @@ import transition from "react-element-popper/animations/transition";
 import opacity from "react-element-popper/animations/opacity";
 import Ellipse from "../../Assets/images/Ellipse 3.svg";
 import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
+import Adjustment from "./Adjustment";
 
 // Define a functional component
 function Wallets(props) {
   const [selectedElement, setSelectedElement] = useState(0);
+  const [showAdjustment, setShowAdjustment] = useState(false);
   const [values, setValues] = useState([
     new DateObject().subtract(4, "days"),
     new DateObject().add(4, "days"),
@@ -38,6 +40,10 @@ function Wallets(props) {
         setSelectedElement(e);
     }
     setSelectedElement(e);
+  };
+
+  const showAdjustmentScreen = () => {
+    setShowAdjustment(!showAdjustment);
   };
   return (
     <div class="container walletPage">
@@ -135,7 +141,13 @@ function Wallets(props) {
           marginTop: "15px",
         }}
       >
-        <div style={{ paddingTop: "35px", paddingLeft: "90px" }}>
+        <div
+          style={{
+            paddingTop: "35px",
+            paddingLeft: "90px",
+            display: showAdjustment === true ? "none" : "",
+          }}
+        >
           <table
             style={{
               width: "100%",
@@ -186,7 +198,12 @@ function Wallets(props) {
                   قيمة مهمة
                   <span className="mission-number"> رقم 123</span>
                 </span>
-                <span className="adjust-wallet">تسوية</span>
+                <span
+                  className="adjust-wallet"
+                  onClick={() => showAdjustmentScreen()}
+                >
+                  تسوية
+                </span>
               </div>
             </tbody>
           </table>
@@ -194,6 +211,8 @@ function Wallets(props) {
 
           {/* Wallet Data */}
         </div>
+
+        <div class="row">{showAdjustment === true ? <Adjustment /> : null}</div>
       </div>
     </div>
   );

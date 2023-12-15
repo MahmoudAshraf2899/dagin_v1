@@ -3420,7 +3420,121 @@ margin-right: 1px;
   font-family: MadaniArabic-Medium;
   font-size: 15px;
   color: #FFF;
+  cursor: pointer;
 
 }
+/* Adjustment Component */
+.adjustment-container{
+display: flex;
+width: 1128px;
+height: 550px;
+flex-shrink: 0;
+border-radius: 10px;
+background: var(--white-general, #FFF);
+box-shadow: 0px 4px 120px 0px rgba(169, 173, 180, 0.15);
+margin-top: 22px;
+margin-right: 25px;
+}
+.adjustment-header{
+  display: flex;
+  height: 40px;
+ justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 8px;
+  background: #ededed;
+  margin-top: 15px;
+  margin-right: 15px;
+  color: var(--greyscale-500, #64748B);
+  text-align: right;
+  font-family: MadaniArabic-Regular;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%;
+}
+.adjustment-header-border{
+border-top: 1px solid #F1F5F9;
+width:585%;
+margin-top: 18px;
+margin-bottom: 18px;
+}
+.adjustment-type-header{
+color: #333;
+font-family: MadaniArabic-Regular;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-right: 26px;
+cursor: pointer;
+
+} 
+.adjust-btn-type-active{
+display: inline-flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F1FAEE;
+color: #70D44B;
+text-align: right;
+cursor: pointer;
  
+font-family: MadaniArabic-SemiBold;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+}
+.adjust-btn-type{
+  display: inline-flex;
+height: 40px;
+padding: 8px 12px;
+justify-content: center;
+align-items: center;
+gap: 8px;
+flex-shrink: 0;
+border-radius: 8px;
+background: #F2F2F2;
+color: var(--Greyscale-500, #64748B);
+text-align: right; 
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 160%;  
+letter-spacing: 0.2px;
+cursor: pointer;
+
+}
+.adjustment-price{
+justify-content: center;
+background-image: url('Assets/images/جنيه.png');
+background-size: 3%;  
+background-repeat: no-repeat;
+background-position: 20px center;   
+display: inline-flex;
+height: 55px;
+padding: 17px 23px 17px 22px;
+justify-content: center;
+align-items: flex-start;
+gap: 943px;
+flex-shrink: 0;
+border-radius: 15px;
+border: 1px solid #E2E2E2;
+width: 100%;
+}
+.adjustment-details{
+color: #333;
+font-family: MadaniArabic-Regular;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+margin-right: 30px;
+}
  
