@@ -41,7 +41,9 @@ function Wallets(props) {
     }
     setSelectedElement(e);
   };
-
+  const handleCloseAdjustment = (data) => {
+    setShowAdjustment(data);
+  };
   const showAdjustmentScreen = () => {
     setShowAdjustment(!showAdjustment);
   };
@@ -212,7 +214,11 @@ function Wallets(props) {
           {/* Wallet Data */}
         </div>
 
-        <div class="row">{showAdjustment === true ? <Adjustment /> : null}</div>
+        <div class="row">
+          {showAdjustment === true ? (
+            <Adjustment closeAdjustment={handleCloseAdjustment} />
+          ) : null}
+        </div>
       </div>
     </div>
   );

@@ -105,42 +105,18 @@ class Users extends Component {
             marginTop: "15px",
           }}
         >
-          <div class="row">
-            <div class="col-6" style={{ marginTop: "50px" }}>
-              {/* <div className="user-card">
-                <div style={{ display: "flex", alignItems: "flex-end" }}>
-                  <img
-                    className="profile-photo"
-                    src={profileImg}
-                    alt="profile-img"
-                  />
-                  <div
-                  //style={{ display: "inline-grid", paddingRight: "0.5rem" }}
-                  >
-                    <div>
-                      <span className="account-name">رحمة محمد</span>
-                      <br />
-                      <span className="filed-type-content">
-                        <span className="filed-type">نوع التخصص</span>. حديث
-                        التخرج . عضو منذ ١٢\١٠\٢٠٢٣
-                      </span>
-                    </div>
-                  </div>
-                  <div style={{ marginLeft: "auto" }}>icon</div>
-                </div>
-
-                <div className="user-info">
-                  <h3 className="user-name">رحمة محمد</h3>
-                  <span className="user-title">ادمن</span>
-                </div>
-              </div> */}
+          <div class="row" style={{ marginRight: "50px" }}>
+            <div
+              class="col-5"
+              style={{ marginTop: "50px", marginLeft: "80px" }}
+            >
               <Card body>
                 <CardTitle tag="h5">
                   <span
                     style={{
                       position: "absolute",
                       left: "35px",
-                      bottom: "105px",
+                      bottom: "120px",
                     }}
                   >
                     <img src={threeDots} alt="three-dots" />
@@ -157,20 +133,228 @@ class Users extends Component {
                       className="filed-type"
                       style={{ position: "relative" }}
                     >
-                      نوع التخصص . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      نوع التخصص
+                      <span className="userMembership">
+                        {" "}
+                        . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
                     </span>
                   </div>
                 </CardTitle>
-                <div>
-                  <button className="UnActive-btn">الغاء تفعيل الحساب</button>
+                <div style={{ paddingTop: "30px" }}>
+                  <button className="UnActive-btn" style={{ width: "100%" }}>
+                    الغاء تفعيل الحساب
+                  </button>
                 </div>
               </Card>
             </div>
-            <div class="col-6" style={{ marginTop: "50px" }}>
-              Left Section
+            <div class="col-5" style={{ marginTop: "50px" }}>
+              <Card body>
+                <CardTitle tag="h5">
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "35px",
+                      bottom: "120px",
+                    }}
+                  >
+                    <img src={threeDots} alt="three-dots" />
+                  </span>
+                  <img
+                    className="profile-photo"
+                    src={profileImg}
+                    alt="profile-img"
+                  />
+                  <div style={{ display: "inline-grid", paddingRight: "10px" }}>
+                    <span className="account-name">رحمة محمد</span>
+
+                    <span
+                      className="filed-type"
+                      style={{ position: "relative" }}
+                    >
+                      نوع التخصص
+                      <span className="userMembership">
+                        {" "}
+                        . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
+                    </span>
+                  </div>
+                </CardTitle>
+                <div style={{ paddingTop: "30px" }}>
+                  <button className="UnActive-btn" style={{ width: "100%" }}>
+                    الغاء تفعيل الحساب
+                  </button>
+                </div>
+              </Card>
             </div>
           </div>
-          <div class="row"></div>
+
+          <div class="row" style={{ marginRight: "50px" }}>
+            <div
+              class="col-5"
+              style={{ marginTop: "50px", marginLeft: "80px" }}
+            >
+              <Card body>
+                <CardTitle tag="h5">
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "35px",
+                      bottom: "120px",
+                    }}
+                  >
+                    <img src={threeDots} alt="three-dots" />
+                  </span>
+                  <img
+                    className="profile-photo"
+                    src={profileImg}
+                    alt="profile-img"
+                  />
+                  <div style={{ display: "inline-grid", paddingRight: "10px" }}>
+                    <span className="account-name">رحمة محمد</span>
+
+                    <span
+                      className="filed-type"
+                      style={{ position: "relative" }}
+                    >
+                      نوع التخصص
+                      <span className="userMembership">
+                        {" "}
+                        . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
+                    </span>
+                  </div>
+                </CardTitle>
+                <div style={{ paddingTop: "30px" }}>
+                  <button className="UnActive-btn" style={{ width: "100%" }}>
+                    الغاء تفعيل الحساب
+                  </button>
+                </div>
+              </Card>
+            </div>
+            <div class="col-5" style={{ marginTop: "50px" }}>
+              <Card body>
+                <CardTitle tag="h5">
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "35px",
+                      bottom: "120px",
+                    }}
+                  >
+                    <img src={threeDots} alt="three-dots" />
+                  </span>
+                  <img
+                    className="profile-photo"
+                    src={profileImg}
+                    alt="profile-img"
+                  />
+                  <div style={{ display: "inline-grid", paddingRight: "10px" }}>
+                    <span className="account-name">رحمة محمد</span>
+
+                    <span
+                      className="filed-type"
+                      style={{ position: "relative" }}
+                    >
+                      نوع التخصص
+                      <span className="userMembership">
+                        {" "}
+                        . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
+                    </span>
+                  </div>
+                </CardTitle>
+                <div style={{ paddingTop: "30px" }}>
+                  <button className="UnActive-btn" style={{ width: "100%" }}>
+                    الغاء تفعيل الحساب
+                  </button>
+                </div>
+              </Card>
+            </div>
+          </div>
+          <div class="row" style={{ marginRight: "50px" }}>
+            <div
+              class="col-5"
+              style={{ marginTop: "50px", marginLeft: "80px" }}
+            >
+              <Card body>
+                <CardTitle tag="h5">
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "35px",
+                      bottom: "120px",
+                    }}
+                  >
+                    <img src={threeDots} alt="three-dots" />
+                  </span>
+                  <img
+                    className="profile-photo"
+                    src={profileImg}
+                    alt="profile-img"
+                  />
+                  <div style={{ display: "inline-grid", paddingRight: "10px" }}>
+                    <span className="account-name">رحمة محمد</span>
+
+                    <span
+                      className="filed-type"
+                      style={{ position: "relative" }}
+                    >
+                      نوع التخصص
+                      <span className="userMembership">
+                        {" "}
+                        . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
+                    </span>
+                  </div>
+                </CardTitle>
+                <div style={{ paddingTop: "30px" }}>
+                  <button className="UnActive-btn" style={{ width: "100%" }}>
+                    الغاء تفعيل الحساب
+                  </button>
+                </div>
+              </Card>
+            </div>
+            <div class="col-5" style={{ marginTop: "50px" }}>
+              <Card body>
+                <CardTitle tag="h5">
+                  <span
+                    style={{
+                      position: "absolute",
+                      left: "35px",
+                      bottom: "120px",
+                    }}
+                  >
+                    <img src={threeDots} alt="three-dots" />
+                  </span>
+                  <img
+                    className="profile-photo"
+                    src={profileImg}
+                    alt="profile-img"
+                  />
+                  <div style={{ display: "inline-grid", paddingRight: "10px" }}>
+                    <span className="account-name">رحمة محمد</span>
+
+                    <span
+                      className="filed-type"
+                      style={{ position: "relative" }}
+                    >
+                      نوع التخصص
+                      <span className="userMembership">
+                        {" "}
+                        . حديث التخرج . عضو منذ ١٢\١٠\٢٠٢٣
+                      </span>
+                    </span>
+                  </div>
+                </CardTitle>
+                <div style={{ paddingTop: "30px" }}>
+                  <button className="UnActive-btn" style={{ width: "100%" }}>
+                    الغاء تفعيل الحساب
+                  </button>
+                </div>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     );

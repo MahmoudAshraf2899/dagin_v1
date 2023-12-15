@@ -6,14 +6,66 @@ class Adjustment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedUserType: 0,
+      selectedType: 1,
       adjustment: {},
+      file: null,
+      imageUploadWrapClass: "image-upload-wrap",
+      fileUploadContentVisible: false,
     };
   }
   componentDidMount() {}
+  closeAdjustment = () => {
+    const data = false;
+    // Call the callback function passed from the parent
+    this.props.closeAdjustment(data);
+  };
+  readURL = (input) => {
+    if (input.files && input.files[0]) {
+      const reader = new FileReader();
 
+      reader.onload = (e) => {
+        this.setState({
+          imageUploadWrapClass: "image-upload-wrap image-dropping",
+          fileUploadContentVisible: true,
+        });
+
+        this.setState((prevState) => ({
+          file: input.files[0],
+        }));
+      };
+
+      reader.readAsDataURL(input.files[0]);
+    } else {
+      this.removeUpload();
+    }
+  };
+
+  removeUpload = () => {
+    this.setState({
+      file: null,
+      imageUploadWrapClass: "image-upload-wrap",
+      fileUploadContentVisible: false,
+    });
+  };
+
+  handleDragOver = () => {
+    this.setState({
+      imageUploadWrapClass: "image-upload-wrap image-dropping",
+    });
+  };
+
+  handleDragLeave = () => {
+    this.setState({
+      imageUploadWrapClass: "image-upload-wrap",
+    });
+  };
+  handleChangeType = (e) => {
+    this.setState({ selectedType: e });
+  };
   submitAdjustment = () => {};
   render() {
+    const { file, imageUploadWrapClass, fileUploadContentVisible } = this.state;
+
     return (
       <div>
         <Formik
@@ -42,6 +94,7 @@ class Adjustment extends Component {
                     <div class="row" style={{ marginTop: "15px" }}>
                       <div className="adjustment-header-border"></div>
                     </div>
+                    {/* النوع */}
                     <div class="row">
                       <div className="col-sm-2 adjustment-type-header">
                         النوع
@@ -56,12 +109,24 @@ class Adjustment extends Component {
                       }}
                     >
                       <div
-                        className="col-sm-2 adjust-btn-type-active"
+                        onClick={() => this.handleChangeType(1)}
+                        className={
+                          this.state.selectedType === 1
+                            ? "col-sm-2 adjust-btn-type-active"
+                            : "col-sm-2 adjust-btn-type"
+                        }
                         style={{ marginLeft: "15px" }}
                       >
                         اضافة رصيد دائن
                       </div>
-                      <div className="col-sm-2 adjust-btn-type">
+                      <div
+                        className={
+                          this.state.selectedType === 2
+                            ? "col-sm-2 adjust-btn-type-active"
+                            : "col-sm-2 adjust-btn-type"
+                        }
+                        onClick={() => this.handleChangeType(2)}
+                      >
                         خصم رصيد خاطئ
                       </div>
                     </div>
@@ -104,6 +169,55 @@ class Adjustment extends Component {
                           }}
                         />
                       </div>
+                    </div>
+
+                    {/* Upload Image */}
+                    <div class="row mb-3" style={{ paddingRight: "25px" }}>
+                      <div className="row mb-3">
+                        <div className={imageUploadWrapClass}>
+                          <input
+                            onDragOver={() => this.handleDragOver()}
+                            onDragLeave={() => this.handleDragLeave()}
+                            className="file-upload-input"
+                            type="file"
+                            onChange={(e) => this.readURL(e.target)}
+                            accept="image/*"
+                          />
+                          <div className="drag-text">
+                            <h3>قم بسحب الملفات وإفلاتها، أو تصفحها</h3>
+                            <p className="">
+                              دعم جميع الملفات، الحجم الأقصى 60 ميجابايت
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    {fileUploadContentVisible && (
+                      <div className="row mb-3">
+                        <div className="file-upload-content">
+                          <img
+                            className="file-upload-image"
+                            src={URL.createObjectURL(file)}
+                            alt="your"
+                          />
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="adjustment-factor">
+                  <div className="row">
+                    <div class="col">
+                      <button type="submit" class="d-inline confirm-adjust">
+                        تم
+                      </button>
+
+                      <button
+                        onClick={() => this.closeAdjustment()}
+                        class="d-inline cancel-adjust"
+                      >
+                        الغاء
+                      </button>
                     </div>
                   </div>
                 </div>
