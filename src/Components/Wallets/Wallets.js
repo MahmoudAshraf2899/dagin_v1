@@ -136,37 +136,62 @@ function Wallets(props) {
         }}
       >
         <div style={{ paddingTop: "35px", paddingLeft: "90px" }}>
-          <div style={{ display: "flex", justifyContent: "space-evenly" }}>
-            <span className="bannerText">التاريخ</span>
-            <span className="bannerText">العميل</span>
-            <span className="bannerText">المبلغ المدين</span>
-            <span className="bannerText">المبلغ الدائن</span>
-            <span className="bannerText">الرصيد</span>
-            <span className="bannerText">البيان</span>
-            <span className="bannerText">Action</span>
-          </div>
-          {/* Banner : التاريخ & العميل ... */}
-          <div
-            class="bg-white rounded-3 shadow"
+          <table
             style={{
-              display: "flex",
-              justifyContent: "space-evenly",
-              height: "70px",
-              paddingTop: "20px",
-              marginTop: "35px",
+              width: "100%",
             }}
           >
-            <span className="wallet-date">١٢\١٠\٢٠٢٣</span>
-            <span className="wallet-client-name">رحمة محمد</span>
-            <span className="wallet-price">400 جم</span>
-            <span className="wallet-price">400 جم</span>
-            <span className="wallet-price">1000 جم</span>
-            <span className="wallet-price">
-              قيمة مهمة
-              <span className="mission-number"> رقم 123</span>
-            </span>
-            <span>تسوية</span>
-          </div>
+            <thead>
+              <tr>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-evenly",
+                  }}
+                >
+                  <th className="bannerText">التاريخ</th>
+                  <th className="bannerText">العميل</th>
+                  <th className="bannerText">مبلغ دائن</th>
+                  <th className="bannerText">مبلغ مدين</th>
+                  <th className="bannerText">الرصيد</th>
+                  <th className="bannerText">البيان</th>
+                  <th className="bannerText">Actions</th>
+                </div>
+              </tr>
+            </thead>
+            <div
+              style={{
+                visibility: "hidden",
+                marginTop: "20px",
+                marginBottom: "80px",
+              }}
+            ></div>
+            <tbody>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-evenly",
+                  backgroundColor: "white",
+                  borderRadius: "20px",
+                  height: "70px",
+                  alignItems: "center",
+                }}
+              >
+                <span className="wallet-date">١٢\١٠\٢٠٢٣</span>
+                <span className="wallet-client-name">رحمة محمد</span>
+                <span className="wallet-price">400 جم</span>
+                <span className="wallet-price">400 جم</span>
+                <span className="wallet-price">1000 جم</span>
+                <span className="wallet-price">
+                  قيمة مهمة
+                  <span className="mission-number"> رقم 123</span>
+                </span>
+                <span className="adjust-wallet">تسوية</span>
+              </div>
+            </tbody>
+          </table>
+          {/* Banner : التاريخ & العميل ... */}
+
           {/* Wallet Data */}
         </div>
       </div>

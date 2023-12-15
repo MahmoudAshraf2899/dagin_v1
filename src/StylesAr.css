@@ -3410,19 +3410,17 @@ line-height: 160%;
 margin-right: 1px;
 }
 .adjust-wallet{
-display: inline-flex;
-padding: 8px 36px 9px 36px;
+  background-color: #124734;
+  width: 102px;
+  margin-left: -85px;
+  text-align: center;
+  border-radius: 15px;
+  padding-top: 3px;
+  height: 35px;
+  font-family: MadaniArabic-Medium;
+  font-size: 15px;
+  color: #FFF;
 
-justify-content: center;
- 
-border-radius: 15px;
-background: #124734;
-color: #FFF;
-font-family: MadaniArabic-Medium;
-font-size: 10px;
-font-style: normal;
-font-weight: 400;
-line-height: 16px; /* 114.286% */
 }
  
  
