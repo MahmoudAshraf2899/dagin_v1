@@ -54,7 +54,7 @@ class Login extends Component {
         }
       })
       .catch((error) => {
-        toast.error("The username or password is incorrect");
+        toast.error("برجاء ادخال رقم هاتف و كلمة مرور صحيحة");
       });
   };
   render() {
