@@ -135,45 +135,37 @@ function Wallets(props) {
           marginTop: "15px",
         }}
       >
-        <div>
+        <div style={{ paddingTop: "35px" }}>
           {/* Banner : التاريخ & العميل ... */}
-          <div className="walletBanner">
-            <div className="bannerText">التاريخ</div>
-            <div className="bannerText">العميل</div>
-            <div className="bannerText">المبلغ المدين</div>
-            <div className="bannerText">المبلغ الدائن</div>
-            <div className="bannerText">الرصيد</div>
-            <div className="bannerText">البيان</div>
-            <div className="bannerText">Action</div>
-          </div>
+          <table className="wallet-table">
+            <thead>
+              <tr className="tester-parent">
+                <th className="bannerText">التاريخ</th>
+                <th className="bannerText">العميل</th>
+                <th className="bannerText">المبلغ المدين</th>
+                <th className="bannerText">المبلغ الدائن</th>
+                <th className="bannerText">الرصيد</th>
+                <th className="bannerText">البيان</th>
+                <th className="bannerText">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="tester">
+                <td className="wallet-date">١٢\١٠\٢٠٢٣</td>
+                <td className="wallet-client-name">رحمة محمد</td>
+                <td className="wallet-price">400 جم</td>
+                <td className="wallet-price">400 جم</td>
+                <td className="wallet-price">1000 جم</td>
+                <td className="wallet-price">
+                  قيمة مهمة
+                  <span className="mission-number">رقم 123</span>
+                </td>
+                <td>تسوية</td>
+              </tr>
+            </tbody>
+          </table>
 
           {/* Wallet Data */}
-          <div>
-            <div class="row">
-              <div className="wallet-data-section">
-                <div className="wallet-container">
-                  <div className="wallet-child">
-                    <div className="container">
-                      <div className="row">
-                        <div class="col-lg-12 wallet-wrapper">
-                          <span class="ml-2 wallet-date">١٢\١٠\٢٠٢٣</span>
-                          <span class="ml-2 wallet-client-name">رحمة محمد</span>
-                          <span class="ml-2 wallet-price">400 جم</span>
-                          <span class="ml-2 wallet-price">400 جم</span>
-                          <span class="ml-2 wallet-price">1000 جم</span>
-                          <span class="ml-2 wallet-price">
-                            قيمة مهمة
-                            <span className="mission-number">رقم 123</span>
-                          </span>
-                          <span class="ml-2 adjust-wallet">تسوية</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
