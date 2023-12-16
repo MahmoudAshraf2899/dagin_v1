@@ -5,6 +5,7 @@ import AssignMissionToPopUp from "./AssignMissionToPopUp";
 import API from "../Api";
 import moment from "moment";
 import { toast } from "react-toastify";
+import DatePickerComponent from "../SubComponents/DatePickerComponent";
 
 class ReAssignMission extends Component {
   constructor(props) {
@@ -17,10 +18,16 @@ class ReAssignMission extends Component {
       assignToText: "اختر شخص  منطقة او اكثر",
       assignMissionToArr: [],
       assignToType: null,
+      expiryDate: null,
+      dateChanged: false,
+      date: null,
+      maps_url: "",
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    moment.locale("en");
+  }
   showMissionRangePopUp = () => this.setState({ showMissionRange: true });
   showAssignMissionPopUp = () => this.setState({ showAssignMission: true });
 
@@ -62,7 +69,25 @@ class ReAssignMission extends Component {
   assignedMissionToType = (data) => {
     this.setState({ assignToType: data });
   };
+
+  receiveDataFromDatePicker = (data) => {
+    let fromatedDate = moment(data).format("YYYY-MM-DD");
+    this.setState({ expiryDate: fromatedDate });
+  };
+
+  isDataPickerChaned = (data) => {
+    if (data === true) {
+      this.setState({ dateChanged: true });
+    }
+  };
+
+  handleChangeMapUrl = (e) => {
+    this.setState({ maps_url: e });
+  };
+
   handleReAssignMission = () => {
+    console.log("object");
+    moment.locale("en");
     const cities = [...this.state.selectedCities];
     const citiesIds = cities.map((item) => Number(item.id));
     const assignedTo = [...this.state.assignMissionToArr];
@@ -73,6 +98,8 @@ class ReAssignMission extends Component {
       toast.warn("من فضلك قم بأختيار نطاق المهمة");
     } else if (this.state.assignMissionToArr.length === 0) {
       toast.warn("من فضلك قم بتحديد لمن ستعين المهمة");
+    } else if (this.state.dateChanged === false) {
+      toast.warn("من فضلك قم بأختيار تاريخ الأنتهاء");
     } else {
       let values = {};
 
@@ -81,6 +108,9 @@ class ReAssignMission extends Component {
         ids: assignedToIds,
       };
       values.work_area_ids = citiesIds;
+      values.maps_url = this.state.maps_url;
+      values.due_at = moment(this.state.expiryDate).format("YYYY-MM-DD"); //تاريخ الأنتهاء
+
       API.patch(`dashboard/missions/${this.props.id}`, values)
         .then((response) => {
           if (response.status === 200) {
@@ -121,6 +151,12 @@ class ReAssignMission extends Component {
 
             <div className="m-range-border"></div>
 
+            <div class="row mb-3">
+              <DatePickerComponent
+                sendDataToParent={this.receiveDataFromDatePicker}
+                isChanged={this.isDataPickerChaned}
+              />
+            </div>
             {/* نطاق المهمة */}
             <div class="row mb-3">
               <div class="col-sm-10">
@@ -164,7 +200,11 @@ class ReAssignMission extends Component {
 
             <div class="row mb-3">
               <div class="col-lg-12">
-                <input type="text" className="reAssign-mapUrl" />
+                <input
+                  type="text"
+                  onChange={(e) => this.handleChangeMapUrl(e.target.value)}
+                  className="reAssign-mapUrl"
+                />
               </div>
             </div>
 
