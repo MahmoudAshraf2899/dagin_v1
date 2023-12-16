@@ -591,7 +591,7 @@ height: 100%;
 .mission-container{
 margin-top: 25px;
 width: 1205px;
-height: 121px;
+height: auto;
 flex-shrink: 0;
 border-radius: 10px;
 background: var(--white-general, #FFF);
@@ -696,6 +696,36 @@ font-style: normal;
 font-weight: 400;
 line-height: 160%; 
 }
+
+
+
+
+.mission-history{
+  display: flex;
+  width: 81px;
+  height: 28.459px;
+  padding: 8.757px 13.135px;
+  justify-content: center;
+  align-items: center;
+  gap: 10.946px;
+  flex-shrink: 0;
+  border-radius: 54.73px;
+  background: #b02818;
+  margin-top: 10px;
+  margin-left: 10px;
+  
+  }
+  .mission-history-span{
+  color: var(--secondary-amber-500-base, #eeeeee);
+  text-align: center;
+  font-family: MadaniArabic-Regular;
+  font-size: 10.946px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 160%; 
+  }
+
+
 .mission-status-finished-span{
 color: #70D44B;
 text-align: center;

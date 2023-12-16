@@ -1,20 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DateObject } from "react-multi-date-picker";
 import DatePicker from "react-multi-date-picker";
 import transition from "react-element-popper/animations/transition";
 import opacity from "react-element-popper/animations/opacity";
-import Ellipse from "../../Assets/images/Ellipse 3.svg";
-import { Button, UncontrolledPopover, PopoverBody, Util } from "reactstrap";
-import Adjustment from "./Adjustment";
 
-// Define a functional component
+import Adjustment from "./Adjustment";
+import API from "../Api";
+import moment from "moment";
+
 function Wallets(props) {
   const [selectedElement, setSelectedElement] = useState(0);
   const [showAdjustment, setShowAdjustment] = useState(false);
-  const [values, setValues] = useState([
-    new DateObject().subtract(4, "days"),
-    new DateObject().add(4, "days"),
-  ]);
+  const [values, setValues] = useState([new DateObject(), new DateObject()]);
+  const [walletData, setWalletData] = useState([]);
+
+  useEffect(() => {
+    moment.locale("en");
+    let fromDate = values[0];
+    let toDate = values[1];
+    if (toDate !== undefined) {
+      API.get(
+        `dashboard/wallets/transactions?date_from=${fromDate}&date_to=${toDate}`
+      )
+        .then((res) => {
+          if (res.status === 200) {
+            setWalletData(res.data.items);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  }, [setValues, values]);
   const handleChangeElements = (e) => {
     switch (e) {
       case 0:
@@ -47,8 +64,19 @@ function Wallets(props) {
   const showAdjustmentScreen = () => {
     setShowAdjustment(!showAdjustment);
   };
+  const handleChangeValues = (values) => {
+    console.log(
+      "🚀 ~ file: Wallets.js:67 ~ handleChangeValues ~ values:",
+      values
+    );
+
+    let fromDate = values[0];
+    let formatedDate = moment(values[0]).format("YYYY-MM-DD");
+    let toDate = moment(values[1]).format("YYYY-MM-DD");
+  };
   return (
     <div class="container walletPage">
+      {/* كل الحركات " حركات مدينة فقط | حركات دائنة فقط | ..." */}
       <div class="row">
         <div class="col">
           <div
@@ -129,6 +157,7 @@ function Wallets(props) {
             onChange={setValues}
             range
             rangeHover
+            format="YYYY-MM-DD"
             animations={[opacity(), transition({ from: 35, duration: 800 })]}
           />
         </div>
@@ -181,32 +210,45 @@ function Wallets(props) {
               }}
             ></div>
             <tbody>
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "space-evenly",
-                  backgroundColor: "white",
-                  borderRadius: "20px",
-                  height: "70px",
-                  alignItems: "center",
-                }}
-              >
-                <span className="wallet-date">١٢\١٠\٢٠٢٣</span>
-                <span className="wallet-client-name">رحمة محمد</span>
-                <span className="wallet-price">400 جم</span>
-                <span className="wallet-price">400 جم</span>
-                <span className="wallet-price">1000 جم</span>
-                <span className="wallet-price">
-                  قيمة مهمة
-                  <span className="mission-number"> رقم 123</span>
-                </span>
-                <span
-                  className="adjust-wallet"
-                  onClick={() => showAdjustmentScreen()}
-                >
-                  تسوية
-                </span>
-              </div>
+              {walletData.map((item) => {
+                return (
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "space-evenly",
+                      backgroundColor: "white",
+                      borderRadius: "20px",
+                      height: "70px",
+                      alignItems: "center",
+                      marginBottom: "10px",
+                    }}
+                  >
+                    <span className="wallet-date">
+                      {moment(item.created_at).format("MM/DD/YYYY")}
+                    </span>
+                    <span className="wallet-client-name">{item.user.name}</span>
+                    <span className="wallet-price">{item.amount} جم</span>
+                    <span className="wallet-price">{item.amount} جم</span>
+                    <span className="wallet-price">{item.balance} جم</span>
+                    <span className="wallet-price">
+                      {item.statement_type}
+                      <span className="mission-number">
+                        {item.mission != null ? `رقم ${item.mission.id}` : ""}
+                        {console.log(
+                          "🚀 ~ file: Wallets.js:225 ~ {walletData.map ~ values:",
+                          moment(values[0]).format("MM/DD/YYYY")
+                        )}{" "}
+                      </span>
+                    </span>
+                    <span
+                      className="adjust-wallet"
+                      onClick={() => showAdjustmentScreen()}
+                    >
+                      تسوية
+                    </span>
+                  </div>
+                );
+              })}
             </tbody>
           </table>
           {/* Banner : التاريخ & العميل ... */}

@@ -540,6 +540,17 @@ class Mission extends Component {
                           </div>
                         )}
                       </div>
+
+                      <div class="row">
+                        <div
+                          class="col-md-auto mission-history"
+                          style={{ marginTop: "10px" }}
+                        >
+                          <span className="mission-history-span">
+                            اخر تعديل تم بواسطة : Mahmoud Elnabwy
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -550,6 +561,7 @@ class Mission extends Component {
       </div>
     );
   };
+
   showPendingMissions = () => {
     return (
       <div>
@@ -810,14 +822,16 @@ class Mission extends Component {
                           </span>
                         </div>
                         {item.salesman == null || item.salesman == undefined ? (
-                          <div
-                            class="col-md-auto mission-assigned"
-                            style={{ marginTop: "10px" }}
-                          >
-                            <span className="mission-assigned-span">
-                              لم تستند بعد
-                            </span>
-                          </div>
+                          <>
+                            <div
+                              class="col-md-auto mission-assigned"
+                              style={{ marginTop: "10px" }}
+                            >
+                              <span className="mission-assigned-span">
+                                لم تستند بعد
+                              </span>
+                            </div>
+                          </>
                         ) : (
                           <div
                             class="col-md-auto mission-assigned"
@@ -838,6 +852,16 @@ class Mission extends Component {
                             </span>
                           </div>
                         )}
+                      </div>
+                      <div class="row">
+                        <div
+                          class="col-md-auto mission-history"
+                          style={{ marginTop: "10px" }}
+                        >
+                          <span className="mission-history-span">
+                            اخر تعديل تم بواسطة : Mahmoud ELnabwy
+                          </span>
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -1127,6 +1151,16 @@ class Mission extends Component {
                           </div>
                         )}
                       </div>
+                      <div class="row">
+                        <div
+                          class="col-md-auto mission-history"
+                          style={{ marginTop: "10px" }}
+                        >
+                          <span className="mission-history-span">
+                            اخر تعديل تم بواسطة : Mahmoud Ashraf
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1216,27 +1250,6 @@ class Mission extends Component {
                                 </p>
                               </div>
                               <br />
-                              <div className="mission-options-el">
-                                <p
-                                  class="text-end option-txt"
-                                  style={{ marginBottom: "-5px" }}
-                                >
-                                  تعديل المهمة
-                                </p>
-                              </div>
-                              <br />
-
-                              <div
-                                className="mission-options-el"
-                                onClick={() => this.deleteMission(item.id)}
-                              >
-                                <p
-                                  class="text-end option-txt-danger"
-                                  style={{ marginBottom: "-5px" }}
-                                >
-                                  حذف المهمة
-                                </p>
-                              </div>
                             </PopoverBody>
                           </UncontrolledPopover>
                         </div>
@@ -1675,6 +1688,17 @@ class Mission extends Component {
                             <span className="mission-assigned-span-child-2">
                               {item.salesman.name}
                             </span>
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="row">
+                        <div
+                          class="col-md-auto mission-history"
+                          style={{ marginTop: "10px" }}
+                        >
+                          <span className="mission-history-span">
+                            اخر تعديل تم بواسطة : Mahmoud Elnabwy
                           </span>
                         </div>
                       </div>

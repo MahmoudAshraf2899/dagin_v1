@@ -1339,7 +1339,7 @@ class MissionDetailsPopUp extends Component {
               </div>
               <div
                 className="no-reAssign"
-                onClick={() => this.showRefuseMissionPopUp()}
+                onClick={() => this.showReAssignModalPopUp()}
               >
                 لا
               </div>
