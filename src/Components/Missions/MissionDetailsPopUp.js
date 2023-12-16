@@ -22,9 +22,10 @@ class MissionDetailsPopUp extends Component {
       data: {},
       salesman: {},
       assignTo: [],
+      work_areas: [],
       selectedSales: [],
       salesToParent: [],
-
+      selectedCities: [],
       selectedItem: 0,
     };
   }
@@ -58,25 +59,38 @@ class MissionDetailsPopUp extends Component {
     let value = this.state.showMissionCompletedModal;
     this.setState({ showMissionCompletedModal: !value });
   };
+
   showRefuseMissionPopUp = () => {
     let value = this.state.showRefuseModal;
     this.setState({ showRefuseModal: !value });
   };
 
   showReAssignModalPopUp = () => {
-    let value = this.state.showReAssignModal;
-    if (value === false) {
-      API.get("salesman").then((res) => {
-        if (res) {
-          const men = res.data.items.map((item) => ({
-            id: item.id,
-            name: item.name,
-          }));
-          this.setState({ assignTo: men });
-        }
-      });
-    }
-    this.setState({ showReAssignModal: !value });
+    this.props.showReAssignOptions(true);
+    this.props.missionId(this.props.id);
+    // let value = this.state.showReAssignModal;
+    // if (value === false) {
+    //   API.get("salesman").then((res) => {
+    //     if (res) {
+    //       const men = res.data.items.map((item) => ({
+    //         id: item.id,
+    //         name: item.name,
+    //       }));
+    //       this.setState({ assignTo: men });
+    //     }
+    //   });
+
+    //   API.get("work-areas").then((res) => {
+    //     if (res) {
+    //       const cities = res.data.map((item) => ({
+    //         id: item.id,
+    //         name: item.name,
+    //       }));
+    //       this.setState({ work_areas: cities });
+    //     }
+    //   });
+    // }
+    // this.setState({ showReAssignModal: !value });
   };
 
   makeMissionCompleted = () => {
@@ -144,6 +158,23 @@ class MissionDetailsPopUp extends Component {
     }
   };
 
+  handleSelectCity = (cityId, cityName) => {
+    //Check if city added before
+    let cities = [...this.state.selectedCities];
+    const isSelectedBefore = cities.includes(cityId);
+    if (isSelectedBefore) {
+      const indexToRemove = cities.indexOf(cityId);
+      // Remove the ID if it exists in the array
+      if (indexToRemove !== -1) {
+        cities.splice(indexToRemove, 1);
+        this.setState({ selectedCities: cities });
+      }
+    } else {
+      cities.push(cityId);
+      this.setState({ selectedCities: cities });
+    }
+  };
+
   handleRefuseMission = () => {
     API.post(`dashboard/missions/${this.props.id}/reject`).then((res) => {
       if (res.status === 200) {
@@ -162,27 +193,34 @@ class MissionDetailsPopUp extends Component {
   /* اعادة تعيين المهمة في حالة اذا كانت متاخرة */
   handleReAssignMission = () => {
     let values = {};
-    values.assignment = {
-      type: this.state.selectedItem === 0 ? "اشخاص" : "تخصصات",
-      ids: this.state.selectedSales.map(Number),
-    };
-    API.patch(`dashboard/missions/${this.props.id}`, values)
-      .then((response) => {
-        if (response.status === 200) {
-          toast.success("تم اعادة تعيين المهمة بنجاح");
-          this.sendPropsToDeleteObject();
+    if (this.state.selectedSales.length === 0) {
+      toast.warn("من فضلك قم بأضافة اشخاص");
+    } else if (this.state.selectedCities.length === 0) {
+      toast.warn("من فضلك قم بأختيار نطاق المهمة");
+    } else {
+      values.assignment = {
+        type: this.state.selectedItem === 0 ? "اشخاص" : "تخصصات",
+        ids: this.state.selectedSales.map(Number),
+      };
+      values.work_area_ids = this.state.selectedCities.map(Number);
+      API.patch(`dashboard/missions/${this.props.id}`, values)
+        .then((response) => {
+          if (response.status === 200) {
+            toast.success("تم اعادة تعيين المهمة بنجاح");
+            this.sendPropsToDeleteObject();
+            let value = this.state.showReAssignModal;
+            this.setState({ showReAssignModal: !value });
+            this.closePopUp();
+          }
+        })
+        .catch((error) => {
+          console.log("error:", error);
           let value = this.state.showReAssignModal;
           this.setState({ showReAssignModal: !value });
           this.closePopUp();
-        }
-      })
-      .catch((error) => {
-        console.log("error:", error);
-        let value = this.state.showReAssignModal;
-        this.setState({ showReAssignModal: !value });
-        this.closePopUp();
-        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
-      });
+          toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+        });
+    }
   };
 
   handleActiveType = (e) => {
@@ -1255,6 +1293,58 @@ class MissionDetailsPopUp extends Component {
 
             <ModalBody>
               <div class="container">
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <span className="select-area">نطاق المهمة</span>
+                  </div>
+                </div>
+                {/* البحث الخاص بنطاق المهمة */}
+                <div class="row mt-3">
+                  <div class="col-12">
+                    <input
+                      type="text"
+                      placeholder="ابحث"
+                      className="cities-search"
+                    />
+                  </div>
+                </div>
+                {/* List of نطاق المهمة */}
+                <div class="row" style={{ height: "150px" }}>
+                  <div
+                    class="col-12"
+                    style={{ maxHeight: "100px", overflowY: "auto" }}
+                  >
+                    <ul class="list-unstyled scrollable-list-re-assign">
+                      {this.state.work_areas.map((item) => {
+                        return (
+                          <li class="d-flex w-100 justify-content-between py-2">
+                            <div class="custom-border">{item.name}</div>
+                            <div class="checkbox checkbox-success">
+                              <input
+                                id={`checkbox ${item.id}`}
+                                type="checkbox"
+                                onChange={(e) =>
+                                  this.handleSelectCity(item.id, item.name)
+                                }
+                              />
+                              <label for={`checkbox ${item.id}`}></label>
+                            </div>
+                          </li>
+                        );
+                      })}
+                    </ul>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <span className="select-area">رابط الموقع الجغرافي</span>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-12">
+                    <input type="text" className="reAssign-mapUrl" />
+                  </div>
+                </div>
                 <div class="row mt-3">
                   <div className="assign-people-type">
                     <div

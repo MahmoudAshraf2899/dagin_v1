@@ -314,10 +314,10 @@ class AddNewMission extends Component {
 
                 {/* النطاق واسناد المهمة */}
                 <div className="m-range-assign">
-                  <div>
+                  <div className="row">
                     {/* النطاق واسناد المهمة */}
                     <div class="row">
-                      <div class="col-sm-10">
+                      <div class="col-lg-3">
                         <div className="assign-m-header">
                           <span>النطاق واسناد المهمة</span>
                         </div>

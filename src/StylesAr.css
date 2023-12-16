@@ -1859,7 +1859,7 @@ border-radius: 15px;
 border: 1px solid #E2E2E2;
 background: #FFF;
 height: 45px;
-width: 460%;
+width: 100%;
 }
 .select-m-range span{
 color: #333;
@@ -1879,7 +1879,7 @@ border-radius: 15px;
 border: 1px solid #E2E2E2;
 background: #FFF;
 height: 45px;
-width: 460%; 
+width: 100%; 
 margin-bottom: 40px;
 }
 .select-m-assign span{
@@ -3252,55 +3252,63 @@ line-height: 160%;
 }
 /* Re Assign Mission To */
 .re-assign{
-  display: inline-flex;
-  padding: 8px 27.5px 9px 26.5px;
-  justify-content: center;
-  align-items: center;
+display: inline-flex;
+padding: 8px 27.5px 9px 26.5px;
+justify-content: center;
+align-items: center;
+border-radius: 15px;
+background: #124734;
+color: #FFF;
+font-family: MadaniArabic-Medium;
+font-size: 14px;
+font-style: normal;
+font-weight: 400;
+line-height: 16px;  
+}
+.mission-re-assign{
+ display: flex;
+ height: 40px;
+ padding: 8px 12px;
+ justify-content: center;
+ align-items: center;
+ gap: 10px;
+ border-radius: 8px;
+ background: #F9F9F9;
+ color: var(--greyscale-500, #64748B);
+ text-align: right;
+ font-family: MadaniArabic-Regular;
+ font-size: 12px;
+ font-style: normal;
+ font-weight: 400;
+ line-height: 160%; /* 19.2px */
+ width: 30%;
+ }
+ .mission-re-assign-span{
+ color: var(--greyscale-500, #64748B);
+ text-align: right;
+ font-family: MadaniArabic-Regular;
+ font-size: 12px;
+ font-style: normal;
+ font-weight: 400;
+ line-height: 160%;  
+ }  
+.reAssign-question{
+color: var(--black-01, #2C3659);
+text-align: right; 
+font-family: MadaniArabic-SemiBold;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 130%;
+}    
+.reAssign-mapUrl{
+  width: 100%;
+  margin-top: 2px;
+  border: 1px solid #70D44B;
   border-radius: 15px;
-  background: #124734;
-  color: #FFF;
-  font-family: MadaniArabic-Medium;
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 16px;  
-  }
-  .mission-re-assign{
-    display: flex;
-    height: 40px;
-    padding: 8px 12px;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    border-radius: 8px;
-    background: #F9F9F9;
-    color: var(--greyscale-500, #64748B);
-    text-align: right;
-    font-family: MadaniArabic-Regular;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%; /* 19.2px */
-    width: 30%;
-    }
-    .mission-re-assign-span{
-    color: var(--greyscale-500, #64748B);
-    text-align: right;
-    font-family: MadaniArabic-Regular;
-    font-size: 12px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 160%;  
-    }  
-    .reAssign-question{
-      color: var(--black-01, #2C3659);
-      text-align: right; 
-      font-family: MadaniArabic-SemiBold;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 130%;
-      }    
+  padding-right: 10px;
+}
+ 
 
 .yes-reAssign{
   display: inline-flex;

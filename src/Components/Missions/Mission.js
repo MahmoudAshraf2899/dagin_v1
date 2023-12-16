@@ -10,6 +10,7 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { Pagination, PaginationItem, PaginationLink } from "reactstrap";
 import EditMission from "./EditMission";
+import ReAssignMission from "./ReAssignMission";
 
 Util.setGlobalCssModule({
   btn: "hyperspeed-btn",
@@ -34,6 +35,7 @@ class Mission extends Component {
       noPages: 0,
       totalRows: 0,
       showEditMission: false,
+      showReAssignMission: false,
       editMissionId: null,
     };
   }
@@ -146,6 +148,17 @@ class Mission extends Component {
     // Do something with the data in the parent component
   };
 
+  receiveFromReAssign = (dataFromChild) => {
+    this.setState({
+      showReAssignMission: dataFromChild,
+    });
+  };
+
+  handleShowReAssignMission = (dataFromChild) => {
+    let value = this.state.showReAssignMission;
+    this.setState({ showReAssignMission: !value, showDetailsPopUp: false });
+  };
+
   deleteObjectFromDetails = (item) => {
     this.extractObjectForDelete(item);
   };
@@ -241,6 +254,10 @@ class Mission extends Component {
     dataObj = dataObj.filter((item) => item.id !== id);
     this.setState({ data: dataObj });
   }
+
+  idFromMissionDetails = (id) => {
+    this.setState({ missionId: id });
+  };
   showInProgressMissions = () => {
     return (
       <div>
@@ -1723,7 +1740,8 @@ class Mission extends Component {
             style={{
               display:
                 this.state.showAddComponent === true ||
-                this.state.showEditMission === true
+                this.state.showEditMission === true ||
+                this.state.showReAssignMission === true
                   ? "none"
                   : "unset",
             }}
@@ -1830,7 +1848,8 @@ class Mission extends Component {
             style={{
               display:
                 this.state.showAddComponent === true ||
-                this.state.showEditMission === true
+                this.state.showEditMission === true ||
+                this.state.showReAssignMission === true
                   ? "none"
                   : "unset",
             }}
@@ -1861,7 +1880,8 @@ class Mission extends Component {
             style={{
               display:
                 this.state.showAddComponent === true ||
-                this.state.showEditMission === true
+                this.state.showEditMission === true ||
+                this.state.showReAssignMission === true
                   ? "none"
                   : "unset",
             }}
@@ -1897,7 +1917,8 @@ class Mission extends Component {
             style={{
               display:
                 this.state.showAddComponent === true ||
-                this.state.showEditMission === true
+                this.state.showEditMission === true ||
+                this.state.showReAssignMission === true
                   ? "none"
                   : "unset",
             }}
@@ -1916,7 +1937,8 @@ class Mission extends Component {
 
           {this.state.data.length === 0 ||
           this.state.showAddComponent === true ||
-          this.state.showEditMission === true ? null : (
+          this.state.showEditMission === true ||
+          this.state.showReAssignMission === true ? null : (
             <>
               <div class="row">
                 <Pagination
@@ -1985,6 +2007,17 @@ class Mission extends Component {
               />
             ) : null}
           </div>
+          {/* Render Re Assign Component */}
+          <div class="row">
+            {this.state.showReAssignMission === true ? (
+              <>
+                <ReAssignMission
+                  sendDataToParent={this.receiveFromReAssign}
+                  id={this.state.missionId}
+                />
+              </>
+            ) : null}
+          </div>
           {/* Details Pop Up */}
           {this.state.showDetailsPopUp === true ? (
             <>
@@ -1993,6 +2026,8 @@ class Mission extends Component {
                 id={this.state.missionId}
                 deletedElement={this.deleteObjectFromDetails}
                 EditMissionProps={this.EditMissionFromDetails}
+                showReAssignOptions={this.handleShowReAssignMission}
+                missionId={this.idFromMissionDetails}
               />
             </>
           ) : null}
