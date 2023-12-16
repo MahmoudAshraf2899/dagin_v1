@@ -22,6 +22,9 @@ class MissionDetailsPopUp extends Component {
       data: {},
       salesman: {},
       assignTo: [],
+      selectedSales: [],
+      salesToParent: [],
+
       selectedItem: 0,
     };
   }
@@ -50,6 +53,7 @@ class MissionDetailsPopUp extends Component {
     const data = this.props.id;
     this.props.EditMissionProps(data);
   };
+
   showMarkMissionCompletedPopUp = () => {
     let value = this.state.showMissionCompletedModal;
     this.setState({ showMissionCompletedModal: !value });
@@ -155,20 +159,30 @@ class MissionDetailsPopUp extends Component {
     });
   };
 
+  /* اعادة تعيين المهمة في حالة اذا كانت متاخرة */
   handleReAssignMission = () => {
-    //Todo :Change The API
-    // API.post(`dashboard/missions/${this.props.id}/reject`).then((res) => {
-    //   if (res.status === 200) {
-    //     toast.success("تم اعادة تعيين المهمة بنجاح");
-    //     this.sendPropsToDeleteObject();
-    //     this.showReAssignModalPopUp();
-    //     this.closePopUp();
-    //   } else {
-    //     toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
-    //     this.showReAssignModalPopUp();
-    //     this.closePopUp();
-    //   }
-    // });
+    let values = {};
+    values.assignment = {
+      type: this.state.selectedItem === 0 ? "اشخاص" : "تخصصات",
+      ids: this.state.selectedSales.map(Number),
+    };
+    API.patch(`dashboard/missions/${this.props.id}`, values)
+      .then((response) => {
+        if (response.status === 200) {
+          toast.success("تم اعادة تعيين المهمة بنجاح");
+          this.sendPropsToDeleteObject();
+          let value = this.state.showReAssignModal;
+          this.setState({ showReAssignModal: !value });
+          this.closePopUp();
+        }
+      })
+      .catch((error) => {
+        console.log("error:", error);
+        let value = this.state.showReAssignModal;
+        this.setState({ showReAssignModal: !value });
+        this.closePopUp();
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+      });
   };
 
   handleActiveType = (e) => {
@@ -181,15 +195,15 @@ class MissionDetailsPopUp extends Component {
             id: item.id,
             name: item.name,
           }));
-          this.setState({ data: men });
+          this.setState({ assignTo: men });
         }
       });
     } else {
       //تخصصات
 
       API.get("specialties").then((res) => {
-        if (res) {
-          this.setState({ data: res.data });
+        if (res.status === 200) {
+          this.setState({ assignTo: res.data });
         }
       });
     }
@@ -1290,7 +1304,7 @@ class MissionDetailsPopUp extends Component {
                   <div class="row" style={{ height: "150px" }}>
                     <div
                       class="col-12"
-                      style={{ maxHeight: "600px", overflowY: "auto" }}
+                      style={{ maxHeight: "100px", overflowY: "auto" }}
                     >
                       <ul class="list-unstyled scrollable-list-re-assign">
                         {this.state.assignTo.map((item) => {
