@@ -51,7 +51,8 @@ class MissionDetailsPopUp extends Component {
 
   routeToEditPage = () => {
     this.closePopUp();
-    const data = this.props.id;
+    //True refer to that it's coming from (تعديل قبل تعيين كتامة)
+    const data = [this.props.id, true];
     this.props.EditMissionProps(data);
   };
 

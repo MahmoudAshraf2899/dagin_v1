@@ -30,6 +30,8 @@ class EditMission extends Component {
     };
   }
   componentDidMount() {
+    console.log("Props Id:", this.props.id);
+    console.log("Props Come From Where :", this.props.isCompleted);
     moment.locale("en");
     API.get(`dashboard/missions/${this.props.id}`).then((res) => {
       if (res.status === 200) {
@@ -48,7 +50,10 @@ class EditMission extends Component {
           let name = res.data.assignedUsers[0].name;
           let count = res.data.assignedUsers.length - 1;
           let text = `${name} و ${count} أخري`;
-          this.setState({ assignToText: text });
+          this.setState({
+            assignToText: text,
+            assignMissionToArr: res.data.assignedUsers,
+          });
         }
         if (res.data.assignedSpecialties.length > 0) {
           let name = res.data.assignedSpecialties[0].name;
@@ -159,36 +164,61 @@ class EditMission extends Component {
       hasException: !prevState.hasException,
     }));
   };
+  handleEditThenCompleted = () => {
+    let document = { ...this.state.document };
+    let values = {};
 
+    values.name = document.name;
+    moment.locale("en");
+    values.details = document.details; //تفاصيل المهمة
+
+    API.post(`dashboard/missions/${document.id}/complete`, values)
+      .then((response) => {
+        if (response) {
+          toast.success("تمت تعديل المهمة وتعيينها كتامة بنجاح");
+          this.sendDataToParent(); //To Close The Page and return to the Mission Page
+        }
+      })
+      .catch((error) => {
+        console.log("error:", error);
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+      });
+  };
   handleEditMission = () => {
     const cities = [...this.state.workAreas];
-    const citiesIds = cities[0].map((item) => Number(item.id));
-    const assignedTo = [...this.state.assignMissionToArr];
-    const assignedToIds =
-      assignedTo.length > 0 ? assignedTo[0].map((item) => Number(item.id)) : [];
-    let document = { ...this.state.document };
-    let missionType = { ...this.state.types };
-
-    if (missionType.id === undefined || missionType.name === undefined) {
-      toast.warn("من فضلك قم بأختيار نوع المهمة");
-    } else if (document.name == null || document.name.trim().length === 0) {
-      toast.warn("من فضلك قم بأدخال عنوان المهمة");
-    } else if (this.state.dateChanged === false) {
-      toast.warn("من فضلك قم بأختيار تاريخ الأنتهاء");
-    } else if (cities.length === 0) {
+    if (cities.length === 0) {
       toast.warn("من فضلك قم بأختيار نطاق المهمة");
-    } else if (this.state.assignMissionToArr.length === 0) {
-      toast.warn("من فضلك قم بتحديد لمن ستعين المهمة");
-    } else if (document.reward == null || document.reward === "") {
-      toast.warn("من فضلك قم بأدخال قيمة المقابل المادي");
-    } else if (this.state.hasException === true) {
-      if (document.early_bonus == null) {
-        toast.warn("من فضلك قم بأختيار قيمة الحافز");
+    } else {
+      const citiesIds = cities[0].map((item) => Number(item.id));
+      const assignedTo = [...this.state.assignMissionToArr];
+      const assignedToIds =
+        assignedTo.length > 0
+          ? assignedTo[0].map((item) => Number(item.id))
+          : [];
+      let document = { ...this.state.document };
+      let missionType = { ...this.state.types };
+
+      if (missionType.id === undefined || missionType.name === undefined) {
+        toast.warn("من فضلك قم بأختيار نوع المهمة");
+      } else if (document.name == null || document.name.trim().length === 0) {
+        toast.warn("من فضلك قم بأدخال عنوان المهمة");
+      } else if (this.state.dateChanged === false) {
+        toast.warn("من فضلك قم بأختيار تاريخ الأنتهاء");
+      } else if (cities.length === 0) {
+        toast.warn("من فضلك قم بأختيار نطاق المهمة");
+      } else if (this.state.assignMissionToArr.length === 0) {
+        toast.warn("من فضلك قم بتحديد لمن ستعين المهمة");
+      } else if (document.reward == null || document.reward === "") {
+        toast.warn("من فضلك قم بأدخال قيمة المقابل المادي");
+      } else if (this.state.hasException === true) {
+        if (document.early_bonus == null) {
+          toast.warn("من فضلك قم بأختيار قيمة الحافز");
+        } else {
+          this.submitEditMission(document, citiesIds, assignedToIds);
+        }
       } else {
         this.submitEditMission(document, citiesIds, assignedToIds);
       }
-    } else {
-      this.submitEditMission(document, citiesIds, assignedToIds);
     }
   };
 
@@ -224,7 +254,11 @@ class EditMission extends Component {
     return (
       <div>
         <Formik
-          onSubmit={() => this.handleEditMission()}
+          onSubmit={() =>
+            this.props.isCompleted === true
+              ? this.handleEditThenCompleted()
+              : this.handleEditMission()
+          }
           initialValues={{ ...this.state.document }}
           validationSchema={null}
           enableReinitialize={true}
@@ -271,7 +305,11 @@ class EditMission extends Component {
                       <div class="col-lg-12">
                         <div
                           className="d-flex justify-content-between select-m-type"
-                          onClick={this.showMissionTypePopUp}
+                          onClick={
+                            this.props.isCompleted === true
+                              ? null
+                              : this.showMissionTypePopUp
+                          }
                         >
                           <span>{this.state.types.name}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
@@ -290,7 +328,7 @@ class EditMission extends Component {
                             *
                           </span>
                         </p>
-                        {console.log("values:", values)}
+
                         <input
                           type="text"
                           placeholder="اكتب عنوان هنا"
@@ -303,6 +341,9 @@ class EditMission extends Component {
                         sendDataToParent={this.receiveDataFromDatePicker}
                         isChanged={this.isDatePickerChanged}
                         isEdit={true}
+                        activation={
+                          this.props.isCompleted === true ? true : false
+                        }
                         data={
                           values.due_at == null ? new Date() : values.due_at
                         }
@@ -338,11 +379,14 @@ class EditMission extends Component {
 
                 {/* النطاق واسناد المهمة */}
                 <div className="m-range-assign">
-                  <div>
+                  <div class="row">
                     {/* النطاق واسناد المهمة */}
                     <div class="row">
-                      <div class="col-sm-10">
-                        <div className="assign-m-header">
+                      <div class="col-lg-3">
+                        <div
+                          className="assign-m-header"
+                          style={{ marginBottom: "10px" }}
+                        >
                           <span>النطاق واسناد المهمة</span>
                         </div>
                       </div>
@@ -368,7 +412,11 @@ class EditMission extends Component {
                       <div class="col-lg-12">
                         <div
                           className="d-flex justify-content-between  select-m-range"
-                          onClick={this.showMissionRangePopUp}
+                          onClick={
+                            this.props.isCompleted === true
+                              ? null
+                              : this.showMissionRangePopUp
+                          }
                         >
                           <span>{this.state.missionRangeText}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
@@ -395,7 +443,11 @@ class EditMission extends Component {
                       <div class="col-lg-12">
                         <div
                           className="d-flex justify-content-between select-m-assign"
-                          onClick={this.showAssignMissionPopUp}
+                          onClick={
+                            this.props.isCompleted === true
+                              ? null
+                              : this.showAssignMissionPopUp
+                          }
                         >
                           <span>{this.state.assignToText}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
@@ -443,6 +495,9 @@ class EditMission extends Component {
                           onChange={(e) =>
                             this.handleChangeDocument(e, "reward")
                           }
+                          disabled={
+                            this.props.isCompleted === true ? true : false
+                          }
                         />
                       </div>
                     </div>
@@ -459,6 +514,9 @@ class EditMission extends Component {
                               type="checkbox"
                               checked={this.state.hasException}
                               onChange={this.handleChangeException}
+                              disabled={
+                                this.props.isCompleted === true ? true : false
+                              }
                             />
                             <span className="slider round"></span>
                           </label>
@@ -490,6 +548,9 @@ class EditMission extends Component {
                               onChange={(e) =>
                                 this.handleChangeDocument(e, "early_bonus")
                               }
+                              disabled={
+                                this.props.isCompleted === true ? true : false
+                              }
                             />
                           </div>
                         </div>
@@ -503,7 +564,9 @@ class EditMission extends Component {
                     <div class="row">
                       <div class="col">
                         <button type="submit" class="d-inline m-submit-btn">
-                          تعديل المهمة
+                          {this.props.isCompleted === true
+                            ? "تعديل وتعيين كتامة"
+                            : "تعديل المهمة"}
                         </button>
 
                         <button

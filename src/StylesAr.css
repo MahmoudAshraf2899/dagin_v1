@@ -3472,6 +3472,20 @@ margin-right: 1px;
   cursor: pointer;
 
 }
+.adusted-before{
+  
+  background-color:  hsl(59, 78%, 43%);
+  width: 102px;
+  margin-left: -85px;
+  text-align: center;
+  border-radius: 15px;
+  padding-top: 3px;
+  height: 35px;
+  font-family: MadaniArabic-Medium;
+  font-size: 15px;
+  color: #FFF;
+  cursor: pointer;
+}
 /* Adjustment Component */
 .adjustment-container{
 display: flex;

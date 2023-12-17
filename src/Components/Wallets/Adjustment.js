@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { Formik } from "formik";
 import moment from "moment";
+import API from "../Api";
+import { toast } from "react-toastify";
 
 class Adjustment extends Component {
   constructor(props) {
@@ -11,6 +13,8 @@ class Adjustment extends Component {
       file: null,
       imageUploadWrapClass: "image-upload-wrap",
       fileUploadContentVisible: false,
+      price: null,
+      details: null,
     };
   }
   componentDidMount() {}
@@ -62,7 +66,41 @@ class Adjustment extends Component {
   handleChangeType = (e) => {
     this.setState({ selectedType: e });
   };
-  submitAdjustment = () => {};
+  handleChangePrice = (e) => {
+    this.setState({ price: e });
+  };
+  handleChangeDetails = (e) => {
+    this.setState({ details: e });
+  };
+  submitAdjustment = () => {
+    const axios = require("axios");
+    const FormData = require("form-data");
+    // const fs = require("fs");
+    let data = new FormData();
+    data.append(
+      "type",
+      this.state.selectedType === 1 ? "إضافة رصيد دائن" : "خصم رصيد خاطئ"
+    );
+    data.append("amount", this.state.price);
+    data.append("details", "bla bla");
+    data.append(
+      "attachments",
+      this.state.file
+      // fs.createReadStream("/C:/Users/Mahmoud/Downloads/Requirements.png")
+    );
+    API.post(
+      `dashboard/wallets/transactions/${this.props.id}/settlements`,
+      data
+    ).then((res) => {
+      if (res.status === 201) {
+        toast.success("تمت التسوية بنجاح");
+        this.closeAdjustment();
+      } else {
+        toast.error("حدث خطأ ما يرجي التواصل مع المسؤولين");
+        this.closeAdjustment();
+      }
+    });
+  };
   render() {
     const { file, imageUploadWrapClass, fileUploadContentVisible } = this.state;
 
@@ -149,6 +187,9 @@ class Adjustment extends Component {
                         <input
                           placeholder="0.0"
                           className="d-flex justify-content-between adjustment-price"
+                          onChange={(e) =>
+                            this.handleChangePrice(e.target.value)
+                          }
                         />
                       </div>
                     </div>
@@ -161,6 +202,9 @@ class Adjustment extends Component {
                       <div class="col-lg-12">
                         <textarea
                           className="d-flex justify-content-between"
+                          onChange={(e) =>
+                            this.handleChangeDetails(e.target.value)
+                          }
                           style={{
                             width: "100%",
                             borderRadius: "15px",
@@ -208,7 +252,11 @@ class Adjustment extends Component {
                 <div className="adjustment-factor">
                   <div className="row">
                     <div class="col">
-                      <button type="submit" class="d-inline confirm-adjust">
+                      <button
+                        type="submit"
+                        class="d-inline confirm-adjust"
+                        onClick={() => this.submitAdjustment()}
+                      >
                         تم
                       </button>
 

@@ -13,6 +13,7 @@ function Wallets(props) {
   const [showAdjustment, setShowAdjustment] = useState(false);
   const [values, setValues] = useState([new DateObject(), new DateObject()]);
   const [walletData, setWalletData] = useState([]);
+  const [walletId, setWalletId] = useState(0);
 
   useEffect(() => {
     moment.locale("en");
@@ -61,7 +62,8 @@ function Wallets(props) {
   const handleCloseAdjustment = (data) => {
     setShowAdjustment(data);
   };
-  const showAdjustmentScreen = () => {
+  const showAdjustmentScreen = (item) => {
+    setWalletId(item);
     setShowAdjustment(!showAdjustment);
   };
   const handleChangeValues = (values) => {
@@ -234,17 +236,22 @@ function Wallets(props) {
                       {item.statement_type}
                       <span className="mission-number">
                         {item.mission != null ? `رقم ${item.mission.id}` : ""}
-                        {console.log(
-                          "🚀 ~ file: Wallets.js:225 ~ {walletData.map ~ values:",
-                          moment(values[0]).format("MM/DD/YYYY")
-                        )}{" "}
                       </span>
                     </span>
+
                     <span
-                      className="adjust-wallet"
-                      onClick={() => showAdjustmentScreen()}
+                      className={
+                        item.settlement == null
+                          ? "adjust-wallet"
+                          : "adusted-before"
+                      }
+                      onClick={() =>
+                        item.settlement == null
+                          ? showAdjustmentScreen(item.id)
+                          : null
+                      }
                     >
-                      تسوية
+                      {item.settlement == null ? "تسوية" : "تمت التسوية  "}
                     </span>
                   </div>
                 );
@@ -258,7 +265,7 @@ function Wallets(props) {
 
         <div class="row">
           {showAdjustment === true ? (
-            <Adjustment closeAdjustment={handleCloseAdjustment} />
+            <Adjustment closeAdjustment={handleCloseAdjustment} id={walletId} />
           ) : null}
         </div>
       </div>

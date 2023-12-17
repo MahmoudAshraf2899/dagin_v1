@@ -37,6 +37,7 @@ class Mission extends Component {
       showEditMission: false,
       showReAssignMission: false,
       editMissionId: null,
+      editThenCompleted: null,
     };
   }
   componentDidMount() {
@@ -164,7 +165,11 @@ class Mission extends Component {
   };
 
   EditMissionFromDetails = (item) => {
-    this.setState({ showEditMission: true, editMissionId: item });
+    this.setState({
+      showEditMission: true,
+      editMissionId: item[0],
+      editThenCompleted: item[1],
+    });
   };
 
   handleNextPage = () => {
@@ -258,6 +263,14 @@ class Mission extends Component {
   idFromMissionDetails = (id) => {
     this.setState({ missionId: id });
   };
+
+  routeToEditPage = (itemId) => {
+    this.setState({
+      showEditMission: true,
+      editMissionId: itemId,
+      editThenCompleted: false,
+    });
+  };
   showInProgressMissions = () => {
     return (
       <div>
@@ -338,7 +351,10 @@ class Mission extends Component {
                                 </p>
                               </div>
                               <br />
-                              <div className="mission-options-el">
+                              <div
+                                className="mission-options-el"
+                                onClick={() => this.routeToEditPage(item.id)}
+                              >
                                 <p
                                   class="text-end option-txt"
                                   style={{ marginBottom: "-5px" }}
@@ -658,7 +674,10 @@ class Mission extends Component {
                                 </p>
                               </div>
                               <br />
-                              <div className="mission-options-el">
+                              <div
+                                className="mission-options-el"
+                                onClick={() => this.routeToEditPage(item.id)}
+                              >
                                 <p
                                   class="text-end option-txt"
                                   style={{ marginBottom: "-5px" }}
@@ -969,8 +988,20 @@ class Mission extends Component {
                                   عرض المهمة
                                 </p>
                               </div>
-                              <br />
 
+                              <br />
+                              <div
+                                className="mission-options-el"
+                                onClick={() => this.routeToEditPage(item.id)}
+                              >
+                                <p
+                                  class="text-end option-txt"
+                                  style={{ marginBottom: "-5px" }}
+                                >
+                                  تعديل المهمة
+                                </p>
+                              </div>
+                              <br />
                               <div
                                 className="mission-options-el"
                                 onClick={() => this.deleteMission(item.id)}
@@ -2003,6 +2034,7 @@ class Mission extends Component {
             {this.state.showEditMission === true ? (
               <EditMission
                 id={this.state.editMissionId}
+                isCompleted={this.state.editThenCompleted}
                 sendDataToParent={this.receiveDataFromChild}
               />
             ) : null}
