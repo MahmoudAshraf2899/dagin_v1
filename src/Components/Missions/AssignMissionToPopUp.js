@@ -193,6 +193,9 @@ class AssignMissionToPopUp extends Component {
                             onChange={(e) =>
                               this.handleSelectItem(item.id, item.name)
                             }
+                            style={{
+                              outline: "none",
+                            }}
                           />
                           <label for={`checkbox ${item.id}`}></label>
                         </div>

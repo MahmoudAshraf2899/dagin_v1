@@ -1327,6 +1327,9 @@ class MissionDetailsPopUp extends Component {
                                 onChange={(e) =>
                                   this.handleSelectCity(item.id, item.name)
                                 }
+                                style={{
+                                  outline: "none",
+                                }}
                               />
                               <label for={`checkbox ${item.id}`}></label>
                             </div>
@@ -1409,6 +1412,9 @@ class MissionDetailsPopUp extends Component {
                                   onChange={(e) =>
                                     this.handleSelectItem(item.id, item.name)
                                   }
+                                  style={{
+                                    outline: "none",
+                                  }}
                                 />
                                 <label for={`checkbox ${item.id}`}></label>
                               </div>

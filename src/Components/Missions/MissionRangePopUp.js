@@ -127,6 +127,9 @@ class MissionRangePopUp extends Component {
                             onChange={(e) =>
                               this.handleSelectCity(item.id, item.name)
                             }
+                            style={{
+                              outline: "none",
+                            }}
                           />
                           <label for={`checkbox ${item.id}`}></label>
                         </div>

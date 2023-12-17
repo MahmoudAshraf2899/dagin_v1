@@ -156,6 +156,9 @@ class EditMission extends Component {
     } else if (type === "early_bonus") {
       originalDoc.early_bonus = e.target.value;
       this.setState({ document: originalDoc });
+    } else if (type === "maps_url") {
+      originalDoc.maps_url = e.target.value;
+      this.setState({ document: originalDoc });
     }
   };
 
@@ -423,7 +426,31 @@ class EditMission extends Component {
                         </div>
                       </div>
                     </div>
+                    {/* Map URl */}
+                    <div class="row mb-3">
+                      <div class="col-sm-10">
+                        <p class=" m-0 px-3 py-2">
+                          <span class="text-dark fs-6 fw-normal m-range">
+                            رابط الموقع الجغرافي
+                          </span>
+                          <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
+                            *
+                          </span>
+                        </p>
+                      </div>
+                    </div>
 
+                    <div class="row mb-3">
+                      <div class="col-lg-12">
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            this.handleChangeMapUrl(e.target.value)
+                          }
+                          className="reAssign-mapUrl"
+                        />
+                      </div>
+                    </div>
                     {/* تعيين المهمة */}
                     <div class="row mb-3">
                       <div class="col-sm-10">

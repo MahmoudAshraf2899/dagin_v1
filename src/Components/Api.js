@@ -3,18 +3,18 @@ const token =
   localStorage.getItem("token") === null ? "" : localStorage.getItem("token");
 
 const API = axios.create({
-  baseURL: "https://dajintest.environ-adapt.tk/",
+  baseURL: "https://nestjs-api.dajin-platform.com/",
   timeout: 5000,
   headers: {
     Authorization: `Bearer ${token}`,
     "Content-type": "application/json",
     Accept: "*/*",
     "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": "https://dajintest.environ-adapt.tk/",
+    "Access-Control-Allow-Origin": "https://nestjs-api.dajin-platform.com/",
   },
 });
 export const APISUBMIT = axios.create({
-  baseURL: "https://dajintest.environ-adapt.tk/",
+  baseURL: "https://nestjs-api.dajin-platform.com/",
   timeout: 5000,
   headers: {
     // 'Content-Type': '*/*',
@@ -22,7 +22,11 @@ export const APISUBMIT = axios.create({
     "Content-Type": "multipart/form-data",
     Accept: "*/*",
     "Access-Control-Allow-Credentials": true,
-    "Access-Control-Allow-Origin": "https://dajintest.environ-adapt.tk/",
+    "Access-Control-Allow-Origin": "https://nestjs-api.dajin-platform.com/",
+    /*
+     * Production : https://nestjs-api.dajin-platform.com/
+     * Test : https://dajintest.environ-adapt.tk/
+     */
   },
 });
 

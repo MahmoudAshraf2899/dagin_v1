@@ -35,6 +35,7 @@ class AddNewMission extends Component {
       citiesIds: [],
       dateChanged: false,
       date: null,
+      maps_url: "",
     };
   }
   componentDidMount() {
@@ -141,7 +142,9 @@ class AddNewMission extends Component {
       toast.error("من فضلك قم بأدخال قيمة صحيحة للحافز ");
     }
   };
-
+  handleChangeMapUrl = (e) => {
+    this.setState({ maps_url: e });
+  };
   sendDataToParent = () => {
     const data = false;
     // Call the callback function passed from the parent
@@ -179,6 +182,7 @@ class AddNewMission extends Component {
   };
 
   submitAddMission(values, citiesIds, assignedToIds) {
+    values.maps_url = this.state.maps_url;
     values.type_id = Number(this.state.missionTypeObj.id); //نوع المهمة
     values.work_area_ids = citiesIds; //نطاق المهمة
     values.assignment = {
@@ -278,7 +282,7 @@ class AddNewMission extends Component {
                         <input
                           type="text"
                           placeholder="اكتب عنوان هنا"
-                          class="px-1 py-1 bg-white rounded-6  m-title-input"
+                          class="bg-white rounded-6  m-title-input"
                           onChange={(e) => this.handleChangeMissionAddress(e)}
                         />
                       </div>
@@ -304,7 +308,7 @@ class AddNewMission extends Component {
                       <div class="col-lg-12">
                         <textarea
                           placeholder="تفاصيل المهمة"
-                          class="px-1 py-1 bg-white rounded-3 border border-1 m-details"
+                          class="bg-white rounded-3 border border-1 m-details"
                           onChange={(e) => this.handleChangeMissionDetails(e)}
                         />
                       </div>
@@ -349,6 +353,32 @@ class AddNewMission extends Component {
                           <span>{this.state.missionRangeText}</span>
                           <img src={arrow} alt="arrow" className="arrow-m" />
                         </div>
+                      </div>
+                    </div>
+
+                    {/* Map URl */}
+                    <div class="row mb-3">
+                      <div class="col-sm-10">
+                        <p class=" m-0 px-3 py-2">
+                          <span class="text-dark fs-6 fw-normal m-range">
+                            رابط الموقع الجغرافي
+                          </span>
+                          <span class="text-danger fs-6 fw-normal font-family-MadaniArabic-Regular">
+                            *
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <div class="col-lg-12">
+                        <input
+                          type="text"
+                          onChange={(e) =>
+                            this.handleChangeMapUrl(e.target.value)
+                          }
+                          className="reAssign-mapUrl"
+                        />
                       </div>
                     </div>
 

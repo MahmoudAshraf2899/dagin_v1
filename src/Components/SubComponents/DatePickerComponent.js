@@ -28,7 +28,6 @@ export default function DatePickerComponent(props) {
         </span>
       </p>
       <div>
-        {console.log("props.activation", props.activation)}
         <DatePicker
           selected={startDate}
           onChange={(date) => handleChangeDate(date)}

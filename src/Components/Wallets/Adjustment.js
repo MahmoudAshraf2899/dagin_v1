@@ -210,6 +210,7 @@ class Adjustment extends Component {
                             borderRadius: "15px",
                             height: "169px",
                             paddingRight: "20px",
+                            outline: "none",
                           }}
                         />
                       </div>
